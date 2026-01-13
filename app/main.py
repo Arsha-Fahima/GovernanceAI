@@ -1,16 +1,15 @@
-
-from user_repo import upsert_user
-from compliance_repo import upsert_compliance
+from app.user_repo import upsert_user
+from app.compliance_repo import upsert_compliance
 from fastapi import FastAPI
 import os
-from api_results import (
+from app.api_results import (
     fetch_gst_data,
     extract_gst_details,
     build_compliance_db_payload,
     main_pending_calculater,
     print_main_pending_calculator
 )
-from utils import is_valid_gstin   # 👈 import your validator
+from app.utils import is_valid_gstin   # 👈 import your validator
 
 app = FastAPI()
 
