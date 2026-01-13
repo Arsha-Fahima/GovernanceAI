@@ -1,6 +1,8 @@
 
 from user_repo import upsert_user
 from compliance_repo import upsert_compliance
+from fastapi import FastAPI
+import os
 from api_results import (
     fetch_gst_data,
     extract_gst_details,
@@ -10,6 +12,11 @@ from api_results import (
 )
 from utils import is_valid_gstin   # 👈 import your validator
 
+app = FastAPI()
+
+@app.get("/")
+def read_root():
+    return {"message": "Backend running on Render 🚀"}
 
 def main():
     # ================= INPUT + VALIDATION ================= #
@@ -31,7 +38,7 @@ def main():
 
         # ================= 6️⃣ Save User ================= #
         upsert_user(
-            email="test@mail.com",
+            email="arsha.tajdeen23@gmail.com",
             name=gst_details["lgnm"],
             phone="9876543210",
             gstin=gst_details["gstin"]
