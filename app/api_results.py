@@ -2,7 +2,7 @@ import http.client
 import json
 from datetime import date
 import calendar
-from config import RAPIDAPI_KEY
+from app.config import RAPIDAPI_KEY
 
 # ================= CONFIG ================= #
 

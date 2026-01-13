@@ -1,4 +1,4 @@
-from supabase_client import supabase
+from app.supabase_client import supabase
 
 def upsert_user(email, name, phone, gstin):
     return supabase.table("users").upsert({
