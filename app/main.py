@@ -70,38 +70,29 @@ async def get_gst_details(request: GSTRequest):
 @app.post("/api/gst/upsert")
 async def upsert_gst_endpoint(data: UpsertGST):
     try:
-        # 1️⃣ Validate GSTIN
         gstin = data.gstin.strip().upper()
         if not is_valid_gstin(gstin):
             raise HTTPException(status_code=400, detail="Invalid GSTIN")
 
-        # 2️⃣ Save / Update USER
+        # 1️⃣ Save USER (email REQUIRED)
         upsert_user(
-            email=None,
+            email=data.email,
             name=data.business_name,
             phone=data.whatsapp_number,
             gstin=gstin
         )
 
-        # 3️⃣ Fetch GST data from API
+        # 2️⃣ Fetch GST data
         api_response = fetch_gst_data(gstin)
-
-        # 4️⃣ Normalize GST data
         gst_details = extract_gst_details(api_response)
 
-        # 5️⃣ Delete old compliance (avoid duplicates)
-        delete_compliance_by_gstin(gstin)
-
-        # 6️⃣ Build compliance payload
+        # 3️⃣ Save COMPLIANCE (no email)
         compliance_payload = build_compliance_db_payload(gst_details)
-
-        # 7️⃣ Save to COMPLIANCE table
-        res = upsert_compliance(compliance_payload)
+        upsert_compliance(compliance_payload)
 
         return {
             "success": True,
-            "message": "User & Compliance data saved",
-            "data": res.data
+            "message": "User & Compliance stored successfully"
         }
 
     except Exception as e:
