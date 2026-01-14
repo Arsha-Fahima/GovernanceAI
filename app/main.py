@@ -68,25 +68,24 @@ async def get_gst_details(request: GSTRequest):
         raise HTTPException(status_code=500, detail=str(e))
 
 @app.post("/api/gst/upsert")
-async def upsert_gst_endpoint(data: UpsertGST):
+async def upsert_gst_endpoint(data: CreateUserRequest):
     try:
         gstin = data.gstin.strip().upper()
         if not is_valid_gstin(gstin):
             raise HTTPException(status_code=400, detail="Invalid GSTIN")
 
-        # 1️⃣ Save USER (email REQUIRED)
+        # 1️⃣ USERS TABLE (email ONLY here)
         upsert_user(
-            email=data.email,
-            name=data.business_name,
+            email=data.email.strip(),
+            name=data.full_name.strip(),
             phone=data.whatsapp_number,
             gstin=gstin
         )
 
-        # 2️⃣ Fetch GST data
+        # 2️⃣ COMPLIANCE TABLE (ONLY GST API DATA)
         api_response = fetch_gst_data(gstin)
         gst_details = extract_gst_details(api_response)
 
-        # 3️⃣ Save COMPLIANCE (no email)
         compliance_payload = build_compliance_db_payload(gst_details)
         upsert_compliance(compliance_payload)
 
