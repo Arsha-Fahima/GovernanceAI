@@ -70,21 +70,40 @@ async def get_gst_details(request: GSTRequest):
 @app.post("/api/gst/upsert")
 async def upsert_gst_endpoint(data: UpsertGST):
     try:
-        # Note: trade_name is not yet in the schema, you may need to add it via SQL
-        # payload = data.dict(exclude_unset=True) 
-        # Using specific fields to match schema for now
-        payload = {
-            "whatsapp_number": data.whatsapp_number,
-            "gstin": data.gstin,
-            "pan": data.pan,
-            "business_name": data.business_name,
-            "state": data.state,
-            "filing_type": data.filing_type,
-            # "trade_name": data.trade_name # Uncomment if/when DB column exists
+        # 1️⃣ Validate GSTIN
+        gstin = data.gstin.strip().upper()
+        if not is_valid_gstin(gstin):
+            raise HTTPException(status_code=400, detail="Invalid GSTIN")
+
+        # 2️⃣ Save / Update USER
+        upsert_user(
+            email=None,
+            name=data.business_name,
+            phone=data.whatsapp_number,
+            gstin=gstin
+        )
+
+        # 3️⃣ Fetch GST data from API
+        api_response = fetch_gst_data(gstin)
+
+        # 4️⃣ Normalize GST data
+        gst_details = extract_gst_details(api_response)
+
+        # 5️⃣ Delete old compliance (avoid duplicates)
+        delete_compliance_by_gstin(gstin)
+
+        # 6️⃣ Build compliance payload
+        compliance_payload = build_compliance_db_payload(gst_details)
+
+        # 7️⃣ Save to COMPLIANCE table
+        res = upsert_compliance(compliance_payload)
+
+        return {
+            "success": True,
+            "message": "User & Compliance data saved",
+            "data": res.data
         }
-        
-        res = supabase.table("gst_details").upsert(payload).execute()
-        return {"success": True, "data": res.data}
+
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
