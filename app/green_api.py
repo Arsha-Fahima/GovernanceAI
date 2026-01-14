@@ -20,16 +20,31 @@ def build_whatsapp_message(payload):
     g3 = payload["gtsr3b"]
 
     # Decide which return to talk about (priority to pending)
-    if g3["pending_count"] > 0:
+    if g3["pending_count"] > 0 and g1["pending_count"] > 0:
         rt3 = g3["return_type"]
         status = "pending"
         due3 = g3["due_date"]
-    elif g1["pending_count"] > 0:
         rt1 = g1["return_type"]
         status = "pending"
         due1 = g1["due_date"]
+
+    elif g3["pending_count"] > 0 and g1["pending_count"] <= 0:
+        rt3 = g3["return_type"]
+        status = "pending"
+        due3 = g3["due_date"]
+        rt1 = g1["return_type"]
+        status = "filed"
+        due1 = g1["due_date"]
+
+    elif g1["pending_count"] > 0 and g3["pending_count"] <= 0:
+        rt1 = g1["return_type"]
+        status = "pending"
+        due1 = g1["due_date"]
+        rt3 = g3["return_type"]
+        status = "filed"
+        due3 = g3["due_date"]
+
     else:
-        # nothing pending → show next due (GSTR-3B preferred)
         rt1 = g1["return_type"]
         status = "filed"
         due1 = g1["due_date"]
@@ -44,8 +59,8 @@ Hello {payload['legalname']},
 Your {rt1} for GSTIN {payload['gstin']} is {status}.
 Due Date: {due1}
 
-# Your {rt3} for GSTIN {payload['gstin']} is {status}.
-# Due Date: {due3}
+Your {rt3} for GSTIN {payload['gstin']} is {status}.
+#Due Date: {due3}
 
 Thank you.
 {payload['legalname']}
@@ -71,15 +86,15 @@ def send_whatsapp(phone, message):
     print("WhatsApp:", phone, response.status_code)
 
 
-# clients = get_all_clients()
+clients = get_all_clients()
 
-# for c in clients:
-#     print("Processing:", c["gstin"])
+for c in clients:
+    print("Processing:", c["gstin"])
 
-#     api_response = fetch_gst_data(c["gstin"])
-#     gst_details = extract_gst_details(api_response)
-#     gst_payload = main_pending_calculater(gst_details)
+    api_response = fetch_gst_data(c["gstin"])
+    gst_details = extract_gst_details(api_response)
+    gst_payload = main_pending_calculater(gst_details)
 
-#     whatsapp_msg = build_whatsapp_message(gst_payload)
+    whatsapp_msg = build_whatsapp_message(gst_payload)
 
-#     send_whatsapp(c["phone"], whatsapp_msg)
+    send_whatsapp(c["phone"], whatsapp_msg)
