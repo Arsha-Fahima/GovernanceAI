@@ -18,6 +18,14 @@ export interface GSTDetails {
   state: string;
   filing_type: 'monthly' | 'qrmp';
   updated_at: string;
+  
+  // Compliance table fields
+  legalname?: string;
+  compcategory?: string;
+  latestgstr1?: string;
+  latestgstr3b?: string;
+  gtsr1?: any;
+  gtsr3b?: any;
 }
 
 export interface ReminderSettings {

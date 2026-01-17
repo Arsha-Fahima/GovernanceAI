@@ -21,14 +21,21 @@ export default async function DashboardPage() {
   const { data: userData } = await supabase
     .from('users')
     .select('*')
-    .eq('phone', user.phone) // Changed from whatsapp_number to phone
+    .eq('phone', user.phone)
     .single();
 
-  const { data: gstData } = await supabase
-    .from('gst_details')
+  const { data: complianceData } = await supabase
+    .from('compliance')
     .select('*')
-    .eq('whatsapp_number', user.phone)
+    .eq('gstin', userData?.gstin)
     .single();
+
+  // Map compliance to expected gstData structure
+  const gstData = complianceData ? {
+    ...complianceData,
+    business_name: complianceData.legalname,
+    filing_type: complianceData.gtsr1?.frequency === 'Q' ? 'qrmp' : 'monthly',
+  } : null;
 
   const { data: reminderData } = await supabase
     .from('reminder_settings')

@@ -36,24 +36,13 @@ import { COUNTRY_CODES } from '@/utils/countryCodes';
 
 export const BrandLogo = () => {
     return (
-        <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center p-1.5 shadow-sm border border-gray-100">
-                <img 
-                    src="/logo.png" 
-                    alt="Logo" 
-                    className="w-full h-full object-contain" 
-                    onError={(e) => {
-                        (e.target as HTMLImageElement).style.display = 'none';
-                        const parent = (e.target as HTMLImageElement).parentElement;
-                        if (parent) {
-                            parent.innerHTML = '<span class="text-blue-600 font-bold">G</span>';
-                        }
-                    }} 
-                />
+        <div className="flex items-center gap-3 py-2 px-1">
+            <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center p-2 shadow-sm border border-gray-100 ring-4 ring-gray-50/50">
+                <ShieldCheck className="text-blue-600 w-full h-full" strokeWidth={2.5} />
             </div>
-            <div>
-                <h1 className="text-sm font-bold text-gray-900 leading-tight">GovernanceAI</h1>
-                <p className="text-[10px] font-bold text-blue-600 uppercase tracking-widest leading-none">Admin Hub</p>
+            <div className="flex flex-col">
+                <h1 className="text-base font-black text-gray-900 leading-none tracking-tight">GovernanceAI</h1>
+                <p className="text-[10px] font-black text-blue-600 uppercase tracking-widest mt-1 opacity-80">Admin Hub</p>
             </div>
         </div>
     );
@@ -74,10 +63,6 @@ export const AddUserModal = ({ isOpen, onClose }: { isOpen: boolean, onClose: ()
     full_name: '',
     email: '',
     gstin: '',
-    business_name: '',
-    state: '',
-    filing_type: 'monthly' as 'monthly' | 'qrmp',
-    next_reminder_date: ''
   });
 
   if (!isOpen) return null;
@@ -119,10 +104,6 @@ export const AddUserModal = ({ isOpen, onClose }: { isOpen: boolean, onClose: ()
           setForm(prev => ({
               ...prev,
               full_name: data.lgnm || data.tradeNam || prev.full_name || '',
-              business_name: data.lgnm || data.tradeNam || prev.business_name || '',
-              state: data.sts || prev.state || '',
-              filing_type: (report?.gtsr3b?.frequency === 'Q') ? 'qrmp' : 'monthly',
-              next_reminder_date: report?.gtsr3b?.due_date || prev.next_reminder_date || ''
           }));
           if (report) {
              setComplianceSummary(report);
@@ -144,24 +125,23 @@ export const AddUserModal = ({ isOpen, onClose }: { isOpen: boolean, onClose: ()
             <X size={20} />
           </button>
         </div>
-        <form onSubmit={handleSubmit} className="p-6 space-y-4">
+        <form onSubmit={handleSubmit} className="p-4 sm:p-6 space-y-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="flex gap-2 items-end">
-              <div className="w-1/3 flex flex-col">
-                <label className="text-sm font-medium text-gray-700 mb-1">Country</label>
+            <div className="flex flex-row gap-2 items-end sm:col-span-1">
+              <div className="w-[100px] flex flex-col">
+                <label className="text-xs sm:text-sm font-medium text-gray-700 mb-1">Country</label>
                 <select
-                  className="w-full px-4 py-2 bg-white border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500/20"
+                  className="w-full px-2 sm:px-4 py-2 bg-white border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500/20 text-sm"
                   value={form.country_code}
                   onChange={e => setForm({ ...form, country_code: e.target.value })}
                   required
                 >
-                  <option value="" disabled>Select Country</option>
                   {COUNTRY_CODES.map(c => (
-                    <option key={c.code} value={c.code}>{c.name} {c.code}</option>
+                    <option key={c.code} value={c.code}>{c.code} ({c.name})</option>
                   ))}
                 </select>
               </div>
-              <div className="w-2/3">
+              <div className="flex-1">
                 <Input 
                   label="WhatsApp Number" 
                   placeholder="9999999999" 
@@ -186,7 +166,7 @@ export const AddUserModal = ({ isOpen, onClose }: { isOpen: boolean, onClose: ()
               value={form.email}
               onChange={e => setForm({...form, email: e.target.value})}
             />
-            <div className="flex gap-2 items-end">
+            <div className="flex flex-row gap-2 items-end">
               <div className="flex-grow">
                 <Input 
                   label="GSTIN" 
@@ -195,56 +175,18 @@ export const AddUserModal = ({ isOpen, onClose }: { isOpen: boolean, onClose: ()
                   value={form.gstin}
                   onChange={e => {
                       const val = e.target.value.toUpperCase();
-                      const derivedState = getStateFromGSTIN(val);
                       setForm({
                           ...form, 
-                          gstin: val,
-                          state: derivedState || form.state
+                          gstin: val
                       });
                   }}
                 />
               </div>
-              <Button type="button" onClick={handleFetch} variant="outline" className="mb-[2px]">
+              <Button type="button" onClick={handleFetch} variant="outline" className="mb-[2px] h-[38px] px-3">
                 Fetch
               </Button>
             </div>
-            <Input 
-              label="Business Name" 
-              placeholder="Legal Entity Name" 
-              required 
-              value={form.business_name}
-              onChange={e => setForm({...form, business_name: e.target.value})}
-            />
-            <div className="flex flex-col gap-1.5">
-              <label className="text-sm font-medium text-gray-700">State</label>
-              <select
-                className="w-full px-4 py-2 bg-white border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500/20"
-                value={form.state}
-                required
-                onChange={e => setForm({...form, state: e.target.value})}
-              >
-                <option value="">Select State</option>
-                {INDIAN_STATES.map(s => <option key={s} value={s}>{s}</option>)}
-              </select>
-            </div>
-            <div className="flex flex-col gap-1.5">
-              <label className="text-sm font-medium text-gray-700">Filing Type</label>
-              <select
-                className="w-full px-4 py-2 bg-white border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500/20"
-                value={form.filing_type}
-                required
-                onChange={e => setForm({...form, filing_type: e.target.value as any})}
-              >
-                <option value="monthly">Monthly</option>
-                <option value="qrmp">QRMP (Quarterly)</option>
-              </select>
-            </div>
-            <Input 
-              label="Next Reminder Date" 
-              type="date"
-              value={form.next_reminder_date}
-              onChange={e => setForm({...form, next_reminder_date: e.target.value})}
-            />
+
           </div>
 
           {complianceSummary && (
@@ -311,22 +253,22 @@ export const AddUserModal = ({ isOpen, onClose }: { isOpen: boolean, onClose: ()
 
 export const StatsCards = ({ total, monthly, qrmp, active }: { total: number, monthly: number, qrmp: number, active: number }) => {
   const stats = [
-    { label: 'Total Users', value: total, icon: Users, color: 'text-blue-600', bg: 'bg-blue-50' },
-    { label: 'Monthly Filers', value: monthly, icon: Clock, color: 'text-purple-600', bg: 'bg-purple-50' },
-    { label: 'QRMP Filers', value: qrmp, icon: CheckCircle, color: 'text-emerald-600', bg: 'bg-emerald-50' },
-    { label: 'Active Reminders', value: active, icon: ShieldCheck, color: 'text-amber-600', bg: 'bg-amber-50' },
+    { label: 'Total Entities', value: total, icon: Users, color: 'text-blue-600', bg: 'bg-blue-50/50' },
+    { label: 'Monthly Taxpayers', value: monthly, icon: Clock, color: 'text-indigo-600', bg: 'bg-indigo-50/50' },
+    { label: 'QRMP Regulars', value: qrmp, icon: CheckCircle, color: 'text-emerald-600', bg: 'bg-emerald-50/50' },
+    { label: 'Active Reminders', value: active, icon: ShieldCheck, color: 'text-orange-600', bg: 'bg-orange-50/50' },
   ];
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-8 sm:mb-10">
       {stats.map((stat) => (
-        <Card key={stat.label} className="p-4 flex items-center gap-4 border-none shadow-[0_2px_10px_-3px_rgba(0,0,0,0.07)]">
-          <div className={cn("p-3 rounded-xl", stat.bg)}>
-            <stat.icon size={24} className={stat.color} />
+        <Card key={stat.label} className="p-4 sm:p-5 flex items-center justify-between border-gray-100 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] hover:shadow-lg transition-all border group">
+          <div className="flex flex-col gap-1">
+            <p className="text-[9px] sm:text-[10px] font-black text-gray-400 uppercase tracking-widest">{stat.label}</p>
+            <p className="text-2xl sm:text-3xl font-black text-gray-900 tracking-tighter">{stat.value}</p>
           </div>
-          <div>
-            <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider">{stat.label}</p>
-            <p className="text-2xl font-bold text-gray-900">{stat.value}</p>
+          <div className={cn("p-3 sm:p-4 rounded-xl sm:rounded-2xl transition-transform group-hover:scale-110", stat.bg)}>
+            <stat.icon size={20} className={stat.color} strokeWidth={2.5} />
           </div>
         </Card>
       ))}
@@ -341,10 +283,6 @@ export const EditUserModal = ({ isOpen, onClose, user }: { isOpen: boolean, onCl
   const [form, setForm] = useState({
     full_name: '',
     gstin: '',
-    business_name: '',
-    state: '',
-    filing_type: 'monthly' as 'monthly' | 'qrmp',
-    next_reminder_date: ''
   });
 
   useEffect(() => {
@@ -352,10 +290,6 @@ export const EditUserModal = ({ isOpen, onClose, user }: { isOpen: boolean, onCl
       setForm({
         full_name: user.full_name || '',
         gstin: user.gst_details?.gstin || '',
-        business_name: user.gst_details?.business_name || '',
-        state: user.gst_details?.state || '',
-        filing_type: user.gst_details?.filing_type || 'monthly',
-        next_reminder_date: user.reminder_settings?.next_reminder_date || ''
       });
     }
   }, [user]);
@@ -403,46 +337,13 @@ export const EditUserModal = ({ isOpen, onClose, user }: { isOpen: boolean, onCl
               value={form.gstin}
               onChange={e => {
                   const val = e.target.value.toUpperCase();
-                  const derivedState = getStateFromGSTIN(val);
                   setForm({
                       ...form, 
-                      gstin: val,
-                      state: derivedState || form.state
+                      gstin: val
                   });
               }}
             />
-            <Input 
-              label="Business Name" 
-              value={form.business_name}
-              onChange={e => setForm({...form, business_name: e.target.value})}
-            />
-            <div className="flex flex-col gap-1.5">
-              <label className="text-sm font-medium text-gray-700">State</label>
-              <select
-                className="w-full px-4 py-2 bg-white border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500/20"
-                value={form.state}
-                onChange={e => setForm({...form, state: e.target.value})}
-              >
-                {INDIAN_STATES.map(s => <option key={s} value={s}>{s}</option>)}
-              </select>
-            </div>
-            <div className="flex flex-col gap-1.5">
-              <label className="text-sm font-medium text-gray-700">Filing Type</label>
-              <select
-                className="w-full px-4 py-2 bg-white border border-gray-300 rounded-md"
-                value={form.filing_type}
-                onChange={e => setForm({...form, filing_type: e.target.value as any})}
-              >
-                <option value="monthly">Monthly</option>
-                <option value="qrmp">QRMP (Quarterly)</option>
-              </select>
-            </div>
-            <Input 
-              label="Next Reminder" 
-              type="date"
-              value={form.next_reminder_date}
-              onChange={e => setForm({...form, next_reminder_date: e.target.value})}
-            />
+
           </div>
           <div className="pt-4 flex gap-3">
             <Button type="button" variant="outline" className="flex-1" onClick={onClose}>Cancel</Button>
@@ -458,122 +359,173 @@ export const UserDetailModal = ({ isOpen, onClose, user, onSendManual }: { isOpe
   if (!isOpen || !user) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-      <Card className="w-full max-w-2xl bg-white p-0 overflow-hidden shadow-2xl border-none h-[80vh] flex flex-col">
-        <div className="p-6 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
-          <div>
-            <h3 className="text-xl font-bold text-gray-900">{user.full_name}</h3>
-            <p className="text-sm text-gray-500">{user.whatsapp_number}</p>
+    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-2 sm:p-4">
+      <Card className="w-full max-w-2xl bg-white p-0 overflow-hidden shadow-2xl border-none h-[90vh] sm:h-[80vh] flex flex-col">
+        <div className="p-4 sm:p-6 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
+          <div className="min-w-0 flex-1">
+            <h3 className="text-lg sm:text-xl font-bold text-gray-900 truncate">{user.full_name}</h3>
+            <p className="text-xs sm:text-sm text-gray-500">{user.whatsapp_number}</p>
           </div>
-          <button onClick={onClose} className="p-2 hover:bg-gray-200 rounded-full transition-colors">
+          <button onClick={onClose} className="p-2 hover:bg-gray-200 rounded-full transition-colors ml-4 focus:outline-none">
             <X size={20} />
           </button>
         </div>
         
-        <div className="flex-1 overflow-y-auto p-6 space-y-8">
-          {/* Quick Stats */}
-          <div className="grid grid-cols-3 gap-4">
-            <div className="p-4 bg-blue-50 rounded-xl">
-              <p className="text-[10px] font-bold text-blue-600 uppercase">Filing Type</p>
-              <p className="text-lg font-bold text-blue-900 uppercase">{user.gst_details?.filing_type || '—'}</p>
-            </div>
-            <div className="p-4 bg-purple-50 rounded-xl">
-              <p className="text-[10px] font-bold text-purple-600 uppercase">Next Reminder</p>
-              <p className="text-lg font-bold text-purple-900">{user.reminder_settings?.next_reminder_date || 'Not Set'}</p>
-            </div>
-            <div className="p-4 bg-green-50 rounded-xl">
-              <p className="text-[10px] font-bold text-green-600 uppercase">Account Status</p>
-              <p className="text-lg font-bold text-green-900">{user.is_active ? 'Active' : 'Paused'}</p>
-            </div>
-          </div>
-
+        <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-6 sm:space-y-8 no-scrollbar">
           {/* Details Sections */}
-          <div className="grid grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
             <div className="space-y-4">
-              <h4 className="text-xs font-bold text-gray-400 uppercase tracking-widest flex items-center gap-2">
-                <Building2 size={14} /> Business Information
+              <h4 className="text-[10px] sm:text-xs font-bold text-gray-400 uppercase tracking-widest flex items-center gap-2">
+                <Building2 size={14} /> Legal Information
               </h4>
-              <div className="space-y-2">
-                <div>
-                  <label className="text-[10px] text-gray-400 font-bold uppercase">Business Name</label>
-                  <p className="text-sm font-medium text-gray-800">{user.gst_details?.business_name || '—'}</p>
+              <div className="space-y-4">
+                <div className="p-4 bg-gray-50 rounded-2xl border border-gray-100">
+                    <div className="flex flex-col gap-3">
+                        <div>
+                            <label className="text-[9px] text-gray-400 font-bold uppercase tracking-wider">Legal Name</label>
+                            <p className="text-sm font-black text-gray-900 leading-tight">{user.gst_details?.legalname || user.full_name || '—'}</p>
+                        </div>
+
+                        <div className="flex justify-between items-center bg-white p-2.5 rounded-xl border border-gray-100 shadow-sm">
+                            <div>
+                                <label className="text-[9px] text-gray-400 font-bold uppercase">gstin</label>
+                                <p className="text-sm font-mono font-black text-blue-600 tracking-tight">{user.gst_details?.gstin || '—'}</p>
+                            </div>
+                            <div className="text-right">
+                                <label className="text-[9px] text-gray-400 font-bold uppercase block">Category</label>
+                                <span className="text-[9px] font-black bg-blue-50 text-blue-600 px-2 py-0.5 rounded uppercase border border-blue-100">
+                                    {user.gst_details?.compcategory || 'GST'}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div>
-                  <label className="text-[10px] text-gray-400 font-bold uppercase">GSTIN</label>
-                  <p className="text-sm font-mono font-bold text-blue-600">{user.gst_details?.gstin || '—'}</p>
+
+                <div className="p-4 bg-indigo-50/30 rounded-2xl border border-indigo-100/50 space-y-3">
+                    <h5 className="text-[10px] font-black text-indigo-600 uppercase tracking-widest">Contact Details</h5>
+                    <div className="grid grid-cols-1 gap-2">
+                        <div className="flex items-center gap-3">
+                            <div className="w-8 h-8 rounded-lg bg-white border border-indigo-100 flex items-center justify-center text-indigo-500">
+                                <Send size={14} />
+                            </div>
+                            <div>
+                                <label className="text-[8px] text-gray-400 font-bold uppercase block">WhatsApp</label>
+                                <p className="text-xs font-bold text-gray-800">{user.whatsapp_number}</p>
+                            </div>
+                        </div>
+                        <div className="flex items-center gap-3">
+                            <div className="w-8 h-8 rounded-lg bg-white border border-indigo-100 flex items-center justify-center text-indigo-500">
+                                <Search size={14} />
+                            </div>
+                            <div className="min-w-0 flex-1">
+                                <label className="text-[8px] text-gray-400 font-bold uppercase block">Email Address</label>
+                                <p className="text-xs font-bold text-gray-800 truncate" title={user.email}>{user.email || 'No email provided'}</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div>
-                  <label className="text-[10px] text-gray-400 font-bold uppercase">PAN</label>
-                  <p className="text-sm font-mono font-bold text-gray-800">{user.gst_details?.pan || '—'}</p>
-                </div>
-                <div>
-                  <label className="text-[10px] text-gray-400 font-bold uppercase">State</label>
-                  <p className="text-sm font-medium text-gray-800">{user.gst_details?.state || '—'}</p>
+
+                <div className="px-4 py-3 bg-emerald-50/30 rounded-2xl border border-emerald-100/50 flex items-center justify-between">
+                    <div>
+                        <p className="text-[10px] font-black text-emerald-600/60 uppercase tracking-widest">Reminders</p>
+                        <p className="text-xs font-black text-emerald-700 capitalize">{user.is_active ? '✅ Enabled' : '❌ Disabled'}</p>
+                    </div>
+                    <div className={cn("w-2 h-2 rounded-full", user.is_active ? "bg-emerald-500 animate-pulse" : "bg-red-400")} />
                 </div>
               </div>
             </div>
 
             <div className="space-y-4">
-              <h4 className="text-xs font-bold text-gray-400 uppercase tracking-widest flex items-center gap-2">
-                <History size={14} /> Reminder Schedule
+              <h4 className="text-[10px] sm:text-xs font-bold text-gray-400 uppercase tracking-widest flex items-center gap-2">
+                <History size={14} /> Filing History
               </h4>
-              <div className="space-y-2">
-                 <div>
-                  <label className="text-[10px] text-gray-400 font-bold uppercase">Frequency</label>
-                  <p className="text-sm font-medium text-gray-800">{user.reminder_settings?.frequency || 'Monthly'}</p>
+              <div className="space-y-4">
+                <div className="p-3 bg-blue-50/50 rounded-xl border border-blue-100/50">
+                  <div className="flex justify-between items-center mb-2">
+                    <span className="text-[9px] sm:text-[10px] font-black text-blue-600 uppercase tracking-wider">GSTR-1 Details</span>
+                    <span className="text-[10px] bg-white px-2 py-0.5 rounded-full border border-blue-100 text-blue-700 font-bold">
+                      {user.gst_details?.gtsr1?.frequency || 'M'}
+                    </span>
+                  </div>
+                  <div className="space-y-1">
+                    <p className="text-[10px] sm:text-[11px] font-bold text-gray-400 uppercase">Latest Filed</p>
+                    <p className="text-xs sm:text-sm font-black text-gray-800">{user.gst_details?.latestgstr1 || '—'}</p>
+                  </div>
+                  <div className="mt-2.5">
+                    <p className="text-[9px] font-black text-blue-400 uppercase mb-2 tracking-widest">Filing Health (Last 4)</p>
+                    <div className="flex gap-2">
+                        {[...Array(4)].map((_, i) => {
+                            // Get last 4 returns (RapidAPI returns are usually oldest first)
+                            const returns = user.gst_details?.gtsr1?.returns || [];
+                            const ret = returns[returns.length - 1 - i];
+                            
+                            return (
+                                <div key={i} className="flex-1 group relative">
+                                    <div className={cn(
+                                        "h-1.5 rounded-full transition-all duration-300",
+                                        ret ? (ret.dof ? "bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.5)]" : "bg-red-400") : "bg-gray-200"
+                                    )} />
+                                    {ret && (
+                                        <div className="absolute -top-6 left-1/2 -translate-x-1/2 bg-gray-900 text-white text-[8px] px-1.5 py-0.5 rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-10">
+                                            {ret.taxp || ret.period} ({ret.fy}): FILED
+                                        </div>
+                                    )}
+                                </div>
+                            )
+                        })}
+                    </div>
+                  </div>
                 </div>
-                <div>
-                  <label className="text-[10px] text-gray-400 font-bold uppercase">Target Time</label>
-                  <p className="text-sm font-medium text-gray-800">{user.reminder_settings?.reminder_time || '10:00 AM'}</p>
-                </div>
-                <div>
-                  <label className="text-[10px] text-gray-400 font-bold uppercase">Days Scheduled</label>
-                  <div className="flex gap-1 mt-1">
-                    {user.reminder_settings?.reminder_days.map(day => (
-                      <span key={day} className="px-2 py-0.5 bg-gray-100 rounded text-[10px] font-bold text-gray-600">Day {day}</span>
-                    ))}
+
+                <div className="p-3 bg-purple-50/50 rounded-xl border border-purple-100/50">
+                  <div className="flex justify-between items-center mb-2">
+                    <span className="text-[9px] sm:text-[10px] font-black text-purple-600 uppercase tracking-wider">GSTR-3B Details</span>
+                    <span className="text-[10px] bg-white px-2 py-0.5 rounded-full border border-purple-100 text-purple-700 font-bold">
+                      {user.gst_details?.gtsr3b?.frequency || 'M'}
+                    </span>
+                  </div>
+                  <div className="space-y-1">
+                    <p className="text-[10px] sm:text-[11px] font-bold text-gray-400 uppercase">Latest Filed</p>
+                    <p className="text-xs sm:text-sm font-black text-gray-800">{user.gst_details?.latestgstr3b || '—'}</p>
+                  </div>
+                  <div className="mt-2.5">
+                    <p className="text-[9px] font-black text-purple-400 uppercase mb-2 tracking-widest">Filing Health (Last 4)</p>
+                    <div className="flex gap-2">
+                        {[...Array(4)].map((_, i) => {
+                            // Get last 4 returns (RapidAPI returns are usually oldest first)
+                            const returns = user.gst_details?.gtsr3b?.returns || [];
+                            const ret = returns[returns.length - 1 - i];
+                            
+                            return (
+                                <div key={i} className="flex-1 group relative">
+                                    <div className={cn(
+                                        "h-1.5 rounded-full transition-all duration-300",
+                                        ret ? (ret.dof ? "bg-purple-500 shadow-[0_0_8px_rgba(168,85,247,0.5)]" : "bg-red-400") : "bg-gray-100"
+                                    )} />
+                                    {ret && (
+                                        <div className="absolute -top-6 left-1/2 -translate-x-1/2 bg-gray-900 text-white text-[8px] px-1.5 py-0.5 rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-10">
+                                            {ret.taxp || ret.period} ({ret.fy}): FILED
+                                        </div>
+                                    )}
+                                </div>
+                            )
+                        })}
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-
-          {/* Billing / Logo History Placeholder */}
-          <div className="space-y-4">
-            <h4 className="text-xs font-bold text-gray-400 uppercase tracking-widest flex items-center gap-2">
-              <History size={14} /> Recent Reminder Activity
-            </h4>
-            <div className="border border-gray-100 rounded-xl overflow-hidden divide-y divide-gray-50">
-              {/* This would normally be filtered logs for this user */}
-              <div className="p-4 flex items-center justify-between hover:bg-gray-50 transition-colors">
-                <div className="flex items-center gap-3">
-                  <div className="w-2 h-2 bg-green-500 rounded-full" />
-                  <span className="text-sm font-medium">Automatic Reminder</span>
-                </div>
-                <span className="text-xs text-gray-400">Jan 07, 2026</span>
-              </div>
-              <div className="p-4 flex items-center justify-between hover:bg-gray-50 transition-colors">
-                <div className="flex items-center gap-3">
-                  <div className="w-2 h-2 bg-green-500 rounded-full" />
-                  <span className="text-sm font-medium">Manual Trigger</span>
-                </div>
-                <span className="text-xs text-gray-400">Dec 20, 2025</span>
-              </div>
-              <div className="p-8 text-center text-xs text-gray-400 italic">
-                Full activity history will appear here.
-              </div>
-            </div>
-          </div>
         </div>
         
-        <div className="p-6 border-t border-gray-100 bg-gray-50/50 flex gap-3">
-           <Button className="flex-1" variant="outline" onClick={() => {
+        <div className="p-4 sm:p-6 border-t border-gray-100 bg-gray-50/50 flex flex-col sm:flex-row gap-3">
+           <Button className="flex-1 order-2 sm:order-1" variant="outline" onClick={() => {
              onClose();
              // Logic to trigger edit from here could be added
            }}>
              <Edit2 size={16} /> Edit Settings
            </Button>
-           <Button className="flex-1" onClick={() => onSendManual(user.whatsapp_number)}>
+           <Button className="flex-1 order-1 sm:order-2" onClick={() => onSendManual(user.whatsapp_number)}>
              <Send size={16} /> Send Now
            </Button>
         </div>
@@ -693,31 +645,31 @@ export const UserManagementTable = ({ users }: { users: ExtendedUser[] }) => {
         user={selectedUser} 
         onSendManual={handleManualSend}
       />
-      <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
-        <div className="flex gap-4 w-full md:w-auto flex-1">
-          <div className="relative flex-1 md:w-96 group">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-blue-500 transition-colors" size={18} />
+      <div className="flex flex-col lg:flex-row gap-4 items-start lg:items-center justify-between">
+        <div className="flex flex-col sm:flex-row gap-3 w-full lg:w-auto flex-1">
+          <div className="relative flex-1 lg:w-96 group">
+            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-blue-500 transition-colors" size={16} />
             <input
               type="text"
-              placeholder="Search clients, GSTIN, business..."
-              className="w-full pl-10 pr-4 py-2.5 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-50 focus:border-blue-400 transition-all text-sm shadow-sm"
+              placeholder="Search by legal name, GSTIN or phone..."
+              className="w-full pl-10 pr-4 py-2 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-50 focus:border-blue-400 transition-all text-sm shadow-sm font-medium"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
           <select 
-            className="px-4 py-2.5 bg-white border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-4 focus:ring-blue-50 focus:border-blue-400 transition-all shadow-sm cursor-pointer"
+            className="px-4 py-2 bg-white border border-gray-200 rounded-xl text-sm font-bold text-gray-600 focus:outline-none focus:ring-4 focus:ring-blue-50 focus:border-blue-400 transition-all shadow-sm cursor-pointer appearance-none sm:min-w-[140px]"
             value={filterType}
             onChange={(e) => setFilterType(e.target.value)}
           >
-            <option value="all">All Filers</option>
-            <option value="monthly">Monthly</option>
-            <option value="qrmp">QRMP (Quarterly)</option>
-            <option value="disabled">Inactive</option>
+            <option value="all">⚡ All Filers</option>
+            <option value="monthly">📅 Monthly</option>
+            <option value="qrmp">📊 QRMP</option>
+            <option value="disabled">🚫 Inactive</option>
           </select>
         </div>
-        <Button onClick={() => setIsAddModalOpen(true)} className="w-full md:w-auto rounded-xl py-2.5 px-6 flex gap-2">
-          <Plus size={18} /> Add Client
+        <Button onClick={() => setIsAddModalOpen(true)} className="w-full lg:w-auto rounded-xl py-2.5 px-6 flex gap-2 font-bold shadow-blue-100 shadow-lg justify-center">
+          <Plus size={18} strokeWidth={3} /> Add New Client
         </Button>
       </div>
 
@@ -725,90 +677,109 @@ export const UserManagementTable = ({ users }: { users: ExtendedUser[] }) => {
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="bg-gray-50/50 text-gray-500 text-[11px] uppercase tracking-widest font-bold border-b border-gray-100">
-                <th className="px-6 py-4">Client Detail</th>
-                <th className="px-6 py-4">Tax Information</th>
-                <th className="px-6 py-4 text-center">Plan</th>
-                <th className="px-6 py-4">Next Reminder</th>
-                <th className="px-6 py-4">Status</th>
-                <th className="px-6 py-4 text-right">Actions</th>
+              <tr className="bg-gray-50/50 text-gray-400 text-[10px] uppercase font-bold border-b border-gray-100">
+                <th className="px-6 py-4 w-[30%]">Legal Name</th>
+                <th className="px-6 py-4 w-[18%]">GSTIN / Category</th>
+                <th className="px-6 py-4 w-[16%]">GSTR1 (JSONB)</th>
+                <th className="px-6 py-4 w-[16%]">GSTR3B (JSONB)</th>
+                <th className="px-6 py-4 w-[10%] text-center">Status</th>
+                <th className="px-6 py-4 w-[10%] text-right font-medium tracking-[0.1em]">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-50">
               {filteredUsers.map((user) => (
                 <tr 
                   key={user.whatsapp_number} 
-                  className="hover:bg-blue-50/30 transition-colors group cursor-pointer"
+                  className="hover:bg-blue-50/20 transition-all group cursor-pointer"
                 >
-                  <td className="px-6 py-4" onClick={() => setSelectedUser(user)}>
-                    <div className="font-semibold text-gray-900">{user.full_name || 'Unnamed Client'}</div>
-                    <div className="text-xs text-gray-500 font-medium">{user.whatsapp_number}</div>
+                  <td className="px-6 py-5" onClick={() => setSelectedUser(user)}>
+                    <div className="font-bold text-gray-800 text-[13px] leading-snug">{user.gst_details?.legalname || user.full_name || 'Unnamed Client'}</div>
+                    <div className="text-[10px] text-gray-400 font-mono mt-0.5 tracking-tighter">{user.whatsapp_number}</div>
                   </td>
-                  <td className="px-6 py-4" onClick={() => setSelectedUser(user)}>
-                    <div className="text-sm font-mono font-bold text-blue-600">{user.gst_details?.gstin || '—'}</div>
-                    <div className="text-[10px] text-gray-400 uppercase font-bold truncate max-w-[140px]">
-                      {user.gst_details?.business_name || 'No business name'}
-                    </div>
-                  </td>
-                  <td className="px-6 py-4 text-center" onClick={() => setSelectedUser(user)}>
-                    <div className="flex flex-col items-center">
-                      <span className={cn(
-                        "px-2 py-0.5 rounded-full text-[10px] font-bold uppercase",
-                        user.gst_details?.filing_type === 'monthly' ? "bg-purple-50 text-purple-600" : "bg-emerald-50 text-emerald-600"
-                      )}>
-                        {user.gst_details?.filing_type || 'N/A'}
+                  <td className="px-6 py-5" onClick={() => setSelectedUser(user)}>
+                    <div className="text-[12px] font-mono font-bold text-gray-700 tracking-tight">{user.gst_details?.gstin || '—'}</div>
+                    <div className="mt-1">
+                      <span className="text-[8px] font-black bg-white text-blue-500 px-1.5 py-0.5 rounded uppercase border border-blue-100 shadow-sm uppercase tracking-tighter">
+                        {user.gst_details?.compcategory || 'GST'}
                       </span>
-                      <span className="text-[9px] text-gray-400 mt-1">{user.reminder_settings?.frequency}</span>
                     </div>
                   </td>
-                  <td className="px-6 py-4" onClick={() => setSelectedUser(user)}>
-                    <div className="text-sm font-medium text-gray-700">
-                      {user.reminder_settings?.next_reminder_date ? (
-                        <div className="flex items-center gap-1.5">
-                          <div className="w-1.5 h-1.5 rounded-full bg-blue-500" />
-                          {new Date(user.reminder_settings.next_reminder_date).toLocaleDateString()}
+                  <td className="px-6 py-5" onClick={() => setSelectedUser(user)}>
+                    {user.gst_details?.gtsr1 ? (
+                      <div className="flex flex-col gap-1.5 min-w-[100px]">
+                        <div className="flex items-center gap-3">
+                            <span className="text-[9px] font-bold text-gray-400 bg-gray-50/50 w-8 px-1 py-0.5 rounded text-center">DUE</span>
+                            <span className="text-[10px] font-mono font-black text-gray-700">{user.gst_details.gtsr1.due_day || '—'}th</span>
                         </div>
-                      ) : (
-                        <span className="text-gray-300">Not set</span>
-                      )}
-                    </div>
+                        <div className="flex items-center gap-3">
+                            <span className="text-[9px] font-bold text-gray-400 bg-gray-50/50 w-8 px-1 py-0.5 rounded text-center">FREQ</span>
+                            <span className="text-[10px] font-mono font-black text-blue-600">{user.gst_details.gtsr1.frequency || 'M'}</span>
+                        </div>
+                        <div className="flex items-center gap-3">
+                            <span className="text-[9px] font-bold text-gray-400 bg-gray-50/50 w-8 px-1 py-0.5 rounded text-center">RET</span>
+                            <span className="text-[10px] font-mono font-black text-emerald-600">{user.gst_details.gtsr1.returns?.length || 0}</span>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="text-center py-2"><span className="text-[10px] text-gray-300 italic uppercase font-bold tracking-tighter">No JSON Info</span></div>
+                    )}
                   </td>
-                  <td className="px-6 py-4" onClick={() => setSelectedUser(user)}>
-                    <div className="flex items-center gap-1.5">
-                      <div className={cn("w-1.5 h-1.5 rounded-full", user.is_active ? "bg-green-500 animate-pulse" : "bg-red-400")} />
+                  <td className="px-6 py-5" onClick={() => setSelectedUser(user)}>
+                    {user.gst_details?.gtsr3b ? (
+                      <div className="flex flex-col gap-1.5 min-w-[100px]">
+                        <div className="flex items-center gap-3">
+                            <span className="text-[9px] font-bold text-gray-400 bg-gray-50/50 w-8 px-1 py-0.5 rounded text-center">DUE</span>
+                            <span className="text-[10px] font-mono font-black text-gray-700">{user.gst_details.gtsr3b.due_day || '—'}th</span>
+                        </div>
+                        <div className="flex items-center gap-3">
+                            <span className="text-[9px] font-bold text-gray-400 bg-gray-50/50 w-8 px-1 py-0.5 rounded text-center">FREQ</span>
+                            <span className="text-[10px] font-mono font-black text-purple-600">{user.gst_details.gtsr3b.frequency || 'M'}</span>
+                        </div>
+                        <div className="flex items-center gap-3">
+                            <span className="text-[9px] font-bold text-gray-400 bg-gray-50/50 w-8 px-1 py-0.5 rounded text-center">RET</span>
+                            <span className="text-[10px] font-mono font-black text-emerald-600">{user.gst_details.gtsr3b.returns?.length || 0}</span>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="text-center py-2"><span className="text-[10px] text-gray-300 italic uppercase font-bold tracking-tighter">No JSON Info</span></div>
+                    )}
+                  </td>
+                  <td className="px-6 py-5" onClick={() => setSelectedUser(user)}>
+                    <div className="flex items-center justify-center gap-2">
+                      <div className={cn("w-2 h-2 rounded-full", user.is_active ? "bg-green-500 animate-pulse shadow-[0_0_8px_rgba(34,197,94,0.4)]" : "bg-red-400")} />
                       <span className={cn(
-                        "text-[11px] font-bold uppercase",
-                        user.is_active ? "text-green-700" : "text-red-600"
+                        "text-[10px] font-black uppercase tracking-widest",
+                        user.is_active ? "text-green-600" : "text-red-500"
                       )}>
-                        {user.is_active ? "Live" : "Disabled"}
+                        {user.is_active ? "Live" : "Inactive"}
                       </span>
                     </div>
                   </td>
                   <td className="px-6 py-4 text-right">
-                    <div className="flex justify-end gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <div className="flex justify-end gap-1.5 md:opacity-0 md:group-hover:opacity-100 transition-all duration-200">
                       <button 
                            onClick={(e) => { e.stopPropagation(); handleManualSend(user.whatsapp_number); }}
-                           className="p-2 text-blue-600 hover:bg-white rounded-lg shadow-sm border border-transparent hover:border-blue-100 transition-all" 
+                           className="p-1.5 text-blue-500 hover:bg-blue-50 rounded-lg transition-all" 
                            title="Send Reminder"
                       >
                         <Send size={14} />
                       </button>
                       <button 
                            onClick={(e) => { e.stopPropagation(); setEditingUser(user); }}
-                           className="p-2 text-gray-600 hover:bg-white rounded-lg shadow-sm border border-transparent hover:border-gray-100 transition-all" 
-                           title="Edit Client"
+                           className="p-1.5 text-gray-400 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-all" 
+                           title="Edit"
                       >
                         <Edit2 size={14} />
                       </button>
                       <button 
                           onClick={(e) => { e.stopPropagation(); handleToggle(user.whatsapp_number, user.is_active); }}
-                          className={cn("p-2 rounded-lg shadow-sm border border-transparent transition-all", user.is_active ? "text-amber-600 hover:bg-white hover:border-amber-100" : "text-green-600 hover:bg-white hover:border-green-100")}
+                          className={cn("p-1.5 rounded-lg transition-all", user.is_active ? "text-amber-500 hover:bg-amber-50" : "text-green-500 hover:bg-green-50")}
                       >
                         {user.is_active ? <ShieldAlert size={14} /> : <ShieldCheck size={14} />}
                       </button>
                       <button 
                           onClick={(e) => { e.stopPropagation(); handleDelete(user.whatsapp_number); }}
-                          className="p-2 text-red-600 hover:bg-white rounded-lg shadow-sm border border-transparent hover:border-red-100 transition-all"
+                          className="p-1.5 text-red-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all"
                       >
                         <Trash2 size={14} />
                       </button>
