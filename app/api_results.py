@@ -235,8 +235,8 @@ def build_compliance_db_payload(gst_details):
     filling_freq = gst_details.get("fillingFreq", {})
 
     return {
-        "gstin": gst_details["gstin"],
-        "legalname": gst_details["lgnm"],
+        "gstin": gst_details.get("gstin"),
+        "legalname": gst_details.get("lgnm"),
         "latestgstr1": meta.get("latestgtsr1"),
         "latestgstr3b": meta.get("latestgtsr3b"),
         "compcategory": "GST",
@@ -245,14 +245,14 @@ def build_compliance_db_payload(gst_details):
         "gtsr1": {
             "frequency": filling_freq.get("gstr1", "M"),
             "due_day": 11 if filling_freq.get("gstr1") == "M" else 13,
-            "returns": gst_details["gstr1_returns"]
+            "returns": gst_details.get("gstr1_returns", [])
         },
 
         # JSONB column — FULL RETURN HISTORY
         "gtsr3b": {
             "frequency": filling_freq.get("gstr3b", "M"),
             "due_day": 20,
-            "returns": gst_details["gstr3b_returns"]
+            "returns": gst_details.get("gstr3b_returns", [])
         }
     }
 
