@@ -104,20 +104,30 @@
 #     main()
 
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
+
 from app.user_repo import upsert_user
 from app.compliance_repo import upsert_compliance
 from app.api_results import (
     fetch_gst_data,
     extract_gst_details,
     build_compliance_db_payload,
-    main_pending_calculater,
-    print_main_pending_calculator
+    main_pending_calculater
 )
 from app.utils import is_valid_gstin
 from app.green_api import send_whatsapp, build_whatsapp_message
 
 app = FastAPI()
+
+# ✅ CORS FIX
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],   # use specific domain in production
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # ================= POST MODEL =================
 class GSTForm(BaseModel):
@@ -137,18 +147,13 @@ def submit_gst(form: GSTForm):
 
     gstin = form.gstin.strip().upper()
 
-    # ✅ Validate GSTIN
     if not is_valid_gstin(gstin):
         return {"status": "error", "message": "Invalid GSTIN"}
 
     try:
-        # 1️⃣ Fetch GST data from API
         api_response = fetch_gst_data(gstin)
-
-        # 2️⃣ Extract & normalize
         gst_details = extract_gst_details(api_response)
 
-        # 3️⃣ Save user to DB
         upsert_user(
             email=form.email,
             name=gst_details["lgnm"],
@@ -156,14 +161,11 @@ def submit_gst(form: GSTForm):
             gstin=gst_details["gstin"]
         )
 
-        # 4️⃣ Save compliance data
         compliance_db_payload = build_compliance_db_payload(gst_details)
-        db_result = upsert_compliance(compliance_db_payload)
+        upsert_compliance(compliance_db_payload)
 
-        # 5️⃣ Build pending report
         gst_payload = main_pending_calculater(gst_details)
 
-        # 6️⃣ Send MAIN WhatsApp message immediately
         whatsapp_msg = build_whatsapp_message(gst_payload)
         send_whatsapp(form.phone, whatsapp_msg)
 
