@@ -1,5 +1,6 @@
 import requests
 import http.client
+import time
 from dotenv import load_dotenv
 import os
 from app.config import GREEN_API_URL
@@ -19,54 +20,93 @@ def build_whatsapp_message(payload):
     g1 = payload["gtsr1"]
     g3 = payload["gtsr3b"]
 
-    # Decide which return to talk about (priority to pending)
-    if g3["pending_count"] > 0 and g1["pending_count"] > 0:
-        rt3 = g3["return_type"]
-        status = "pending"
-        due3 = g3["due_date"]
-        rt1 = g1["return_type"]
-        status = "pending"
-        due1 = g1["due_date"]
+    gstin = payload["gstin"]
+    name = payload["legalname"]
 
-    elif g3["pending_count"] > 0 and g1["pending_count"] <= 0:
-        rt3 = g3["return_type"]
-        status = "pending"
-        due3 = g3["due_date"]
-        rt1 = g1["return_type"]
-        status = "filed"
-        due1 = g1["due_date"]
-
-    elif g1["pending_count"] > 0 and g3["pending_count"] <= 0:
-        rt1 = g1["return_type"]
-        status = "pending"
-        due1 = g1["due_date"]
-        rt3 = g3["return_type"]
-        status = "filed"
-        due3 = g3["due_date"]
-
-    else:
-        rt1 = g1["return_type"]
-        status = "filed"
-        due1 = g1["due_date"]
-        rt3 = g3["return_type"]
-        status = "filed"
-        due3 = g3["due_date"]
+    # Status text
+    g1_status = "PENDING " if g1["pending_count"] > 0 else "FILED "
+    g3_status = "PENDING " if g3["pending_count"] > 0 else "FILED "
 
     msg = f"""
-Filing Confirmation
-Hello {payload['legalname']},
+ GST Filing Status
 
-Your {rt1} for GSTIN {payload['gstin']} is {status}.
-Due Date: {due1}
+Hello {name},
 
-Your {rt3} for GSTIN {payload['gstin']} is {status}.
-#Due Date: {due3}
+GSTIN: *{gstin}*
+
+----------------------------
+ {g1['return_type']}
+Status: {g1_status}
+latest Filed Period : {payload['latestgstr1']}
+pending Months : {g1['pending_months'] or '0'}
+pending Count : {g1['pending_count']}
+Due Date: {g1['due_date']}
+
+----------------------------
+ {g3['return_type']}
+Status: {g3_status}
+latest Filed Period : {payload['latestgstr3b']}
+pending Months : {g3['pending_months'] or '0'}
+pending Count : {g3['pending_count']}
+Due Date: {g3['due_date']}
+
+----------------------------
+
+Please ensure all pending returns are filed before the due date to avoid penalties.
 
 Thank you.
-{payload['legalname']}
 """
 
     return msg.strip()
+
+
+# def build_reminder_message(payload):
+#     g1 = payload["gtsr1"]
+#     g3 = payload["gtsr3b"]
+
+#     reminder_lines = []
+
+#     if g1["pending_count"] > 0:
+#         reminder_lines.append(
+#             f"""
+# This is a reminder to file your *{g1['return_type']}*
+# GSTIN: {payload['gstin']}
+# Due Date: {g1['due_date']}
+# """
+#         )
+
+#     if g3["pending_count"] > 0:
+#         reminder_lines.append(
+#             f"""
+# This is a reminder to file your *{g3['return_type']}*
+# GSTIN: {payload['gstin']}
+# Due Date: {g3['due_date']}
+# """
+#         )
+
+#     # Safety check (should not happen, but good practice)
+#     if not reminder_lines:
+#         return None
+
+#     msg = f"""
+#  *GST Filing Reminder*
+
+# Hello {payload['legalname']},
+# {''.join(reminder_lines)}
+
+# Please ensure timely filing to avoid late fees.
+
+# Thank you.
+# """
+#     return msg.strip()
+
+
+# def has_pending(payload):
+#     return (
+#         payload["gtsr1"]["pending_count"] > 0 or
+#         payload["gtsr3b"]["pending_count"] > 0
+#     )
+
 
 
 ID_INSTANCE = os.getenv("ID_INSTANCE")
@@ -86,15 +126,36 @@ def send_whatsapp(phone, message):
     print("WhatsApp:", phone, response.status_code)
 
 
-clients = get_all_clients()
 
-for c in clients:
-    print("Processing:", c["gstin"])
+# ================= UI FLOW (INSTANT) =================
+def send_main_message_from_ui(client, gst_payload):
+    main_msg = build_whatsapp_message(gst_payload)
+    send_whatsapp(client["phone"], main_msg)
+    # save_main_payload(client["id"], gst_payload)
 
-    api_response = fetch_gst_data(c["gstin"])
-    gst_details = extract_gst_details(api_response)
-    gst_payload = main_pending_calculater(gst_details)
 
-    whatsapp_msg = build_whatsapp_message(gst_payload)
+# clients = get_all_clients()
 
-    send_whatsapp(c["phone"], whatsapp_msg)
+# for c in clients:
+#     print("Processing:", c["gstin"])
+
+#     api_response = fetch_gst_data(c["gstin"])
+#     gst_details = extract_gst_details(api_response)
+#     gst_payload = main_pending_calculater(gst_details)
+
+#     # 1️⃣ Send main message
+#     main_msg = build_whatsapp_message(gst_payload)
+#     send_whatsapp(c["phone"], main_msg)
+#     print(main_msg)
+
+#     # 2️⃣ Send reminder ONLY if pending exists
+#     if has_pending(gst_payload):
+#         print("Pending found. Waiting 2 minutes for reminder...")
+#         time.sleep(10)  # 2 minutes delay
+
+#         reminder_msg = build_reminder_message(gst_payload)
+#         if reminder_msg:
+#             send_whatsapp(c["phone"], reminder_msg)
+#             print(reminder_msg)
+
+
