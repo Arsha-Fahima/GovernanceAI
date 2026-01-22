@@ -287,6 +287,16 @@ def main_pending_calculater(gst_details):
         }
     }
 
+def extract_derived_update_payload(pending_result):
+    return {
+        "gstr1_due_date": pending_result["gtsr1"]["due_date"],
+        "gstr1_pending_count": pending_result["gtsr1"]["pending_count"],
+        "gstr3b_due_date": pending_result["gtsr3b"]["due_date"],
+        "gstr3b_pending_count": pending_result["gtsr3b"]["pending_count"],
+    }
+
+
+
 def print_main_pending_calculator(payload):
     print("\n================ GST COMPLIANCE REPORT ================\n")
     print(f"Legal Name : {payload['legalname']}")

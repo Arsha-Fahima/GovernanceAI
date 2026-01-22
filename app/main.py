@@ -116,7 +116,11 @@ from app.api_results import (
     main_pending_calculater
 )
 from app.utils import is_valid_gstin
-from app.green_api import send_whatsapp, build_whatsapp_message
+from app.green_api import build_main_message, send_whatsapp
+from app.compliance_repo import update_compliance_derived_fields
+from app.api_results import extract_derived_update_payload
+from app.green_api import run_daily_cron
+
 
 app = FastAPI()
 
@@ -142,9 +146,9 @@ def read_root():
     return {"message": "Backend running on Render 🚀"}
 
 # ================= FORM SUBMISSION =================
+
 @app.post("/submit-gst/")
 def submit_gst(form: GSTForm):
-
     gstin = form.gstin.strip().upper()
 
     if not is_valid_gstin(gstin):
@@ -161,18 +165,28 @@ def submit_gst(form: GSTForm):
             gstin=gst_details["gstin"]
         )
 
-        compliance_db_payload = build_compliance_db_payload(gst_details)
-        upsert_compliance(compliance_db_payload)
+        #  RAW DATA
+        upsert_compliance(build_compliance_db_payload(gst_details))
 
-        gst_payload = main_pending_calculater(gst_details)
+        #  DERIVED DATA
+        pending_result = main_pending_calculater(gst_details)
+        update_payload = extract_derived_update_payload(pending_result)
 
-        whatsapp_msg = build_whatsapp_message(gst_payload)
+        update_compliance_derived_fields(
+            gst_details["gstin"],
+            update_payload
+        )
+
+        #  WHATSAPP
+        whatsapp_msg = build_main_message(pending_result)
         send_whatsapp(form.phone, whatsapp_msg)
+
+        #reminder 
+        run_daily_cron()
 
         return {
             "status": "success",
-            "message": "GST data saved and WhatsApp sent",
-            "gst_report": gst_payload
+            "gst_report": pending_result
         }
 
     except Exception as e:

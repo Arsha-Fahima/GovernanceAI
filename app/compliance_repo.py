@@ -6,3 +6,10 @@ def upsert_compliance(payload):
         payload,
         on_conflict="gstin"
     ).execute()
+
+
+def update_compliance_derived_fields(gstin, update_payload):
+    return supabase.table("compliance") \
+        .update(update_payload) \
+        .eq("gstin", gstin) \
+        .execute()
