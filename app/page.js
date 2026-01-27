@@ -73,7 +73,7 @@ export default function Home() {
                 id="name"
                 name="name"
                 type="text"
-                placeholder="Enter your full name"
+                placeholder="Enter your business name"
                 value={form.name}
                 onChange={handleChange}
                 required
