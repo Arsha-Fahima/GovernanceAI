@@ -33,7 +33,7 @@ def days_left(due_date):
 # ================= WHATSAPP =================
 def send_whatsapp(phone, message):
     payload = {
-        "chatId": f"91+{phone}@c.us",
+        "chatId": f"91{phone}@c.us",
         "message": message
     }
     response = requests.post(GREEN_API_URL, json=payload)
