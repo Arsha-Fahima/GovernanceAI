@@ -138,7 +138,7 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 
-from app.user_repo import upsert_user
+from app.user_repo import upsert_user, fetch_user_by_email
 from app.compliance_repo import upsert_compliance, update_compliance_derived_fields
 from app.api_results import (
     fetch_gst_data,
