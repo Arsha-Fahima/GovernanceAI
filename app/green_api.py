@@ -3,16 +3,19 @@ import os
 import requests
 from datetime import date,datetime
 from dotenv import load_dotenv
+from app.config import TWILIO_WHATSAPP_NUMBER
+from app.config import twilio_client
 from supabase import create_client
 from app.compliance_repo import update_compliance_derived_fields
+
 
 
 # ================= LOAD ENV =================
 load_dotenv()
 
-GREEN_API_URL = os.getenv("GREEN_API_URL")
-ID_INSTANCE = os.getenv("ID_INSTANCE")
-API_TOKEN_INSTANCE = os.getenv("API_TOKEN_INSTANCE")
+# GREEN_API_URL = os.getenv("GREEN_API_URL")
+# ID_INSTANCE = os.getenv("ID_INSTANCE")
+# API_TOKEN_INSTANCE = os.getenv("API_TOKEN_INSTANCE")
 
 SUPABASE_URL = os.getenv("SUPABASE_URL")
 SUPABASE_KEY = os.getenv("SUPABASE_KEY")
@@ -31,13 +34,25 @@ def days_left(due_date):
     return (due_date - date.today()).days
 
 # ================= WHATSAPP =================
+# def send_whatsapp(phone, message):
+#     payload = {
+#         "chatId": f"91{phone}@c.us",
+#         "message": message
+#     }
+#     response = requests.post(GREEN_API_URL, json=payload)
+#     print(f"📤 WhatsApp → {phone} | {response.status_code}")
+
+
 def send_whatsapp(phone, message):
-    payload = {
-        "chatId": f"91{phone}@c.us",
-        "message": message
-    }
-    response = requests.post(GREEN_API_URL, json=payload)
-    print(f"📤 WhatsApp → {phone} | {response.status_code}")
+    try:
+        twilio_client.messages.create(
+            from_=TWILIO_WHATSAPP_NUMBER,          # Twilio WhatsApp number
+            body=message,
+            to=f"whatsapp:+91{phone}"              # User number
+        )
+        print(f"📤 WhatsApp (Twilio) → {phone} | SENT")
+    except Exception as e:
+        print(f"❌ Twilio Error sending to {phone}: {e}")
 
 # ================= MAIN MESSAGE =================
 def build_main_message(payload):
