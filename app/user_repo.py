@@ -7,3 +7,13 @@ def upsert_user(email, name, phone, gstin):
         "phone": phone,
         "gstin": gstin
     }).execute()
+
+
+def fetch_user_by_email(email: str):
+    """
+    Fetch a user record by email from 'users' table
+    """
+    response = supabase.table("users").select("*").eq("email", email).single()
+    if response.get("data"):
+        return response["data"]
+    return None
