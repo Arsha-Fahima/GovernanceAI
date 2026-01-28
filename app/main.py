@@ -150,7 +150,7 @@ from app.api_results import (
 )
 from app.utils import is_valid_gstin
 from app.green_api import build_main_message, send_whatsapp
-from app.config import SUPABASE_URL, SUPABASE_KEY
+from app.supabase_client import SUPABASE_URL, SUPABASE_KEY
 
 # ================= INIT =================
 app = FastAPI()
