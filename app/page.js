@@ -5,7 +5,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Navbar from "@/app/components/navbar";
 import { supabase } from "@/lib/supabase";
-import ComplianceChart from "@/components/ComplianceChart";
+// import ComplianceChart from "@/components/ComplianceChart";
 
 export default function Home() {
   const { data: session, status } = useSession();
@@ -288,11 +288,85 @@ export default function Home() {
                     <p className='text-red-800'>{gstResult.error}</p>
                   </div>
                 ) : (
-                  <div className='space-y-4'>
-                    <pre className='bg-gray-50 p-4 rounded-lg overflow-auto text-sm'>
-                      {JSON.stringify(gstResult, null, 2)}
-                    </pre>
-                  </div>
+                  <>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                      <div className="p-4 bg-blue-50 rounded-lg">
+                        <p className="text-sm text-gray-600">Legal Name</p>
+                        <p className="text-lg font-semibold text-gray-900">{gstResult.legalname}</p>
+                      </div>
+
+                      <div className="p-4 bg-blue-50 rounded-lg">
+                        <p className="text-sm text-gray-600">GSTIN</p>
+                        <p className="text-lg font-semibold text-gray-900">{gstResult.gstin}</p>
+                      </div>
+
+                      <div className="p-4 bg-gray-50 rounded-lg">
+                        <p className="text-sm text-gray-600">Latest GSTR-1 Filed</p>
+                        <p className="text-lg font-semibold text-gray-900">{gstResult.latestgstr1}</p>
+                      </div>
+
+                      <div className="p-4 bg-gray-50 rounded-lg">
+                        <p className="text-sm text-gray-600">Latest GSTR-3B Filed</p>
+                        <p className="text-lg font-semibold text-gray-900">{gstResult.latestgstr3b}</p>
+                      </div>
+
+                    </div>
+
+                    <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                      {/* GSTR1 Card */}
+                      <div className="p-6 border rounded-xl shadow-sm">
+                        <h3 className="text-xl font-bold mb-4">GSTR-1 Status</h3>
+
+                        <p><strong>Status:</strong> 
+                          <span className={`ml-2 px-2 py-1 rounded text-sm ${
+                            gstResult.gtsr1.status === "FILED"
+                              ? "bg-green-100 text-green-700"
+                              : "bg-red-100 text-red-700"
+                          }`}>
+                            {gstResult.gtsr1.status}
+                          </span>
+                        </p>
+
+                        <p><strong>Frequency:</strong> {gstResult.gtsr1.frequency}</p>
+                        <p><strong>Pending Returns:</strong> {gstResult.gtsr1.pending_count}</p>
+
+                        {gstResult.gtsr1.pending_months.length > 0 && (
+                          <p className="text-red-600 mt-2">
+                            Pending Months: {gstResult.gtsr1.pending_months.join(", ")}
+                          </p>
+                        )}
+                        <p><strong>Due Date:</strong> {gstResult.gtsr1.due_date ||"All Clear"}</p>
+                      </div>
+
+                      {/* GSTR3B Card */}
+                      <div className="p-6 border rounded-xl shadow-sm">
+                        <h3 className="text-xl font-bold mb-4">GSTR-3B Status</h3>
+
+                        <p><strong>Status:</strong> 
+                          <span className={`ml-2 px-2 py-1 rounded text-sm ${
+                            gstResult.gtsr3b.status === "FILED"
+                              ? "bg-green-100 text-green-700"
+                              : "bg-red-100 text-red-700"
+                          }`}>
+                            {gstResult.gtsr3b.status}
+                          </span>
+                        </p>
+
+                        <p><strong>Frequency:</strong> {gstResult.gtsr3b.frequency}</p>
+                        <p><strong>Pending Returns:</strong> {gstResult.gtsr3b.pending_count}</p>
+
+                        {gstResult.gtsr3b.pending_months.length > 0 && (
+                          <p className="text-red-600 mt-2">
+                            Pending Months: {gstResult.gtsr3b.pending_months.join(", ")}
+                          </p>
+                        )}
+                        <p><strong>Due Date:</strong> {gstResult.gtsr1.due_date ||"All Clear"}</p>
+                      </div>
+
+                    </div>
+                  </>
                 )}
               </div>
             )}
