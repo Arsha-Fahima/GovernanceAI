@@ -198,40 +198,40 @@ def submit_user(form: GSTForm):
 # ================= CHECK GST STATUS =================
 @app.post("/check-status/")
 def check_status(form: EmailForm):
-    """
-    Called when user clicks Check Status button in UI
-    Fetches user, runs GST compliance logic, updates compliance table, and returns result
-    """
     try:
-        # 1️⃣ Fetch user by email
-        user = fetch_user_by_email(form.email)
-        if not user:
-            return {"status": "error", "message": "User not found"}
+        # 1️⃣ Fetch user
+        user_result = fetch_user_by_email(form.email)
 
-        gstin = user["gstin"].strip().upper()
-        if not is_valid_gstin(gstin):
+        # Handle user not found / DB error
+        if user_result["status"] == "error":
+            return user_result
+
+        user = user_result["data"]  # actual row
+
+        # 2️⃣ Get GSTIN safely
+        gstin = user.get("gstin", "").strip().upper()
+        if not gstin or not is_valid_gstin(gstin):
             return {"status": "error", "message": "Invalid GSTIN in user profile"}
 
-        # 2️⃣ Fetch GST data and extract details
+        # 3️⃣ Fetch GST API data
         api_response = fetch_gst_data(gstin)
         gst_details = extract_gst_details(api_response)
 
-        # 3️⃣ Update compliance table (raw data)
+        # 4️⃣ Update compliance raw
         upsert_compliance(build_compliance_db_payload(gst_details))
 
-        # 4️⃣ Update compliance table (derived fields)
+        # 5️⃣ Derived compliance update
         pending_result = main_pending_calculater(gst_details)
         update_payload = extract_derived_update_payload(pending_result)
         update_compliance_derived_fields(gst_details["gstin"], update_payload)
 
-        # 5️⃣ Send WhatsApp message (optional)
+        # 6️⃣ WhatsApp message
         whatsapp_msg = build_main_message(pending_result)
-        send_whatsapp(user["phone"], whatsapp_msg)
+        send_whatsapp(user.get("phone"), whatsapp_msg)
 
-        # 6️⃣ Run daily cron jobs if needed
+        # 7️⃣ Cron
         run_daily_cron()
 
-        # 7️⃣ Return result to UI
         return {"status": "success", "gst_report": pending_result}
 
     except Exception as e:
