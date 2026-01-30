@@ -324,33 +324,33 @@ export default function Home() {
                           <strong>Status:</strong>
                           <span
                             className={`ml-2 px-2 py-1 rounded text-sm ${
-                              gstResult.gtsr1.status === "FILED"
+                              gstResult.gstr1.status === "FILED"
                                 ? "bg-green-100 text-green-700"
                                 : "bg-red-100 text-red-700"
                             }`}
                           >
-                            {gstResult.gtsr1.status}
+                            {gstResult.gstr1.status}
                           </span>
                         </p>
 
                         <p>
                           <strong>Frequency:</strong>{" "}
-                          {gstResult.gtsr1.frequency}
+                          {gstResult.gstr1.frequency}
                         </p>
                         <p>
                           <strong>Pending Returns:</strong>{" "}
-                          {gstResult.gtsr1.pending_count}
+                          {gstResult.gstr1.pending_count}
                         </p>
 
-                        {gstResult.gtsr1.pending_months.length > 0 && (
+                        {gstResult.gstr1.pending_months.length > 0 && (
                           <p className="text-red-600 mt-2">
                             Pending Months:{" "}
-                            {gstResult.gtsr1.pending_months.join(", ")}
+                            {gstResult.gstr1.pending_months.join(", ")}
                           </p>
                         )}
                         <p>
                           <strong>Due Date:</strong>{" "}
-                          {gstResult.gtsr1.due_date || "All Clear"}
+                          {gstResult.gstr1.due_date || "All Clear"}
                         </p>
                       </div>
 
@@ -364,33 +364,33 @@ export default function Home() {
                           <strong>Status:</strong>
                           <span
                             className={`ml-2 px-2 py-1 rounded text-sm ${
-                              gstResult.gtsr3b.status === "FILED"
+                              gstResult.gstr3b.status === "FILED"
                                 ? "bg-green-100 text-green-700"
                                 : "bg-red-100 text-red-700"
                             }`}
                           >
-                            {gstResult.gtsr3b.status}
+                            {gstResult.gstr3b.status}
                           </span>
                         </p>
 
                         <p>
                           <strong>Frequency:</strong>{" "}
-                          {gstResult.gtsr3b.frequency}
+                          {gstResult.gstr3b.frequency}
                         </p>
                         <p>
                           <strong>Pending Returns:</strong>{" "}
-                          {gstResult.gtsr3b.pending_count}
+                          {gstResult.gstr3b.pending_count}
                         </p>
 
-                        {gstResult.gtsr3b.pending_months.length > 0 && (
+                        {gstResult.gstr3b.pending_months.length > 0 && (
                           <p className="text-red-600 mt-2">
                             Pending Months:{" "}
-                            {gstResult.gtsr3b.pending_months.join(", ")}
+                            {gstResult.gstr3b.pending_months.join(", ")}
                           </p>
                         )}
                         <p>
                           <strong>Due Date:</strong>{" "}
-                          {gstResult.gtsr1.due_date || "All Clear"}
+                          {gstResult.gstr3b.due_date || "All Clear"}
                         </p>
                       </div>
                     </div>
