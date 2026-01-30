@@ -163,11 +163,7 @@ export default function Home() {
 
       if (data.status === "success") {
         console.log("FULL GST RESULT:", data.gst_report);
-        setGstResult({
-          ...data.gst_report,
-          gtsr1: data.gst_report.gtsr1 ?? null,
-          gtsr3b: data.gst_report.gtsr3b ?? null,
-        });
+        setGstResult(data.gst_report);
       } else {
         setGstResult({ error: data.message || "Failed to check GST" });
       }
@@ -181,8 +177,6 @@ export default function Home() {
 
   // Dashboard View
   if (showDashboard && userData) {
-    if (!gstResult) return null;
-    const { gtsr1, gtsr3b } = gstResult;
     return (
       <>
         <Navbar />
@@ -321,87 +315,84 @@ export default function Home() {
 
                     <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
                       {/* GSTR1 Card */}
-                      {gtsr1 && typeof gtsr1 === "object" && (
-                        <div className="p-6 border rounded-xl shadow-sm">
-                          <h3 className="text-xl font-bold mb-4">
-                            GSTR-1 Status
-                          </h3>
+                      <div className="p-6 border rounded-xl shadow-sm">
+                        <h3 className="text-xl font-bold mb-4">
+                          GSTR-1 Status
+                        </h3>
 
-                          <p>
-                            <strong>Status:</strong>
-                            <span
-                              className={`ml-2 px-2 py-1 rounded text-sm ${
-                                gtsr1.status === "FILED"
-                                  ? "bg-green-100 text-green-700"
-                                  : "bg-red-100 text-red-700"
-                              }`}
-                            >
-                              {gtsr1.status}
-                            </span>
-                          </p>
+                        <p>
+                          <strong>Status:</strong>
+                          <span
+                            className={`ml-2 px-2 py-1 rounded text-sm ${
+                              gstResult.gtsr1.status === "FILED"
+                                ? "bg-green-100 text-green-700"
+                                : "bg-red-100 text-red-700"
+                            }`}
+                          >
+                            {gstResult.gtsr1.status}
+                          </span>
+                        </p>
 
-                          <p>
-                            <strong>Frequency:</strong> {gtsr1.frequency}
-                          </p>
-                          <p>
-                            <strong>Pending Returns:</strong>{" "}
-                            {gtsr1.pending_count}
-                          </p>
+                        <p>
+                          <strong>Frequency:</strong>{" "}
+                          {gstResult.gtsr1.frequency}
+                        </p>
+                        <p>
+                          <strong>Pending Returns:</strong>{" "}
+                          {gstResult.gtsr1.pending_count}
+                        </p>
 
-                          {gtsr1.pending_months?.length > 0 && (
-                            <p className="text-red-600 mt-2">
-                              Pending Months: {gtsr1.pending_months.join(", ")}
-                            </p>
-                          )}
-
-                          <p>
-                            <strong>Due Date:</strong>{" "}
-                            {gtsr1.due_date ?? "All Clear"}
+                        {gstResult.gtsr1.pending_months.length > 0 && (
+                          <p className="text-red-600 mt-2">
+                            Pending Months:{" "}
+                            {gstResult.gtsr1.pending_months.join(", ")}
                           </p>
-                        </div>
-                      )}
+                        )}
+                        <p>
+                          <strong>Due Date:</strong>{" "}
+                          {gstResult.gtsr1.due_date || "All Clear"}
+                        </p>
+                      </div>
 
                       {/* GSTR3B Card */}
-                      {gtsr3b && typeof gtsr3b === "object" && (
-                        <div className="p-6 border rounded-xl shadow-sm">
-                          <h3 className="text-xl font-bold mb-4">
-                            GSTR-3B Status
-                          </h3>
+                      <div className="p-6 border rounded-xl shadow-sm">
+                        <h3 className="text-xl font-bold mb-4">
+                          GSTR-3B Status
+                        </h3>
 
-                          <p>
-                            <strong>Status:</strong>
-                            <span
-                              className={`ml-2 px-2 py-1 rounded text-sm ${
-                                gtsr3b.status === "FILED"
-                                  ? "bg-green-100 text-green-700"
-                                  : "bg-red-100 text-red-700"
-                              }`}
-                            >
-                              {gtsr3b.status}
-                            </span>
+                        <p>
+                          <strong>Status:</strong>
+                          <span
+                            className={`ml-2 px-2 py-1 rounded text-sm ${
+                              gstResult.gtsr3b.status === "FILED"
+                                ? "bg-green-100 text-green-700"
+                                : "bg-red-100 text-red-700"
+                            }`}
+                          >
+                            {gstResult.gtsr3b.status}
+                          </span>
+                        </p>
+
+                        <p>
+                          <strong>Frequency:</strong>{" "}
+                          {gstResult.gtsr3b.frequency}
+                        </p>
+                        <p>
+                          <strong>Pending Returns:</strong>{" "}
+                          {gstResult.gtsr3b.pending_count}
+                        </p>
+
+                        {gstResult.gtsr3b.pending_months.length > 0 && (
+                          <p className="text-red-600 mt-2">
+                            Pending Months:{" "}
+                            {gstResult.gtsr3b.pending_months.join(", ")}
                           </p>
-
-                          <p>
-                            <strong>Frequency:</strong> {gtsr3b.frequency}
-                          </p>
-
-                          <p>
-                            <strong>Pending Returns:</strong>{" "}
-                            {gtsr3b.pending_count}
-                          </p>
-
-                          {gtsr3b.pending_months?.length > 0 && (
-                            <p className="text-red-600 mt-2">
-                              Pending Months: {gtsr3b.pending_months.join(", ")}
-                            </p>
-                          )}
-
-                          <p>
-                            <strong>Due Date:</strong>{" "}
-                            {gtsr3b.due_date ?? "All Clear"}
-                          </p>
-                        </div>
-                      )}
+                        )}
+                        <p>
+                          <strong>Due Date:</strong>{" "}
+                          {gstResult.gtsr1.due_date || "All Clear"}
+                        </p>
+                      </div>
                     </div>
                   </>
                 )}
