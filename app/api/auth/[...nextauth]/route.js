@@ -19,7 +19,7 @@ const handler = NextAuth({
           .from("users")
           .select("id, email")
           .eq("email", email)
-          .single();
+          .maybeSingle();
 
         // Only insert if user doesn't exist
         if (!existingUser) {
