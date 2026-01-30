@@ -41,16 +41,18 @@ export default function Home() {
 
     if (data) {
       setUserData(data);
+      // Don't show temporary GSTIN in form
+      const gstinValue = data.gstin?.startsWith("TEMP_") ? "" : (data.gstin || "");
       setForm({
         name: data.name || "",
         phone: data.phone || "",
-        gstin: data.gstin || "",
+        gstin: gstinValue,
       });
-      // // If user has phone and gstin filled, show dashboard
-      // if (data.phone && data.gstin) {
-      //   setShowDashboard(true);
-      //   fetchComplianceHistory(data.gstin);
-      // }
+      // If user has phone and gstin filled, show dashboard and fetch compliance
+      if (data.phone && data.gstin && !data.gstin.startsWith("TEMP_")) {
+        setShowDashboard(true);
+        fetchComplianceHistory(data.gstin);
+      }
     }
   };
 
@@ -61,43 +63,28 @@ export default function Home() {
   const [userData, setUserData] = useState(null);
   const [checkingGST, setCheckingGST] = useState(false);
   const [gstResult, setGstResult] = useState(null);
-  // const [complianceHistory, setComplianceHistory] = useState([]);
+  const [complianceHistory, setComplianceHistory] = useState([]);
 
-  // const fetchComplianceHistory = async (gstin) => {
-  //   try {
-  //     const { data, error } = await supabase
-  //       .from("compliance")
-  //       .select("*")
-  //       .eq("gstin", gstin)
-  //       .order("created_at", { ascending: false });
+  const fetchComplianceHistory = async (gstin) => {
+    try {
+      const { data, error } = await supabase
+        .from("compliance")
+        .select("*")
+        .eq("gstin", gstin)
+        .order("created_at", { ascending: false });
 
-  //     if (error) {
-  //       console.error("Error fetching compliance history:", error);
-  //       return;
-  //     }
+      if (error) {
+        console.error("Error fetching compliance history:", error);
+        return;
+      }
 
-  //     if (data && data.length > 0) {
-  //       // Transform compliance data to chart format
-  //       const chartData = [];
-
-  //       // Process GSTR1 records
-  //       if (data[0].gstr1_records) {
-  //         data[0].gstr1_records.forEach((record) => {
-  //           chartData.push({
-  //             period: record.rtnprd,
-  //             filingDate: record.dof,
-  //             dueDate: record.valid,
-  //           });
-  //         });
-  //       }
-
-  //       // Process GSTR3B records
-  //       if (data[0].gstr3b_records) {
-  //         data[0].gstr3b_records.forEach((record) => {
-  //           chartData.push({
-  //             period: record.rtnprd,
-  //             filingDate: record.dof,
-  //             dueDate: record.valid,
+      if (data && data.length > 0) {
+        setComplianceHistory(data);
+      }
+    } catch (err) {
+      console.error("Error processing compliance history:", err);
+    }
+  };
   //           });
   //         });
   //       }
@@ -316,58 +303,143 @@ export default function Home() {
                     <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
 
                       {/* GSTR1 Card */}
+                      {gstResult.gstr1 && (
                       <div className="p-6 border rounded-xl shadow-sm">
                         <h3 className="text-xl font-bold mb-4">GSTR-1 Status</h3>
 
                         <p><strong>Status:</strong> 
                           <span className={`ml-2 px-2 py-1 rounded text-sm ${
-                            gstResult.gtsr1.status === "FILED"
+                            gstResult.gstr1?.status === "FILED"
                               ? "bg-green-100 text-green-700"
                               : "bg-red-100 text-red-700"
                           }`}>
-                            {gstResult.gtsr1.status}
+                            {gstResult.gstr1?.status}
                           </span>
                         </p>
 
-                        <p><strong>Frequency:</strong> {gstResult.gtsr1.frequency}</p>
-                        <p><strong>Pending Returns:</strong> {gstResult.gtsr1.pending_count}</p>
+                        <p><strong>Frequency:</strong> {gstResult.gstr1?.frequency}</p>
+                        <p><strong>Pending Returns:</strong> {gstResult.gstr1?.pending_count}</p>
 
-                        {gstResult.gtsr1.pending_months.length > 0 && (
+                        {gstResult.gstr1?.pending_months?.length > 0 && (
                           <p className="text-red-600 mt-2">
-                            Pending Months: {gstResult.gtsr1.pending_months.join(", ")}
+                            Pending Months: {gstResult.gstr1.pending_months.join(", ")}
                           </p>
                         )}
-                        <p><strong>Due Date:</strong> {gstResult.gtsr1.due_date ||"All Clear"}</p>
+                        <p><strong>Due Date:</strong> {gstResult.gstr1?.due_date ||"All Clear"}</p>
                       </div>
+                      )}
 
                       {/* GSTR3B Card */}
+                      {gstResult.gstr3b && (
                       <div className="p-6 border rounded-xl shadow-sm">
                         <h3 className="text-xl font-bold mb-4">GSTR-3B Status</h3>
 
                         <p><strong>Status:</strong> 
                           <span className={`ml-2 px-2 py-1 rounded text-sm ${
-                            gstResult.gtsr3b.status === "FILED"
+                            gstResult.gstr3b?.status === "FILED"
                               ? "bg-green-100 text-green-700"
                               : "bg-red-100 text-red-700"
                           }`}>
-                            {gstResult.gtsr3b.status}
+                            {gstResult.gstr3b?.status}
                           </span>
                         </p>
 
-                        <p><strong>Frequency:</strong> {gstResult.gtsr3b.frequency}</p>
-                        <p><strong>Pending Returns:</strong> {gstResult.gtsr3b.pending_count}</p>
+                        <p><strong>Frequency:</strong> {gstResult.gstr3b?.frequency}</p>
+                        <p><strong>Pending Returns:</strong> {gstResult.gstr3b?.pending_count}</p>
 
-                        {gstResult.gtsr3b.pending_months.length > 0 && (
+                        {gstResult.gstr3b?.pending_months?.length > 0 && (
                           <p className="text-red-600 mt-2">
-                            Pending Months: {gstResult.gtsr3b.pending_months.join(", ")}
+                            Pending Months: {gstResult.gstr3b.pending_months.join(", ")}
                           </p>
                         )}
-                        <p><strong>Due Date:</strong> {gstResult.gtsr1.due_date ||"All Clear"}</p>
+                        <p><strong>Due Date:</strong> {gstResult.gstr3b?.due_date ||"All Clear"}</p>
                       </div>
+                      )}
 
                     </div>
                   </>
                 )}
+              </div>
+            )}
+
+            {/* Compliance History Section */}
+            {complianceHistory.length > 0 && (
+              <div className='bg-white rounded-xl shadow-lg p-8 mt-8'>
+                <h2 className='text-2xl font-bold text-gray-900 mb-6'>
+                  Compliance History
+                </h2>
+                
+                <div className='space-y-4'>
+                  {complianceHistory.map((record, index) => (
+                    <div key={record.id || index} className='border rounded-lg p-6 hover:shadow-md transition-shadow'>
+                      <div className='flex justify-between items-start mb-4'>
+                        <div>
+                          <h3 className='text-lg font-semibold text-gray-900'>
+                            GSTIN: {record.gstin}
+                          </h3>
+                          <p className='text-sm text-gray-500'>
+                            Checked on: {new Date(record.created_at).toLocaleDateString('en-IN', {
+                              year: 'numeric',
+                              month: 'long',
+                              day: 'numeric',
+                              hour: '2-digit',
+                              minute: '2-digit'
+                            })}
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className='grid grid-cols-1 md:grid-cols-2 gap-4 mb-4'>
+                        <div className='p-3 bg-gray-50 rounded'>
+                          <p className='text-sm text-gray-600'>Legal Name</p>
+                          <p className='font-semibold'>{record.legal_name || 'N/A'}</p>
+                        </div>
+                        <div className='p-3 bg-gray-50 rounded'>
+                          <p className='text-sm text-gray-600'>Trade Name</p>
+                          <p className='font-semibold'>{record.trade_name || 'N/A'}</p>
+                        </div>
+                      </div>
+
+                      {/* GSTR1 Details */}
+                      {record.gstr1_records && (
+                        <div className='mb-4'>
+                          <h4 className='font-semibold text-gray-800 mb-2'>GSTR-1 Status</h4>
+                          <div className='bg-blue-50 p-4 rounded'>
+                            <p><strong>Status:</strong> <span className={`px-2 py-1 rounded text-sm ${record.gstr1_status === 'FILED' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>{record.gstr1_status || 'Unknown'}</span></p>
+                            <p><strong>Latest Filed:</strong> {record.latest_gstr1 || 'N/A'}</p>
+                            {record.gstr1_pending_count > 0 && (
+                              <p className='text-red-600 mt-2'><strong>Pending Returns:</strong> {record.gstr1_pending_count}</p>
+                            )}
+                          </div>
+                        </div>
+                      )}
+
+                      {/* GSTR3B Details */}
+                      {record.gstr3b_records && (
+                        <div className='mb-4'>
+                          <h4 className='font-semibold text-gray-800 mb-2'>GSTR-3B Status</h4>
+                          <div className='bg-purple-50 p-4 rounded'>
+                            <p><strong>Status:</strong> <span className={`px-2 py-1 rounded text-sm ${record.gstr3b_status === 'FILED' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>{record.gstr3b_status || 'Unknown'}</span></p>
+                            <p><strong>Latest Filed:</strong> {record.latest_gstr3b || 'N/A'}</p>
+                            {record.gstr3b_pending_count > 0 && (
+                              <p className='text-red-600 mt-2'><strong>Pending Returns:</strong> {record.gstr3b_pending_count}</p>
+                            )}
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Raw JSON Data (Collapsible) */}
+                      <details className='mt-4'>
+                        <summary className='cursor-pointer text-sm text-blue-600 hover:text-blue-800'>
+                          View Full Details
+                        </summary>
+                        <div className='mt-2 p-4 bg-gray-100 rounded text-xs overflow-auto max-h-96'>
+                          <pre>{JSON.stringify(record, null, 2)}</pre>
+                        </div>
+                      </details>
+                    </div>
+                  ))}
+                </div>
               </div>
             )}
           </div>
