@@ -16,7 +16,7 @@ def fetch_user_by_email(email: str):
             .table("users")
             .select("*")
             .eq("email", email)
-            .single()
+            .maybe_single()
             .execute()
         )
 
