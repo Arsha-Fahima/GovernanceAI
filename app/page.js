@@ -291,137 +291,24 @@ const fetchUserData = async () => {
               />
             )} */}
 
-            {/* GST Result */}
-            {gstResult && (
-              <div className='bg-white rounded-xl shadow-lg p-8'>
-                <h2 className='text-2xl font-bold text-gray-900 mb-6'>
-                  GST Compliance Result
-                </h2>
-                {gstResult.error ? (
-                  <div className='p-4 bg-red-50 border border-red-200 rounded-lg'>
-                    <p className='text-red-800'>{gstResult.error}</p>
-                  </div>
-                ) : (
-                  <>
-                    <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
-                      <div className='p-4 bg-blue-50 rounded-lg'>
-                        <p className='text-sm text-gray-600'>Legal Name</p>
-                        <p className='text-lg font-semibold text-gray-900'>
-                          {gstResult.legalname}
-                        </p>
-                      </div>
+           {/*GSTResult Tabs*/}
+                {gstResult && !gstResult.error && (
+                <div className='mt-8'>
+                  <GSTProfileTabs
+                    gstin={gstResult.gstin}
+                    tradeName={gstResult.legalname}
+                    state={gstResult.state}
+                    gstData={gstResult}   // 👈 PASS FULL DATA
+                  />
+                </div>
+              )}
 
-                      <div className='p-4 bg-blue-50 rounded-lg'>
-                        <p className='text-sm text-gray-600'>GSTIN</p>
-                        <p className='text-lg font-semibold text-gray-900'>
-                          {gstResult.gstin}
-                        </p>
-                      </div>
+              {gstResult?.error && (
+                <div className="mt-6 bg-red-50 border border-red-200 p-4 rounded-lg text-red-700">
+                  {gstResult.error}
+                </div>
+              )}
 
-                      <div className='p-4 bg-gray-50 rounded-lg'>
-                        <p className='text-sm text-gray-600'>
-                          Latest GSTR-1 Filed
-                        </p>
-                        <p className='text-lg font-semibold text-gray-900'>
-                          {gstResult.latestgstr1}
-                        </p>
-                      </div>
-
-                      <div className='p-4 bg-gray-50 rounded-lg'>
-                        <p className='text-sm text-gray-600'>
-                          Latest GSTR-3B Filed
-                        </p>
-                        <p className='text-lg font-semibold text-gray-900'>
-                          {gstResult.latestgstr3b}
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className='mt-8 grid grid-cols-1 md:grid-cols-2 gap-6'>
-                      {/* GSTR1 Card */}
-                      <div className='p-6 border rounded-xl shadow-sm'>
-                        <h3 className='text-xl font-bold mb-4'>
-                          GSTR-1 Status
-                        </h3>
-
-                        <p>
-                          <strong>Status:</strong>
-                          <span
-                            className={`ml-2 px-2 py-1 rounded text-sm ${
-                              gstResult.gtsr1.status === "FILED"
-                                ? "bg-green-100 text-green-700"
-                                : "bg-red-100 text-red-700"
-                            }`}
-                          >
-                            {gstResult.gtsr1.status}
-                          </span>
-                        </p>
-
-                        <p>
-                          <strong>Frequency:</strong>{" "}
-                          {gstResult.gtsr1.frequency}
-                        </p>
-                        <p>
-                          <strong>Pending Returns:</strong>{" "}
-                          {gstResult.gtsr1.pending_count}
-                        </p>
-
-                        {gstResult.gtsr1.pending_months.length > 0 && (
-                          <p className='text-red-600 mt-2'>
-                            Pending Months:{" "}
-                            {gstResult.gtsr1.pending_months.join(", ")}
-                          </p>
-                        )}
-                        <p>
-                          <strong>Due Date:</strong>{" "}
-                          {gstResult.gtsr1.due_date || "All Clear"}
-                        </p>
-                      </div>
-
-                      {/* GSTR3B Card */}
-                      <div className='p-6 border rounded-xl shadow-sm'>
-                        <h3 className='text-xl font-bold mb-4'>
-                          GSTR-3B Status
-                        </h3>
-
-                        <p>
-                          <strong>Status:</strong>
-                          <span
-                            className={`ml-2 px-2 py-1 rounded text-sm ${
-                              gstResult.gtsr3b.status === "FILED"
-                                ? "bg-green-100 text-green-700"
-                                : "bg-red-100 text-red-700"
-                            }`}
-                          >
-                            {gstResult.gtsr3b.status}
-                          </span>
-                        </p>
-
-                        <p>
-                          <strong>Frequency:</strong>{" "}
-                          {gstResult.gtsr3b.frequency}
-                        </p>
-                        <p>
-                          <strong>Pending Returns:</strong>{" "}
-                          {gstResult.gtsr3b.pending_count}
-                        </p>
-
-                        {gstResult.gtsr3b.pending_months.length > 0 && (
-                          <p className='text-red-600 mt-2'>
-                            Pending Months:{" "}
-                            {gstResult.gtsr3b.pending_months.join(", ")}
-                          </p>
-                        )}
-                        <p>
-                          <strong>Due Date:</strong>{" "}
-                          {gstResult.gtsr1.due_date || "All Clear"}
-                        </p>
-                      </div>
-                    </div>
-                  </>
-                )}
-              </div>
-            )}
 
             {/* Compliance History Section */}
             {complianceHistory.length > 0 && (
@@ -747,13 +634,6 @@ const fetchUserData = async () => {
           </div>
         </div>
         <br></br>
-        <section className='mt-16'>
-          <GSTProfileTabs
-            gstin={form.gstin}
-            tradeName={form.name}
-            state='Tamil Nadu'
-          />
-        </section>
       </main>
     </>
   );

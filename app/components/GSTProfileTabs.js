@@ -7,7 +7,7 @@ import ComplianceClassification from "./ComplianceClassification";
 
 const TABS = ["Details", "Recent GST Returns", "Compliance Classification"];
 
-export default function GSTProfileTabs({ gstin, tradeName, state }) {
+export default function GSTProfileTabs({ gstin, tradeName, state, gstData }) {
   const [activeTab, setActiveTab] = useState("Details");
 
   return (
@@ -36,10 +36,10 @@ export default function GSTProfileTabs({ gstin, tradeName, state }) {
       </div>
 
       {/* Content */}
-      {activeTab === "Details" && <GSTDetailsCard />}
-      {activeTab === "Recent GST Returns" && <RecentGSTReturns />}
+      {activeTab === "Details" && <GSTDetailsCard data={gstData} />}
+      {activeTab === "Recent GST Returns" && <RecentGSTReturns data={gstData} />}
       {activeTab === "Compliance Classification" && (
-        <ComplianceClassification />
+        <ComplianceClassification data={gstData} />
       )}
 
       <p className='text-sm text-gray-500 italic mt-6'>
