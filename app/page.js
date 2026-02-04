@@ -5,7 +5,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Navbar from "@/app/components/navbar";
 import { supabase } from "@/lib/supabase";
-import ComplianceChart from "@/components/ComplianceChart";
+import GSTProfileTabs from "./components/GSTProfileTabs";
 
 export default function Home() {
   const { data: session, status } = useSession();
@@ -498,6 +498,14 @@ export default function Home() {
             </div>
           </div>
         </div>
+        <br></br>
+        <section className='mt-16'>
+          <GSTProfileTabs
+            gstin={form.gstin}
+            tradeName={form.name}
+            state='Tamil Nadu'
+          />
+        </section>
       </main>
     </>
   );
