@@ -55,8 +55,8 @@ def send_whatsapp(phone, message):
 
 # ================= MAIN MESSAGE =================
 def build_main_message(payload):
-    g1 = payload["gtsr1"]
-    g3 = payload["gtsr3b"]
+    g1 = payload["gstr1"]
+    g3 = payload["gstr3b"]
 
     return f"""
 *GST Filing Status*
@@ -128,10 +128,10 @@ def send_main_message_from_ui(client, gst_payload):
     
     # Save derived fields
     update_payload = {
-        "gstr1_due_date": gst_payload["gtsr1"]["due_date"],
-        "gstr1_pending_count": gst_payload["gtsr1"]["pending_count"],
-        "gstr3b_due_date": gst_payload["gtsr3b"]["due_date"],
-        "gstr3b_pending_count": gst_payload["gtsr3b"]["pending_count"],
+        "gstr1_due_date": gst_payload["gstr1"]["due_date"],
+        "gstr1_pending_count": gst_payload["gstr1"]["pending_count"],
+        "gstr3b_due_date": gst_payload["gstr3b"]["due_date"],
+        "gstr3b_pending_count": gst_payload["gstr3b"]["pending_count"],
     }
     update_compliance_derived_fields(client["gstin"], update_payload)
 

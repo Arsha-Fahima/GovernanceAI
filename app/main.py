@@ -144,7 +144,8 @@ from app.api_results import (
     fetch_gst_data,
     extract_gst_details,
     build_compliance_db_payload,
-    main_pending_calculater,
+    build_compliance_report,
+    main_pending_calculator,
     extract_derived_update_payload
 )
 from app.utils import is_valid_gstin
@@ -196,43 +197,50 @@ def submit_user(form: GSTForm):
         return {"status": "error", "message": str(e)}
 
 # ================= CHECK GST STATUS =================
+
 @app.post("/check-status/")
 def check_status(form: EmailForm):
     try:
-        # 1️⃣ Fetch user
+        # ================= USER =================
         user_result = fetch_user_by_email(form.email)
-
-        # Handle user not found / DB error
         if user_result["status"] == "error":
             return user_result
 
-        user = user_result["data"]  # actual row
-
-        # 2️⃣ Get GSTIN safely
+        user = user_result["data"]
         gstin = user.get("gstin", "").strip().upper()
+
         if not gstin or not is_valid_gstin(gstin):
             return {"status": "error", "message": "Invalid GSTIN in user profile"}
 
-        # 3️⃣ Fetch GST API data
+        # ================= GST API =================
         api_response = fetch_gst_data(gstin)
         gst_details = extract_gst_details(api_response)
 
-        # 4️⃣ Update compliance raw
-        upsert_compliance(build_compliance_db_payload(gst_details))
+        # ================= SAVE RAW DATA =================
+        raw_payload = build_compliance_db_payload(gst_details)
+        upsert_compliance(raw_payload)
 
-        # 5️⃣ Derived compliance update
-        pending_result = main_pending_calculater(gst_details)
+        # ================= DERIVED CALCULATIONS =================
+        pending_result = main_pending_calculator(gst_details)
         update_payload = extract_derived_update_payload(pending_result)
-        update_compliance_derived_fields(gst_details["gstin"], update_payload)
+        update_compliance_derived_fields(gstin, update_payload)
 
-        # 6️⃣ WhatsApp message
-        whatsapp_msg = build_main_message(pending_result)
+        # ================= REPORT =================
+        report = build_compliance_report(gst_details)
+
+        # ================= WHATSAPP =================
+        whatsapp_msg = build_main_message(report)
         send_whatsapp(user.get("phone"), whatsapp_msg)
 
-        # 7️⃣ Cron
+        # ================= REMINDER ENGINE =================
         run_daily_cron()
 
-        return {"status": "success", "gst_report": pending_result}
+        return {
+            "status": "success",
+            "gst_report": report
+        }
 
     except Exception as e:
+        import traceback
+        traceback.print_exc()
         return {"status": "error", "message": str(e)}
