@@ -30,29 +30,92 @@ export default function Home() {
     }
   }, [session]);
 
-  const fetchUserData = async () => {
-    if (!session?.user?.email) return;
+  // const fetchUserData = async () => {
+  //   if (!session?.user?.email) return;
 
+  //   const { data, error } = await supabase
+  //     .from("users")
+  //     .select("*")
+  //     .eq("email", session.user.email)
+  //     .maybe_single();
+
+  //   if (data) {
+  //     setUserData(data);
+  //     setForm({
+  //       name: data.name || "",
+  //       phone: data.phone || "",
+  //       gstin: data.gstin || "",
+  //     });
+  //     // // If user has phone and gstin filled, show dashboard
+  //     // if (data.phone && data.gstin) {
+  //     //   setShowDashboard(true);
+  //     //   fetchComplianceHistory(data.gstin);
+  //     // }
+  //   }
+  // };
+
+const fetchUserData = async () => {
+  if (!session?.user?.email) return;
+
+  const { data, error } = await supabase
+    .from("users")
+    .select("*")
+    .eq("email", session.user.email)
+    .limit(1);
+
+  if (error) {
+    setError(error.message || "Failed to fetch user");
+    return;
+  }
+
+  const user = Array.isArray(data) ? data[0] : data;
+
+  if (user) {
+    setUserData(user);
+    setForm({
+      name: user.name || "",
+      phone: user.phone || "",
+      gstin: user.gstin || "",
+    });
+    // Optional: show dashboard automatically if user has all info
+    if (user.phone && user.gstin) {
+      setShowDashboard(true);
+    }
+  } else {
+    setShowDashboard(false); // show form for user to fill details
+    await createUserIfNotExists(); // optionally create a new user row
+  }
+};
+
+
+const createUserIfNotExists = async () => {
+  if (!session?.user) return;
+
+  try {
     const { data, error } = await supabase
       .from("users")
-      .select("*")
-      .eq("email", session.user.email)
-      .single();
+      .insert([
+        {
+          id: session.user.id, // use auth user id to link auth ↔ DB
+          email: session.user.email,
+          name: session.user.name || session.user.user_metadata?.full_name || "User",
+        },
+      ])
+      .select()
+      .limit(1);
 
-    if (data) {
-      setUserData(data);
-      setForm({
-        name: data.name || "",
-        phone: data.phone || "",
-        gstin: data.gstin || "",
-      });
-      // // If user has phone and gstin filled, show dashboard
-      // if (data.phone && data.gstin) {
-      //   setShowDashboard(true);
-      //   fetchComplianceHistory(data.gstin);
-      // }
+    if (error) {
+      setError("Failed to create user record. Please try again or contact support.");
+      return;
     }
-  };
+
+    const newUser = Array.isArray(data) ? data[0] : data;
+    setUserData(newUser);
+  } catch (err) {
+    setError("Create user failed. Please try again later.");
+  }
+};
+
 
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
