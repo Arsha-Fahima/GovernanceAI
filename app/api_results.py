@@ -582,8 +582,11 @@ def build_compliance_db_payload(gst_details):
     raw_date = gst_details.get("rgdt")
     formatted_date = None
 
-    if raw_date:
-        formatted_date = datetime.strptime(raw_date, "%d/%m/%Y").strftime("%Y-%m-%d")
+    try:
+        if raw_date:
+            formatted_date = datetime.strptime(raw_date, "%d/%m/%Y").strftime("%Y-%m-%d")
+    except:
+        formatted_date = None
 
     latest_period = meta.get("latestgtsr1") or meta.get("latestgtsr3b")
 
@@ -602,15 +605,15 @@ def build_compliance_db_payload(gst_details):
         "dty": gst_details["dty"],
         "sts": gst_details["sts"],
         "pan": gst_details["pan"],
-        "hsn": gst_details["hsn"],
+        "hsn": json.dumps(gst_details.get("hsn", [])),
         "mandatedeinvoice": gst_details["mandatedeInvoice"],
         "einvoicestatus": gst_details["einvoiceStatus"],
         "ctb": gst_details["ctb"],
-        "nba": gst_details["nba"],
+        "nba": json.dumps(gst_details.get("nba", [])),
         "rgdt": formatted_date,
         "ctj": gst_details["ctj"],
         "stj": gst_details["stj"],
-        "adr": gst_details["adr"],
+        "adr": json.dumps(gst_details.get("adr", {})),
         "filingfreq": filling_freq,
         "filing_pattern": get_filing_pattern(filling_freq),
         "latestgstr1": meta.get("latestgtsr1"),
