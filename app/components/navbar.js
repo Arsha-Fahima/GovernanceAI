@@ -9,8 +9,8 @@ export default function Navbar() {
   if (!session) return null;
 
   return (
-    <nav className='flex items-center justify-between px-6 py-4 bg-white shadow'>
-      <div className='font-semibold text-lg'>GovernanceAI</div>
+    <nav className='flex items-center justify-between px-4 py-3 bg-white shadow'>
+      <div className='font-semibold text-base'>GovernanceAI</div>
 
       <div className='flex items-center gap-4'>
         <span className='text-sm text-gray-600'>{session.user?.name}</span>

@@ -1,50 +1,64 @@
-export default function GSTDetailsCard({ data }) {
+export default function GSTDetailsCard({ data, dbRecord }) {
+  // Prefer dbRecord when available, fallback to gst API data
+  const rows = [
+    ["Legal Name", dbRecord?.legal_name || data?.legalname || "Unknown"],
+    ["Trade Name", dbRecord?.trade_name || data?.tradeName || "Unknown"],
+    ["GSTIN", dbRecord?.gstin || data?.gstin || "Unknown"],
+    ["PAN", dbRecord?.pan || data?.pan || "Unknown"],
+    ["Registration Date", dbRecord?.rgdt || data?.rgdt || "Unknown"],
+    ["Status", dbRecord?.sts || data?.sts || "Unknown"],
+    ["Place of Business", dbRecord?.adr || data?.adr || "Unknown"],
+    ["Central Jurisdiction", dbRecord?.ctj || data?.ctj || "Unknown"],
+    ["State Jurisdiction", dbRecord?.stj || data?.stj || "Unknown"],
+    ["Pincode", dbRecord?.pincode || data?.pincode || "Unknown"],
+    ["Tax Type", dbRecord?.dty || data?.dty || "Unknown"],
+    [
+      "E-Invoice mandatory?",
+      dbRecord?.mandatedeInvoice != null
+        ? dbRecord.mandatedeInvoice
+          ? "Yes"
+          : "No"
+        : data?.mandatedeInvoice != null
+          ? data.mandatedeInvoice
+            ? "Yes"
+            : "No"
+          : "Unknown",
+    ],
+    ["Entity Type", dbRecord?.ctb || data?.ctb || "Unknown"],
+  ];
+
   return (
-    <div className="bg-[#faf9f6] rounded-2xl shadow-sm p-8 space-y-6">
-      <DetailRow label="Trade Name" value={data?.tradeName || "N/A"} />
-      <DetailRow label="Legal Name" value={data?.legalname || "N/A"} />
-      <DetailRow label="GSTIN" value={data?.gstin || "N/A"} />
-      <DetailRow label="Pincode" value={data?.pincode || "N/A"} />
-      <DetailRow label="Pan" value={data?.pan || "N/A"} />
-      <DetailRow label="Tax Type" value={data?.dty || "N/A"} />
-      <DetailRow label="Status" value={data?.sts || "N/A"} />
+    <section className='bg-white rounded-xl shadow-sm border border-gray-100 p-4'>
+      <header className='mb-3'>
+        <h3 className='text-lg font-semibold text-gray-900 mb-0'>
+          Business Information
+        </h3>
+        <p className='text-xs text-gray-500 mt-1'>
+          Complete GST registration details — concise view
+        </p>
+      </header>
 
-      {/* <div>
-        <p className='text-sm text-gray-600 mb-2'>Registration Status</p>
-        <div className='flex gap-3'>
-          <span className='px-4 py-1 rounded-full bg-green-500 text-white text-sm font-medium'></span>
-          Active
-          <span className='px-4 py-1 rounded-full bg-blue-400 text-white text-sm font-medium'>
-            Regular
-          </span>
-        </div>
-      </div> */}
-
-      <DetailRow label="Registration Date" value={data?.rgdt || "N/A"} />
-      <DetailRow label="Entity Type" value={data?.ctb || "N/A"} />
-
-      <DetailRow
-        label="Place of Business (Address)"
-        value={data?.adr || "N/A"}
-      />
-
-      <DetailRow
-        label="E-Invoice mandatory?"
-        value={data?.mandatedeInvoice || "N/A"}
-      />
-
-      <DetailRow label="Central Jurisdiction" value={data?.ctj || "N/A"} />
-
-      <DetailRow label="State Jurisdiction" value={data?.stj || "N/A"} />
-    </div>
-  );
-}
-
-function DetailRow({ label, value }) {
-  return (
-    <div className="flex gap-6">
-      <p className="text-sm text-gray-600 w-48 shrink-0">{label}</p>
-      <p className="text-sm text-gray-900 leading-relaxed">{value}</p>
-    </div>
+      <dl className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3'>
+        {rows.map(([label, value]) => (
+          <div
+            key={label}
+            className='bg-gray-50 rounded-md border border-gray-100 p-3 flex flex-col'
+          >
+            <dt className='text-sm font-semibold text-gray-800 uppercase tracking-wide'>
+              {label}
+            </dt>
+            <dd className='text-sm  text-gray-900 mt-1 break-words'>
+              {label === "GSTIN" || label === "PAN" ? (
+                <span className='font-mono text-sm font-semibold text-gray-900'>
+                  {value}
+                </span>
+              ) : (
+                <span className='text-sm font- text-gray-900'>{value}</span>
+              )}
+            </dd>
+          </div>
+        ))}
+      </dl>
+    </section>
   );
 }
