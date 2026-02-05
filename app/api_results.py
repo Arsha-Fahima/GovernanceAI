@@ -588,7 +588,7 @@ def build_compliance_db_payload(gst_details):
     return {
         "gstin": gst_details["gstin"],
         "legalname": gst_details["lgnm"],
-        "compcategory": gst_details.get("compCategory", "Unknown"),
+        "compcategory": gst_details["compcategory"],
         "latestgstr1": meta.get("latestgtsr1"),
         "latestgstr3b": meta.get("latestgtsr3b"),
 
@@ -658,7 +658,7 @@ def build_compliance_report(gst_details):
     return {
         "legalname": gst_details["lgnm"],
         "gstin": gst_details["gstin"],
-        "compcategory": gst_details.get("compCategory", "Unknown"),
+        "compcategory": gst_details["compcategory"],
         "tradeName": gst_details["TradeName"],
         "pincode": gst_details["pincode"],
         "pan": gst_details["pan"],
