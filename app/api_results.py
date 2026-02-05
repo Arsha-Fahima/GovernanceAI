@@ -390,9 +390,11 @@ def extract_gst_details(api_response: dict):
         "gstin": data.get("gstin"),
         "compcategory": data.get("compCategory"),
         "sts": data.get("sts"),
+        "dty": data.get("dty"),
         "TradeName":data.get("tradeName"),
         "pincode":data.get("pincode"),
         "pan":data.get("pan"),
+        "hsn":data.get("hsn"),
         "mandatedeInvoice":data.get("mandatedeInvoice"),
         "einvoiceStatus":data.get("einvoiceStatus"),
         "ctb":data.get("ctb"),
@@ -588,9 +590,26 @@ def build_compliance_db_payload(gst_details):
     return {
         "gstin": gst_details["gstin"],
         "legalname": gst_details["lgnm"],
+        "tradename": gst_details["TradeName"],
         "compcategory": gst_details["compcategory"],
+        "pincode": gst_details["pincode"],
+        "dty": gst_details["dty"],
+        "sts": gst_details["sts"],
+        "pan": gst_details["pan"],
+        "hsn": gst_details["hsn"],
+        "mandatedeinvoice": gst_details["mandatedeInvoice"],
+        "einvoicestatus": gst_details["einvoiceStatus"],
+        "ctb": gst_details["ctb"],
+        "nba": gst_details["nba"],
+        "rgdt": gst_details["rgdt"],
+        "ctj": gst_details["ctj"],
+        "stj": gst_details["stj"],
+        "adr": gst_details["adr"],
+        "filingfreq": filling_freq,
+        "filing_pattern": get_filing_pattern(filling_freq),
         "latestgstr1": meta.get("latestgtsr1"),
         "latestgstr3b": meta.get("latestgtsr3b"),
+
 
         # JSONB — always safe
         "gstr1": {
@@ -662,6 +681,9 @@ def build_compliance_report(gst_details):
         "tradeName": gst_details["TradeName"],
         "pincode": gst_details["pincode"],
         "pan": gst_details["pan"],
+        "dty": gst_details["dty"],
+        "hsn": gst_details["hsn"],
+        "sts": gst_details["sts"],
         "mandatedeInvoice": gst_details["mandatedeInvoice"],
         "einvoiceStatus": gst_details["einvoiceStatus"],
         "ctb": gst_details["ctb"],
@@ -670,8 +692,11 @@ def build_compliance_report(gst_details):
         "ctj": gst_details["ctj"],
         "stj": gst_details["stj"],
         "adr": gst_details["adr"],
+        "filingFreq": filling_freq,
         "filing_pattern": get_filing_pattern(filling_freq),
         "current_filing_frequency": current_freq,
+        "returns": gst_details.get("gstr1_returns", []),
+        "returns": gst_details.get("gstr3b_returns", []),
         "gstr1": {"return_type": "GSTR1", **gstr1_data},
         "gstr3b": {"return_type": "GSTR3B", **gstr3b_data}
     }
@@ -684,6 +709,9 @@ def print_report(payload):
     print(f"CompCategory   : {payload['compcategory']}")
     print(f"PAN        : {payload['pan']}")
     print(f"Pincode    : {payload['pincode']}")
+    print(f"DTY        : {payload['dty']}")
+    print(f"HSN        : {payload['hsn']}")
+    print(f"Status     : {payload['sts']}")
     print(f"ManDatedeInvoice  : {payload['mandatedeInvoice']} ")
     print(f"EInvoice Status   : {payload['einvoiceStatus']} ")
     print(f"CTB        : {payload['ctb']}")
@@ -694,6 +722,8 @@ def print_report(payload):
     print(f"ADR       : {payload['adr']}")
     print(f"GSTIN      : {payload['gstin']}")
     print(f"Pattern    : {payload['filing_pattern']}\n")
+    print(f"Current Filing Frequency : {payload['current_filing_frequency']}\n")
+    print(f"Return Periodicity: {payload['filingFreq']}\n")
     
 
     for key in ["gstr1", "gstr3b"]:
