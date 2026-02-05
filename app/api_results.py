@@ -704,8 +704,8 @@ def build_compliance_report(gst_details):
         "filingFreq": filling_freq,
         "filing_pattern": get_filing_pattern(filling_freq),
         "current_filing_frequency": current_freq,
-        "returns": gst_details.get("gstr1_returns", []),
-        "returns": gst_details.get("gstr3b_returns", []),
+        "returns_gstr1": gst_details.get("gstr1_returns", []),
+        "returns_gstr3b": gst_details.get("gstr3b_returns", []),
         "gstr1": {"return_type": "GSTR1", **gstr1_data},
         "gstr3b": {"return_type": "GSTR3B", **gstr3b_data}
     }
