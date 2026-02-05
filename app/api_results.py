@@ -338,7 +338,7 @@
 
 import http.client
 import json
-from datetime import date
+from datetime import date, datetime
 from app.config import RAPIDAPI_KEY
 
 HOST = "gst-return-status.p.rapidapi.com"
@@ -579,6 +579,12 @@ def build_compliance_db_payload(gst_details):
     gstr1_data = calculate_gstr1_pending(meta.get("latestgtsr1"), filling_freq)
     gstr3b_data = calculate_gstr3b_pending(meta.get("latestgtsr3b"), filling_freq)
 
+    raw_date = gst_details.get("rgdt")
+    formatted_date = None
+
+    if raw_date:
+        formatted_date = datetime.strptime(raw_date, "%d/%m/%Y").strftime("%Y-%m-%d")
+
     latest_period = meta.get("latestgtsr1") or meta.get("latestgtsr3b")
 
     if latest_period:
@@ -601,7 +607,7 @@ def build_compliance_db_payload(gst_details):
         "einvoicestatus": gst_details["einvoiceStatus"],
         "ctb": gst_details["ctb"],
         "nba": gst_details["nba"],
-        "rgdt": gst_details["rgdt"],
+        "rgdt": formatted_date,
         "ctj": gst_details["ctj"],
         "stj": gst_details["stj"],
         "adr": gst_details["adr"],
