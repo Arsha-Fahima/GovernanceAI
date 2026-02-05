@@ -11,14 +11,14 @@ export default function GSTProfileTabs({ gstin, tradeName, state, gstData }) {
   const [activeTab, setActiveTab] = useState("Details");
 
   return (
-    <div className='bg-gray-50 rounded-xl p-6'>
-      <h2 className='text-lg font-semibold text-gray-800 mb-6'>
-        GST Details of <span className='font-bold'>{tradeName}</span>
-        <span className='text-gray-600'>({gstin})</span>
+    <div className="bg-gray-50 rounded-xl p-6">
+      <h2 className="text-lg font-semibold text-gray-800 mb-6">
+        GST Details of <span className="font-bold">{tradeName}</span>
+        <span className="text-gray-600">({gstin})</span>
       </h2>
 
       {/* Tabs */}
-      <div className='flex gap-4 mb-6'>
+      <div className="flex gap-4 mb-6">
         {TABS.map((tab) => (
           <button
             key={tab}
@@ -37,12 +37,14 @@ export default function GSTProfileTabs({ gstin, tradeName, state, gstData }) {
 
       {/* Content */}
       {activeTab === "Details" && <GSTDetailsCard data={gstData} />}
-      {activeTab === "Recent GST Returns" && <RecentGSTReturns data={gstData} />}
+      {activeTab === "Recent GST Returns" && (
+        <RecentGSTReturns data={gstData} />
+      )}
       {activeTab === "Compliance Classification" && (
         <ComplianceClassification data={gstData} />
       )}
 
-      <p className='text-sm text-gray-500 italic mt-6'>
+      <p className="text-sm text-gray-500 italic mt-6">
         GSTIN profile last fetched on Mon Aug 25 2025 and GST Returns status
         last fetched on Mon Feb 02 2026.
       </p>
