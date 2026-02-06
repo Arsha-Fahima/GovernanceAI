@@ -210,41 +210,47 @@ export default function Home() {
       <>
         <Navbar />
         <main className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-6 px-3 sm:px-6 lg:px-6">
-          <div className="max-w-screen-xl mx-auto px-4">
+          <div className="max-w-screen-xl mx-auto px-4 mx-auto max-w-7xl px-3 sm:px-6 lg:px-8 py-6">
             <div className="bg-white rounded-xl shadow-lg p-4 sm:p-6 mb-6">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+              <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between mb-6">
                 <div className="flex items-center gap-4">
                   <div className="w-14 h-14 rounded-full bg-blue-50 flex items-center justify-center text-blue-600 font-bold">
                     {userData?.name?.charAt(0) || "U"}
                   </div>
                   <div>
-                    <h1 className="text-2xl font-semibold text-gray-900">
+                    <h1 className="text-xl font-semibold text-gray-900">
                       {userData.name}
                     </h1>
                     <p className="text-sm text-gray-500">{userData.email}</p>
-                    <div className="mt-2 flex items-center gap-2">
-                      <span className="text-xs bg-gray-100 text-gray-700 px-3 py-1 rounded-full">
-                        GSTIN: {userData.gstin}
-                      </span>
-                      <span className="text-xs bg-gray-100 text-gray-700 px-3 py-1 rounded-full">
-                        Phone: {userData.phone}
-                      </span>
-                    </div>
                   </div>
                 </div>
+                <div className="mt-3 mb-2 flex items-center gap-2">
+                  <span className="text-xs bg-gray-100 text-gray-700 px-3 py-1 rounded-full">
+                    GSTIN: {userData.gstin}
+                  </span>
+                  <span className="text-xs bg-gray-100 text-gray-700 px-3 py-1 rounded-full">
+                    Phone: {userData.phone}
+                  </span>
+                </div>
 
-                <div className="flex items-center gap-3">
+                <div className="flex flex-wrap items-center gap-2">
                   <button
                     onClick={() => setShowDashboard(false)}
-                    className="text-sm text-gray-700 px-3 py-2 rounded-md border hover:bg-gray-50"
+                    className="w-full min-h-[44px] text-sm text-gray-700 px-3 py-2 rounded-md border hover:bg-gray-50"
                   >
                     Edit Profile
+                  </button>
+                  <button
+                    onClick={() => window.location.reload()}
+                    className="w-full min-h-[44px] text-sm text-gray-700 px-3 py-2 rounded-md border hover:bg-gray-50"
+                  >
+                    Refresh
                   </button>
 
                   <button
                     onClick={handleCheckGST}
                     disabled={checkingGST}
-                    className="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md text-sm font-medium"
+                    className="w-full min-h-[44px] items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md text-sm font-medium"
                   >
                     {checkingGST ? (
                       <svg
@@ -269,19 +275,12 @@ export default function Home() {
                     ) : null}
                     Check Compliance
                   </button>
-
-                  <button
-                    onClick={() => window.location.reload()}
-                    className="text-sm text-gray-700 px-3 py-2 rounded-md border hover:bg-gray-50"
-                  >
-                    Refresh
-                  </button>
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 <div className="bg-gray-50 rounded-lg p-4 text-sm">
-                  <p className="text-xs text-gray-500">Profile Verify</p>
+                  <p className="text-xs text-gray-500">Profile Verified</p>
                   <p className="text-base font-semibold text-gray-900">
                     {userData?.email ? "Yes" : "No"}
                   </p>
@@ -376,7 +375,7 @@ export default function Home() {
                   {complianceHistory.map((record, index) => (
                     <div
                       key={record.id || index}
-                      className="border rounded-lg p-4 hover:shadow-md transition-shadow"
+                      className="border rounded-lg p-4 sm:p-5 lg:p-6 hover:shadow-md transition-shadow"
                     >
                       <div className="flex justify-between items-start mb-4">
                         <div>
@@ -399,7 +398,7 @@ export default function Home() {
                         </div>
                       </div>
 
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
                         <div className="p-3 bg-gray-50 rounded">
                           <p className="text-sm text-gray-600">Legal Name</p>
                           <p className="font-semibold">
@@ -477,7 +476,7 @@ export default function Home() {
                         <summary className="cursor-pointer text-sm text-blue-600 hover:text-blue-800">
                           View Full Details
                         </summary>
-                        <div className="mt-2 p-4 bg-gray-100 rounded text-xs overflow-auto max-h-96">
+                        <div className="mt-2 p-3 sm:p-4 bg-gray-100 rounded text-[11px] sm:text-xs overflow-x-auto max-h-80">
                           <pre>{JSON.stringify(record, null, 2)}</pre>
                         </div>
                       </details>
@@ -498,8 +497,8 @@ export default function Home() {
     <>
       <Navbar />
       <main className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+        <div className="max-w-6xl mx-auto mx-auto max-w-7xl px-3 sm:px-6 lg:px-8 py-6">
+          <div className="grid grid-cols-1 xl:grid-cols-2 gap-8 items-start">
             {/* Left Column: Form */}
             <div className="bg-white rounded-lg shadow-sm p-6 sm:p-8">
               <div className="mb-6">
@@ -528,7 +527,7 @@ export default function Home() {
                       value={form.name}
                       onChange={handleChange}
                       required
-                      className="w-full px-3 py-2 border border-gray-200 rounded-md focus:ring-2 focus:ring-indigo-500"
+                      className="w-full min-h-[44px] px-3 py-2 border border-gray-200 rounded-md focus:ring-2 focus:ring-indigo-500"
                     />
                   </div>
 
@@ -547,7 +546,7 @@ export default function Home() {
                       value={form.phone}
                       onChange={handleChange}
                       required
-                      className="w-full px-3 py-2 border border-gray-200 rounded-md focus:ring-2 focus:ring-indigo-500"
+                      className="w-full min-h-[44px]px-3 py-2 border border-gray-200 rounded-md focus:ring-2 focus:ring-indigo-500"
                     />
                   </div>
                 </div>
@@ -567,15 +566,15 @@ export default function Home() {
                     value={form.gstin}
                     onChange={handleChange}
                     required
-                    className="w-full px-3 py-2 border border-gray-200 rounded-md focus:ring-2 focus:ring-indigo-500"
+                    className="w-full min-h-[44px] px-3 py-2 border border-gray-200 rounded-md focus:ring-2 focus:ring-indigo-500"
                   />
                 </div>
 
-                <div className="flex items-center gap-3">
+                <div className="flex flex-wrap items-center gap-2">
                   <button
                     type="submit"
                     disabled={loading}
-                    className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md text-sm font-medium"
+                    className="w-full min-h-[44px] bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md text-sm font-medium"
                   >
                     {loading ? "Submitting..." : "Save & Show Dashboard"}
                   </button>
@@ -586,7 +585,7 @@ export default function Home() {
                       setForm({ name: "", phone: "", gstin: "" });
                       setResult(null);
                     }}
-                    className="text-sm px-3 py-2 rounded-md border"
+                    className="w-full min-h-[44px] text-sm px-3 py-2 rounded-md border"
                   >
                     Reset
                   </button>
