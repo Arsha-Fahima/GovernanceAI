@@ -281,7 +281,7 @@ export default function Home() {
 
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
                 <div className="bg-gray-50 rounded-lg p-4 text-sm">
-                  <p className="text-xs text-gray-500">Profile Verified</p>
+                  <p className="text-xs text-gray-500">Profile Verify</p>
                   <p className="text-base font-semibold text-gray-900">
                     {userData?.email ? "Yes" : "No"}
                   </p>
