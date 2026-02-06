@@ -28,32 +28,32 @@ export default function GSTDetailsCard({ data, dbRecord }) {
   ];
 
   return (
-    <section className='bg-white rounded-xl shadow-sm border border-gray-100 p-4'>
-      <header className='mb-3'>
-        <h3 className='text-lg font-semibold text-gray-900 mb-0'>
+    <section className="bg-white rounded-xl shadow-sm border border-gray-100 p-4">
+      <header className="mb-3">
+        <h3 className="text-lg font-semibold text-gray-900 mb-0">
           Business Information
         </h3>
-        <p className='text-xs text-gray-500 mt-1'>
-          Complete GST registration details — concise view
+        <p className="text-xs text-gray-500 mt-1">
+          Complete GST registration details - concise view
         </p>
       </header>
 
-      <dl className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3'>
+      <dl className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
         {rows.map(([label, value]) => (
           <div
             key={label}
-            className='bg-gray-50 rounded-md border border-gray-100 p-3 flex flex-col'
+            className="bg-gray-50 rounded-md border border-gray-100 p-3 flex flex-col"
           >
-            <dt className='text-sm font-semibold text-gray-800 uppercase tracking-wide'>
+            <dt className="text-sm font-semibold text-gray-800 uppercase tracking-wide">
               {label}
             </dt>
-            <dd className='text-sm  text-gray-900 mt-1 break-words'>
+            <dd className="text-sm  text-gray-900 mt-1 break-words">
               {label === "GSTIN" || label === "PAN" ? (
-                <span className='font-mono text-sm font-semibold text-gray-900'>
+                <span className="font-mono text-sm font-semibold text-gray-900">
                   {value}
                 </span>
               ) : (
-                <span className='text-sm font- text-gray-900'>{value}</span>
+                <span className="text-sm font- text-gray-900">{value}</span>
               )}
             </dd>
           </div>
