@@ -136,10 +136,10 @@ def send_main_message_from_ui(client, gst_payload):
     update_compliance_derived_fields(client["gstin"], update_payload)
 
 
-def mark_reminder_sent(gstin, return_type, days):
+def mark_reminder_sent(email, return_type, days):
     supabase.table("compliance").update({
         f"{return_type}_reminder_{days}_sent": True
-    }).eq("gstin", gstin).execute()
+    }).eq("email", email).execute()
 
 # ================= CRON LOGIC =================
 def process_return(client, return_type):
