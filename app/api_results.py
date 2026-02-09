@@ -572,7 +572,7 @@ def calculate_gstr3b_pending(meta_key, filling_freq):
     }
 
 # ---------- COMPLIANCE PAYLOAD ---------- #
-def build_compliance_db_payload(gst_details):
+def build_compliance_db_payload(gst_details,email):
     meta = gst_details.get("meta", {})
     filling_freq = gst_details.get("fillingFreq", {})
 
@@ -597,6 +597,7 @@ def build_compliance_db_payload(gst_details):
         latest_freq = "M"
 
     return {
+        "email": email,
         "gstin": gst_details["gstin"],
         "legalname": gst_details["lgnm"],
         "tradename": gst_details["TradeName"],

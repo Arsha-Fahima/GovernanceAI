@@ -134,6 +134,7 @@
 #     except Exception as e:
 #         return {"status": "error", "message": str(e)}
 # app/main.py
+import email
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
@@ -217,7 +218,7 @@ def check_status(form: EmailForm):
         gst_details = extract_gst_details(api_response)
 
         # ================= SAVE RAW DATA =================
-        raw_payload = build_compliance_db_payload(gst_details)
+        raw_payload = build_compliance_db_payload(gst_details, email=form.email)
         upsert_compliance(raw_payload)
 
         # ================= DERIVED CALCULATIONS =================
@@ -226,7 +227,7 @@ def check_status(form: EmailForm):
         update_compliance_derived_fields(gstin, update_payload)
 
         # ================= REPORT =================
-        report = build_compliance_report(gst_details)
+        report = build_compliance_report(gst_details,email)
 
         # ================= WHATSAPP =================
         whatsapp_msg = build_main_message(report)
