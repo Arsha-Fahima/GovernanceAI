@@ -224,7 +224,8 @@ def check_status(form: EmailForm):
         # ================= DERIVED CALCULATIONS =================
         pending_result = main_pending_calculator(gst_details)
         update_payload = extract_derived_update_payload(pending_result)
-        update_compliance_derived_fields(gstin, update_payload)
+        email=form.email
+        update_compliance_derived_fields(email, update_payload)
 
         # ================= REPORT =================
         report = build_compliance_report(gst_details,email)
