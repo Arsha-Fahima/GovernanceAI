@@ -10,6 +10,9 @@ def upsert_compliance(payload):
 
     if "email" not in payload:
         raise ValueError("Payload must contain 'email' field.")
+    
+    payload["email"] = payload["email"].strip().lower()
+    
 
     return supabase.table("compliance").upsert(
         payload,

@@ -218,8 +218,8 @@ def check_status(form: EmailForm):
         gst_details = extract_gst_details(api_response)
 
         # ================= SAVE RAW DATA =================
-        raw_payload = build_compliance_db_payload(gst_details, email=form.email)
-        upsert_compliance(raw_payload)
+        raw_payload = build_compliance_db_payload(gst_details)
+        upsert_compliance(raw_payload, email=form.email)
 
         # ================= DERIVED CALCULATIONS =================
         pending_result = main_pending_calculator(gst_details)
