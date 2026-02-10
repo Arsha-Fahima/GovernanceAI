@@ -219,16 +219,16 @@ def check_status(form: EmailForm):
 
         # ================= SAVE RAW DATA =================
         raw_payload = build_compliance_db_payload(gst_details)
-        upsert_compliance(raw_payload, email=form.email)
+        raw_payload["email"] = form.email
+        upsert_compliance(raw_payload)
 
         # ================= DERIVED CALCULATIONS =================
         pending_result = main_pending_calculator(gst_details)
         update_payload = extract_derived_update_payload(pending_result)
-        email=form.email
-        update_compliance_derived_fields(email, update_payload)
+        update_compliance_derived_fields(form.email, update_payload)
 
         # ================= REPORT =================
-        report = build_compliance_report(gst_details,email)
+        report = build_compliance_report(gst_details)
 
         # ================= WHATSAPP =================
         whatsapp_msg = build_main_message(report)
