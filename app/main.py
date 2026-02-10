@@ -218,7 +218,8 @@ def check_status(form: EmailForm):
         gst_details = extract_gst_details(api_response)
 
         # ================= SAVE RAW DATA =================
-        raw_payload = build_compliance_db_payload(gst_details)
+        raw_payload = build_compliance_db_payload(gst_details, form.email)
+        upsert_compliance(raw_payload)
         raw_payload["email"] = form.email
         raw_payload["gstin"] = gstin
         upsert_compliance(raw_payload)
