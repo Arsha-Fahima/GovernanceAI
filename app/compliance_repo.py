@@ -1,4 +1,6 @@
+import email
 from app.supabase_client import supabase
+
 
 
 # ================= UPSERT COMPLIANCE =================
@@ -11,8 +13,7 @@ def upsert_compliance(payload):
     if "email" not in payload:
         raise ValueError("Payload must contain 'email' field.")
     
-    payload["email"] = payload["email"].strip().lower()
-    
+    payload["email"]=payload["email"]
 
     return supabase.table("compliance").upsert(
         payload,
