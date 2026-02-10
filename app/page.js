@@ -82,7 +82,7 @@ export default function Home() {
       // If user has phone and gstin filled, show dashboard and fetch compliance
       if (data.phone && data.gstin && !data.gstin.startsWith("TEMP_")) {
         setShowDashboard(true);
-        fetchComplianceHistory(data.gstin);
+        fetchComplianceHistory(session.user.email);
       }
     }
   };
@@ -96,13 +96,13 @@ export default function Home() {
   const [gstResult, setGstResult] = useState(null);
   const [complianceHistory, setComplianceHistory] = useState([]);
 
-  const fetchComplianceHistory = async (gstin) => {
+  const fetchComplianceHistory = async (email) => {
     try {
       const { data, error } = await supabase
         .from("compliance")
         .select("*")
-        .eq("gstin", gstin)
-        .order("created_at", { ascending: false });
+        .eq("email", email);
+      // .order("created_at", { ascending: false });
 
       if (error) {
         console.error("Error fetching compliance history:", error);
