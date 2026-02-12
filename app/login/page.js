@@ -11,7 +11,7 @@ export default function LoginPage() {
 
   useEffect(() => {
     if (status === "authenticated") {
-      router.push("/");
+      router.push("/gstinsight");
     }
   }, [status, router]);
 
@@ -29,7 +29,7 @@ export default function LoginPage() {
         </p>
 
         <button
-          onClick={() => signIn("google", { callbackUrl: "/" })}
+          onClick={() => signIn("google", { callbackUrl: "/gstinsight" })}
           className='w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg'
         >
           Continue with Google
