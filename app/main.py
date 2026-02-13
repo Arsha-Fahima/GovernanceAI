@@ -225,6 +225,10 @@ def check_status(form: EmailForm):
         upsert_compliance(raw_payload)
         raw_payload["email"] = form.email
         raw_payload["gstin"] = gstin
+        raw_payload = build_compliance_db_payload(gst_details, form.email)
+        upsert_compliance(raw_payload)
+        raw_payload["email"] = form.email
+        raw_payload["gstin"] = gstin
         upsert_compliance(raw_payload)
 
 
@@ -253,7 +257,7 @@ def check_status(form: EmailForm):
         # ================= REMINDER ENGINE =================
         run_daily_cron()
 
-        return {
+        return {    
             "status": "success",
             "gst_report": report
         }
