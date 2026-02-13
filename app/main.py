@@ -139,7 +139,7 @@ import email
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
-
+import traceback
 from app.user_repo import upsert_user, fetch_user_by_email
 from app.compliance_repo import upsert_compliance, update_compliance_derived_fields
 from app.api_results import (
@@ -263,7 +263,12 @@ def check_status(form: EmailForm):
         }
 
     except Exception as e:
-        import traceback
-        traceback.print_exc()
-        return {"status": "error", "message": str(e)}
+        print("ERROR TYPE:", type(e))
+        print("ERROR:", repr(e))
+        print("TRACEBACK:", traceback.format_exc())
+
+        return {
+            "status": "error",
+            "message": repr(e)   # use repr instead of str
+        }
 
