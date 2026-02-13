@@ -430,25 +430,50 @@ def get_filing_pattern(filling_freq: dict):
     if len(values) == 1:
         return "Monthly Only" if "M" in values else "Quarterly Only"
     return f"Switched Filling Pattern: {dict(filling_freq)}"
+
 # ================= CURRENT FREQUENCY LOGIC =================
 def get_current_filing_frequency(meta, filling_freq):
     latest_period = meta.get("latestgtsr1") or meta.get("latestgtsr3b")
-    if not latest_period:
+
+    if not latest_period or not latest_period.strip():
         return "Unknown"
 
     year, month = parse_meta_period(latest_period)
-    key = get_fy_quarter_key(year, month)
 
+    if not year or not month:
+        return "Unknown"
+
+    key = get_fy_quarter_key(year, month)
     freq = filling_freq.get(key, "M")
     return "Monthly" if freq == "M" else "Quarterly"
 
+
 # ================= DATE HELPERS =================
+# def parse_meta_period(value):
+#     month, fy = value.split(" ")
+#     m = MONTH_MAP[month]
+#     fy_start = int(fy.split("-")[0])
+#     year = fy_start if m >= 4 else fy_start + 1
+#     return year, m
+
 def parse_meta_period(value):
-    month, fy = value.split(" ")
-    m = MONTH_MAP[month]
-    fy_start = int(fy.split("-")[0])
-    year = fy_start if m >= 4 else fy_start + 1
-    return year, m
+    if not value or not value.strip():
+        return None, None
+
+    try:
+        month, fy = value.strip().split()
+        month = month.title()
+
+        if month not in MONTH_MAP:
+            return None, None
+
+        m = MONTH_MAP[month]
+        fy_start = int(fy.split("-")[0])
+        year = fy_start if m >= 4 else fy_start + 1
+        return year, m
+    except:
+        return None, None
+
 
 
 def get_expected_period():
@@ -523,12 +548,14 @@ def format_months(months):
 
 # ================= PENDING CALCULATION =================
 def calculate_gstr1_pending(meta_key, filling_freq):
-    if not meta_key:
-        return {"pending_months": [], "pending_count": 0, "due_date": None, "status": "UNKNOWN"}
+    if not meta_key or not meta_key.strip():
+        return {"pending_months": [], "pending_count": 0, "due_date": None, "status": "NOT_APPLICABLE"}
 
-    last_year, last_month = parse_meta_period(meta_key)
+    last_year, last_month = parse_meta_period(meta_key.strip())
+    if not last_year or not last_month:
+        return {"pending_months": [], "pending_count": 0, "due_date": None, "status": "INVALID_META"}
+
     filing_type = get_latest_frequency(last_year, last_month, filling_freq)
-
     periods = pending_months(last_year, last_month)
 
     if filing_type == "Q":
@@ -546,14 +573,15 @@ def calculate_gstr1_pending(meta_key, filling_freq):
         "status": "PENDING"
     }
 
-
 def calculate_gstr3b_pending(meta_key, filling_freq):
-    if not meta_key:
-        return {"pending_months": [], "pending_count": 0, "due_date": None, "status": "UNKNOWN"}
+    if not meta_key or not meta_key.strip():
+        return {"pending_months": [], "pending_count": 0, "due_date": None, "status": "NOT_APPLICABLE"}
 
-    last_year, last_month = parse_meta_period(meta_key)
+    last_year, last_month = parse_meta_period(meta_key.strip())
+    if not last_year or not last_month:
+        return {"pending_months": [], "pending_count": 0, "due_date": None, "status": "INVALID_META"}
+
     filing_type = get_latest_frequency(last_year, last_month, filling_freq)
-
     periods = pending_months(last_year, last_month)
 
     if filing_type == "Q":
@@ -572,12 +600,19 @@ def calculate_gstr3b_pending(meta_key, filling_freq):
     }
 
 # ---------- COMPLIANCE PAYLOAD ---------- #
-def build_compliance_db_payload(gst_details):
+def build_compliance_db_payload(gst_details,email):
     meta = gst_details.get("meta", {})
     filling_freq = gst_details.get("fillingFreq", {})
 
-    gstr1_data = calculate_gstr1_pending(meta.get("latestgtsr1"), filling_freq)
-    gstr3b_data = calculate_gstr3b_pending(meta.get("latestgtsr3b"), filling_freq)
+    
+    applicable, _ = is_return_filing_applicable(gst_details)
+
+    if applicable:
+        gstr1_data = calculate_gstr1_pending(meta.get("latestgtsr1"), filling_freq)
+        gstr3b_data = calculate_gstr3b_pending(meta.get("latestgtsr3b"), filling_freq)
+    else:
+        gstr1_data = {"pending_count": 0, "due_date": None}
+        gstr3b_data = {"pending_count": 0, "due_date": None}
 
     raw_date = gst_details.get("rgdt")
     formatted_date = None
@@ -590,13 +625,17 @@ def build_compliance_db_payload(gst_details):
 
     latest_period = meta.get("latestgtsr1") or meta.get("latestgtsr3b")
 
-    if latest_period:
+    if latest_period and latest_period.strip():
         last_year, last_month = parse_meta_period(latest_period)
-        latest_freq = get_latest_frequency(last_year, last_month, filling_freq)
+        if last_year and last_month:
+            latest_freq = get_latest_frequency(last_year, last_month, filling_freq)
+        else:
+            latest_freq = "M"
     else:
         latest_freq = "M"
-
+    
     return {
+        "email":email,
         "gstin": gst_details["gstin"],
         "legalname": gst_details["lgnm"],
         "tradename": gst_details["TradeName"],
@@ -672,16 +711,58 @@ def extract_derived_update_payload(pending_result):
         "gstr3b_pending_count": pending_result.get("gstr3b", {}).get("pending_count", 0),
     }
 
+
+def is_return_filing_applicable(gst_details):
+    dealer_type = (gst_details.get("dty") or "").strip().lower()
+    status = (gst_details.get("sts") or "").strip().lower()
+
+    # Composition dealers don't file GSTR1/3B
+    if "composition" in dealer_type:
+        return False, "Composition Dealer"
+
+    # Cancelled GSTINs don't have active filing
+    if "cancelled on application of taxpayer" in status:
+        return False, "GSTIN Cancelled"
+
+    return True, "Regular"
+
 # ================= MAIN REPORT =================
 def build_compliance_report(gst_details):
     meta = gst_details.get("meta", {})
     filling_freq = gst_details.get("fillingFreq", {})
+    applicable, reason = is_return_filing_applicable(gst_details)
+
+    # HARD STOP — SKIP RETURN ENGINE
+    if not applicable:
+         return {
+        "legalname": gst_details["lgnm"],
+        "gstin": gst_details["gstin"],
+        "compcategory": gst_details["compcategory"],
+        "tradeName": gst_details["TradeName"],
+        "pincode": gst_details["pincode"],
+        "pan": gst_details["pan"],
+        "dty": gst_details["dty"],
+        "hsn": gst_details["hsn"],
+        "sts": gst_details["sts"],
+        "mandatedeInvoice": gst_details["mandatedeInvoice"],
+        "einvoiceStatus": gst_details["einvoiceStatus"],
+        "ctb": gst_details["ctb"],
+        "nba": json.dumps(gst_details.get("nba", [])),
+        "rgdt": gst_details["rgdt"],
+        "ctj": gst_details["ctj"],
+        "stj": gst_details["stj"],
+        "adr": json.dumps(gst_details.get("adr", {})),
+        "reason_for_no_returns": reason,   # ✅ ADD THIS
+        "compliance_note": "Return filing not applicable for this GSTIN",
+        "gstr1": None,
+        "gstr3b": None
+    }
+
+
 
     gstr1_data = calculate_gstr1_pending(meta.get("latestgtsr1"), filling_freq)
     gstr3b_data = calculate_gstr3b_pending(meta.get("latestgtsr3b"), filling_freq)
     current_freq = get_current_filing_frequency(meta, filling_freq)
-
-
 
     return {
         "legalname": gst_details["lgnm"],
@@ -730,9 +811,21 @@ def print_report(payload):
     print(f"STJ       : {payload['stj']}")
     print(f"ADR       : {payload['adr']}")
     print(f"GSTIN      : {payload['gstin']}")
+
+    if payload["gstr1"] is None:
+      print("\nReturn filing not applicable")
+      print(f"Reason: {payload['reason_for_no_returns']}")
+      print(f"Note   : {payload.get('compliance_note', '')}")
+      print(f"gstr1     : {payload['gstr1']}")
+      print(f"gstr3b    : {payload['gstr3b']}")
+      return
+    
+
     print(f"Pattern    : {payload['filing_pattern']}\n")
     print(f"Current Filing Frequency : {payload['current_filing_frequency']}\n")
     print(f"Return Periodicity: {payload['filingFreq']}\n")
+
+    
     
 
     for key in ["gstr1", "gstr3b"]:

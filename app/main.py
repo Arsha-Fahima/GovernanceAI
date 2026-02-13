@@ -134,6 +134,8 @@
 #     except Exception as e:
 #         return {"status": "error", "message": str(e)}
 # app/main.py
+
+import email
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
@@ -148,6 +150,7 @@ from app.api_results import (
     main_pending_calculator,
     extract_derived_update_payload
 )
+from app.api_results import is_return_filing_applicable
 from app.utils import is_valid_gstin
 from app.green_api import build_main_message, send_whatsapp, run_daily_cron
 
@@ -198,6 +201,7 @@ def submit_user(form: GSTForm):
 
 # ================= CHECK GST STATUS =================
 
+
 @app.post("/check-status/")
 def check_status(form: EmailForm):
     try:
@@ -217,13 +221,27 @@ def check_status(form: EmailForm):
         gst_details = extract_gst_details(api_response)
 
         # ================= SAVE RAW DATA =================
-        raw_payload = build_compliance_db_payload(gst_details)
+        raw_payload = build_compliance_db_payload(gst_details, form.email)
+        upsert_compliance(raw_payload)
+        raw_payload["email"] = form.email
+        raw_payload["gstin"] = gstin
         upsert_compliance(raw_payload)
 
-        # ================= DERIVED CALCULATIONS =================
-        pending_result = main_pending_calculator(gst_details)
-        update_payload = extract_derived_update_payload(pending_result)
-        update_compliance_derived_fields(gstin, update_payload)
+
+        # ================= RETURN APPLICABILITY CHECK =================
+        applicable, reason = is_return_filing_applicable(gst_details)
+
+        if applicable:
+            pending_result = main_pending_calculator(gst_details)
+            update_payload = extract_derived_update_payload(pending_result)
+        else:
+            pending_result = {
+                "gstr1": {"due_date": None, "pending_count": 0},
+                "gstr3b": {"due_date": None, "pending_count": 0}
+            }
+            update_payload = extract_derived_update_payload(pending_result)
+
+        update_compliance_derived_fields(form.email, update_payload)
 
         # ================= REPORT =================
         report = build_compliance_report(gst_details)
@@ -244,3 +262,4 @@ def check_status(form: EmailForm):
         import traceback
         traceback.print_exc()
         return {"status": "error", "message": str(e)}
+

@@ -55,6 +55,25 @@ def send_whatsapp(phone, message):
 
 # ================= MAIN MESSAGE =================
 def build_main_message(payload):
+
+    # CASE 1 — Return filing NOT applicable
+    if payload.get("gstr1") is None or payload.get("gstr3b") is None:
+        return f"""
+*GST Compliance Status*
+
+Hello {payload['legalname']},
+
+GSTIN: *{payload['gstin']}*
+Status: {payload.get('sts')}
+Dealer Type: {payload.get('dty')}
+
+Return filing is *NOT APPLICABLE* for this GSTIN
+Reason: {payload.get('reason_for_no_returns', 'Not eligible for return filing')}
+
+No GSTR-1 or GSTR-3B filings are required.
+""".strip()
+
+    # CASE 2 — Normal filing logic
     g1 = payload["gstr1"]
     g3 = payload["gstr3b"]
 
@@ -87,6 +106,7 @@ Please ensure all pending returns are filed before the due date to avoid penalti
 
 Thank you.
 """.strip()
+
 
 # ================= REMINDER MESSAGE =================
 def build_reminder_message(client, return_type, days):
@@ -136,10 +156,10 @@ def send_main_message_from_ui(client, gst_payload):
     update_compliance_derived_fields(client["gstin"], update_payload)
 
 
-def mark_reminder_sent(gstin, return_type, days):
+def mark_reminder_sent(email, return_type, days):
     supabase.table("compliance").update({
         f"{return_type}_reminder_{days}_sent": True
-    }).eq("gstin", gstin).execute()
+    }).eq("email", email).execute()
 
 # ================= CRON LOGIC =================
 def process_return(client, return_type):
