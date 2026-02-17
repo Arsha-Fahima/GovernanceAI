@@ -1,21 +1,22 @@
 "use client";
 
-import { signIn, useSession } from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Head from "next/head";
 
 export default function LoginPage() {
-  const { status } = useSession();
+  const { data: session, status } = useSession();
+
   const router = useRouter();
   const [activeMenu, setActiveMenu] = useState(null);
 
-  useEffect(() => {
-    if (status === "authenticated") {
-      router.push("/");
-    }
-  }, [status, router]);
+  // useEffect(() => {
+  //   if (status === "authenticated") {
+  //     router.push("/");
+  //   }
+  // }, [status, router]);
 
   useEffect(() => {
     const handleClickOutside = () => setActiveMenu(null);
@@ -30,7 +31,7 @@ export default function LoginPage() {
   return (
     <>
       <Head>
-        <title>GSTInsight – Intelligent GST Compliance Platform</title>
+        <title>GSTInsight Intelligent GST Compliance Platform</title>
       </Head>
 
       <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
@@ -44,12 +45,27 @@ export default function LoginPage() {
               GST<span className="text-gray-800">Insight</span>
             </h1>
 
-            <button
-              onClick={() => signIn("google", { callbackUrl: "/" })}
-              className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition"
-            >
-              Sign in
-            </button>
+            {status === "authenticated" ? (
+              <div className="flex items-center gap-4">
+                <span className="font-medium text-gray-700">
+                  {session?.user?.name}
+                </span>
+
+                <button
+                  onClick={() => signOut()}
+                  className="bg-red-500 text-white px-4 py-2 rounded-lg"
+                >
+                  Logout
+                </button>
+              </div>
+            ) : (
+              <button
+                onClick={() => signIn("google")}
+                className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition"
+              >
+                Sign in
+              </button>
+            )}
           </div>
         </nav>
 
@@ -57,7 +73,7 @@ export default function LoginPage() {
         <section className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center px-8 py-20">
           <div>
             <Image
-              src="/"
+              src="/mainimage.jpeg"
               alt="GST Dashboard"
               width={600}
               height={400}
@@ -78,7 +94,13 @@ export default function LoginPage() {
             </p>
 
             <button
-              onClick={() => signIn("google", { callbackUrl: "/" })}
+              onClick={() => {
+                if (status === "authenticated") {
+                  setShowDashboard(true); // 👈 show the dashboard inline
+                } else {
+                  signIn("google"); // login with Google
+                }
+              }}
               className="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition"
             >
               Access Your GST Dashboard
@@ -97,7 +119,7 @@ export default function LoginPage() {
               {/* BOX 1 */}
               <div className="bg-white border rounded-2xl p-10 shadow-sm hover:shadow-xl transition duration-300">
                 <Image
-                  src=""
+                  src="/pic1.jpeg"
                   alt="GST Return Details"
                   width={70}
                   height={70}
@@ -117,7 +139,7 @@ export default function LoginPage() {
               {/* BOX 2 */}
               <div className="bg-white border rounded-2xl p-10 shadow-sm hover:shadow-xl transition duration-300">
                 <Image
-                  src="/app/alert.jpeg"
+                  src="/pic2.jpeg"
                   alt="Compliance Alerts"
                   width={70}
                   height={70}
@@ -137,7 +159,7 @@ export default function LoginPage() {
               {/* BOX 3 */}
               <div className="bg-white border rounded-2xl p-10 shadow-sm hover:shadow-xl transition duration-300">
                 <Image
-                  src="/features/penalty-reduction.png"
+                  src="/pic3.jpeg"
                   alt="Penalty Reduction"
                   width={70}
                   height={70}
