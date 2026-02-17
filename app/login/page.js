@@ -2,183 +2,39 @@
 
 import { signIn, signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import Image from "next/image";
-import Head from "next/head";
+import { useEffect } from "react";
 
 export default function LoginPage() {
   const { data: session, status } = useSession();
-
+  console.log(session?.user?.email);
   const router = useRouter();
-  const [activeMenu, setActiveMenu] = useState(null);
-
-  // useEffect(() => {
-  //   if (status === "authenticated") {
-  //     router.push("/");
-  //   }
-  // }, [status, router]);
 
   useEffect(() => {
-    const handleClickOutside = () => setActiveMenu(null);
-    window.addEventListener("click", handleClickOutside);
-    return () => window.removeEventListener("click", handleClickOutside);
-  }, []);
+    if (status === "authenticated") {
+      router.push("/gstinsight");
+    }
+  }, [status, router]);
 
-  const toggleMenu = (menu) => {
-    setActiveMenu(activeMenu === menu ? null : menu);
-  };
+  if (status === "loading") {
+    return <p className='text-center mt-10'>Loading...</p>;
+  }
 
   return (
-    <>
-      <Head>
-        <title>GSTInsight Intelligent GST Compliance Platform</title>
-      </Head>
+    <main className='min-h-screen flex items-center justify-center bg-gradient from-blue-50 to-indigo-100 px-4'>
+      <div className='w-full max-w-md bg-white rounded-xl shadow-lg p-8'>
+        <h1 className='text-3xl font-bold text-center mb-4'>Welcome Back</h1>
 
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
-        {/* ================= NAVBAR ================= */}
-        <nav className="bg-white shadow-md relative z-50">
-          <div className="max-w-7xl mx-auto flex justify-between items-center px-8 py-4">
-            <h1
-              onClick={() => router.push("/")}
-              className="text-2xl font-bold text-blue-700 cursor-pointer"
-            >
-              GST<span className="text-gray-800">Insight</span>
-            </h1>
+        <p className='text-gray-600 text-center mb-8'>
+          Login to check your GST compliance
+        </p>
 
-            {status === "authenticated" ? (
-              <div className="flex items-center gap-4">
-                <span className="font-medium text-gray-700">
-                  {session?.user?.name}
-                </span>
-
-                <button
-                  onClick={() => signOut()}
-                  className="bg-red-500 text-white px-4 py-2 rounded-lg"
-                >
-                  Logout
-                </button>
-              </div>
-            ) : (
-              <button
-                onClick={() => signIn("google")}
-                className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition"
-              >
-                Sign in
-              </button>
-            )}
-          </div>
-        </nav>
-
-        {/* ================= HERO SECTION ================= */}
-        <section className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center px-8 py-20">
-          <div>
-            <Image
-              src="/mainimage.jpeg"
-              alt="GST Dashboard"
-              width={600}
-              height={400}
-              className="rounded-2xl shadow-2xl"
-            />
-          </div>
-
-          <div>
-            <h2 className="text-4xl font-bold mb-6 bg-gradient-to-r from-blue-700 to-indigo-600 text-transparent bg-clip-text">
-              GST Done 100% Right — Every Filing, Every Time
-            </h2>
-
-            <p className="text-gray-600 mb-6">
-              Access real-time GST status, filing history, compliance category,
-              due dates, turnover classification, and complete return analytics
-              — all in structured professional tables powered by intelligent
-              automation.
-            </p>
-
-            <button
-              onClick={() => {
-                if (status === "authenticated") {
-                  setShowDashboard(true); // 👈 show the dashboard inline
-                } else {
-                  signIn("google"); // login with Google
-                }
-              }}
-              className="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition"
-            >
-              Access Your GST Dashboard
-            </button>
-          </div>
-        </section>
-
-        {/* ================= FEATURES SECTION ================= */}
-        <section className="bg-gray-100 py-20">
-          <div className="max-w-7xl mx-auto px-8 text-center">
-            <h3 className="text-3xl font-bold mb-16 text-gray-800">
-              We Help You Stay 100% GST Compliant
-            </h3>
-
-            <div className="grid md:grid-cols-3 gap-10">
-              {/* BOX 1 */}
-              <div className="bg-white border rounded-2xl p-10 shadow-sm hover:shadow-xl transition duration-300">
-                <Image
-                  src="/pic1.jpeg"
-                  alt="GST Return Details"
-                  width={70}
-                  height={70}
-                  className="mx-auto mb-6"
-                />
-
-                <h4 className="text-xl font-semibold mb-4 text-gray-800">
-                  View Complete GST Return Details
-                </h4>
-
-                <p className="text-gray-600 text-sm">
-                  Instantly access GSTR1, GSTR3B, and GSTR9 filings with
-                  structured data tables, return history, and compliance status.
-                </p>
-              </div>
-
-              {/* BOX 2 */}
-              <div className="bg-white border rounded-2xl p-10 shadow-sm hover:shadow-xl transition duration-300">
-                <Image
-                  src="/pic2.jpeg"
-                  alt="Compliance Alerts"
-                  width={70}
-                  height={70}
-                  className="mx-auto mb-6"
-                />
-
-                <h4 className="text-xl font-semibold mb-4 text-gray-800">
-                  Receive Smart Compliance Alerts
-                </h4>
-
-                <p className="text-gray-600 text-sm">
-                  Get proactive notifications for upcoming due dates, missed
-                  filings, and compliance risks before penalties apply.
-                </p>
-              </div>
-
-              {/* BOX 3 */}
-              <div className="bg-white border rounded-2xl p-10 shadow-sm hover:shadow-xl transition duration-300">
-                <Image
-                  src="/pic3.jpeg"
-                  alt="Penalty Reduction"
-                  width={70}
-                  height={70}
-                  className="mx-auto mb-6"
-                />
-
-                <h4 className="text-xl font-semibold mb-4 text-gray-800">
-                  Reduce Late Fees & Penalties
-                </h4>
-
-                <p className="text-gray-600 text-sm">
-                  Identify filing gaps early and take corrective action to
-                  minimize interest charges and unnecessary penalties.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
+        <button
+          onClick={() => signIn("google", { callbackUrl: "/gstinsight" })}
+          className='w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg'
+        >
+          Continue with Google
+        </button>
       </div>
-    </>
+    </main>
   );
 }
