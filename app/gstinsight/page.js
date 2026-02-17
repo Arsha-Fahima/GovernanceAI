@@ -404,7 +404,7 @@ export default function GSTInsightPage() {
             <div className='relative animate-slideUp'>
               <div className='relative z-10 bg-slate-900 p-2.5 rounded-[3rem] shadow-[0_60px_100px_-20px_rgba(27,105,161,0.25)] border border-slate-800 overflow-hidden transform hover:scale-[1.02] transition-all duration-700 group'>
                 <Image
-                  src='https://images.unsplash.com/photo-1551288049-bbbda5366392?q=80&w=2070&auto=format&fit=crop'
+                  src='/images/gst1.jpg'
                   alt='Data Analytics Dashboard'
                   width={800}
                   height={600}
@@ -635,19 +635,19 @@ export default function GSTInsightPage() {
                 {
                   title: "Direct Port Access",
                   desc: "Low-latency integration with GSTN nodes ensures sub-second retrieval of legal data.",
-                  img: "https://images.unsplash.com/photo-1551288049-bbbda5366392?q=80&w=2070&auto=format&fit=crop",
+                  img: "/images/gst1.jpg",
                   icon: "M13 10V3L4 14h7v7l9-11h-7z",
                 },
                 {
                   title: "Risk Calibration",
                   desc: "Proprietary AI filters 24 months of filing history to generate automated compliance scores.",
-                  img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop",
+                  img: "/images/gst1.jpg",
                   icon: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z",
                 },
                 {
                   title: "Historical Audits",
                   desc: "Access granular filing records for the last 5 financial years with detailed GSTR status.",
-                  img: "https://images.unsplash.com/photo-1543286386-713bdd548da4?q=80&w=2070&auto=format&fit=crop",
+                  img: "/images/gst1.jpg",
                   icon: "M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z",
                 },
               ].map((item, i) => (
@@ -746,7 +746,7 @@ export default function GSTInsightPage() {
               <div className='lg:w-1/2 bg-slate-800 rounded-[3.5rem] p-5 border border-slate-700/50 shadow-[0_80px_120px_-30px_rgba(0,0,0,0.5)] relative'>
                 <div className='rounded-[3rem] overflow-hidden relative min-h-[500px]'>
                   <Image
-                    src='https://images.unsplash.com/photo-1551288049-bbbda5366392?q=80&w=2070&auto=format&fit=crop'
+                    src='/images/gst1.jpg'
                     alt='Process'
                     fill
                     className='opacity-70 object-cover group-hover:scale-105 transition-transform duration-1000'
