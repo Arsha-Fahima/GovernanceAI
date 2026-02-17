@@ -580,7 +580,7 @@ export default function Home() {
                     id="gstin"
                     name="gstin"
                     type="text"
-                    placeholder="12ABCDE1234F1Z5"
+                    placeholder="Enter Your GST Number"
                     value={form.gstin}
                     onChange={handleChange}
                     required
@@ -598,7 +598,7 @@ export default function Home() {
                   >
                     {loading ? "Submitting..." : "Save & Show Dashboard"}
                   </button>
-
+    
                   <button
                     type="button"
                     onClick={() => {
