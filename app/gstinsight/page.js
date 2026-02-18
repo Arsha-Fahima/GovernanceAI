@@ -635,19 +635,19 @@ export default function GSTInsightPage() {
                 {
                   title: "Direct Port Access",
                   desc: "Low-latency integration with GSTN nodes ensures sub-second retrieval of legal data.",
-                  img: "/images/gst1.jpg",
+                  img: "https://images.unsplash.com/photo-1551288049-bbbda5366392?q=80&w=2070&auto=format&fit=crop",
                   icon: "M13 10V3L4 14h7v7l9-11h-7z",
                 },
                 {
                   title: "Risk Calibration",
                   desc: "Proprietary AI filters 24 months of filing history to generate automated compliance scores.",
-                  img: "/images/gst1.jpg",
+                  img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop",
                   icon: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z",
                 },
                 {
                   title: "Historical Audits",
                   desc: "Access granular filing records for the last 5 financial years with detailed GSTR status.",
-                  img: "/images/gst1.jpg",
+                  img: "https://images.unsplash.com/photo-1543286386-713bdd548da4?q=80&w=2070&auto=format&fit=crop",
                   icon: "M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z",
                 },
               ].map((item, i) => (
@@ -746,7 +746,7 @@ export default function GSTInsightPage() {
               <div className='lg:w-1/2 bg-slate-800 rounded-[3.5rem] p-5 border border-slate-700/50 shadow-[0_80px_120px_-30px_rgba(0,0,0,0.5)] relative'>
                 <div className='rounded-[3rem] overflow-hidden relative min-h-[500px]'>
                   <Image
-                    src='/images/gst1.jpg'
+                    src='https://images.unsplash.com/photo-1551288049-bbbda5366392?q=80&w=2070&auto=format&fit=crop'
                     alt='Process'
                     fill
                     className='opacity-70 object-cover group-hover:scale-105 transition-transform duration-1000'
@@ -769,40 +769,40 @@ export default function GSTInsightPage() {
 
         {/* ================= CTA SECTION ================= */}
         {/* <section className='max-w-7xl mx-auto px-6 py-40'>
-          <div className='bg-linear-to-br from-[#1b69a1] via-[#155685] to-slate-900 rounded-[4rem] p-20 md:p-32 text-center text-white relative overflow-hidden shadow-[0_80px_120px_-30px_rgba(27,105,161,0.3)] group'>
-            <div className='absolute inset-0 bg-[url("https://www.transparenttextures.com/patterns/carbon-fibre.png")] opacity-10'></div>
-            <div className='absolute -top-20 -left-20 w-80 h-80 bg-white/5 rounded-full blur-[100px] group-hover:bg-[#1b69a1]/10 transition-colors duration-1000'></div>
+            <div className='bg-linear-to-br from-[#1b69a1] via-[#155685] to-slate-900 rounded-[4rem] p-20 md:p-32 text-center text-white relative overflow-hidden shadow-[0_80px_120px_-30px_rgba(27,105,161,0.3)] group'>
+                <div className='absolute inset-0 bg-[url("https://www.transparenttextures.com/patterns/carbon-fibre.png")] opacity-10'></div>
+                <div className='absolute -top-20 -left-20 w-80 h-80 bg-white/5 rounded-full blur-[100px] group-hover:bg-[#1b69a1]/10 transition-colors duration-1000'></div>
 
-            <h2 className='text-5xl md:text-8xl font-black mb-14 relative z-10 leading-[0.95] tracking-tight'>
-              Own your <br />
-              compliance.
-            </h2>
-            <div className='flex flex-wrap justify-center gap-8 relative z-10'>
-              {status === "authenticated" ? (
-                <button
-                  onClick={() => {
-                    document
-                      .getElementById("search-section")
-                      ?.scrollIntoView({ behavior: "smooth" });
-                  }}
-                  className='bg-white text-[#1b69a1] px-14 py-7 rounded-2xl font-black hover:scale-105 transition-all shadow-2xl text-xl'
-                >
-                  Start New Search
+                <h2 className='text-5xl md:text-8xl font-black mb-14 relative z-10 leading-[0.95] tracking-tight'>
+                Own your <br />
+                compliance.
+                </h2>
+                <div className='flex flex-wrap justify-center gap-8 relative z-10'>
+                {status === "authenticated" ? (
+                    <button
+                    onClick={() => {
+                        document
+                        .getElementById("search-section")
+                        ?.scrollIntoView({ behavior: "smooth" });
+                    }}
+                    className='bg-white text-[#1b69a1] px-14 py-7 rounded-2xl font-black hover:scale-105 transition-all shadow-2xl text-xl'
+                    >
+                    Start New Search
+                    </button>
+                ) : (
+                    <button
+                    onClick={() => signIn("google", { callbackUrl: "/gstinsight" })}
+                    className='bg-white text-[#1b69a1] px-14 py-7 rounded-2xl font-black hover:scale-105 transition-all shadow-2xl text-xl'
+                    >
+                    Access Platform
+                    </button>
+                )}
+                <button className='bg-white/10 backdrop-blur-md text-white border-2 border-white/20 px-14 py-7 rounded-2xl font-black hover:bg-white hover:text-slate-900 transition-all text-xl'>
+                    Schedule Demo
                 </button>
-              ) : (
-                <button
-                  onClick={() => signIn("google", { callbackUrl: "/gstinsight" })}
-                  className='bg-white text-[#1b69a1] px-14 py-7 rounded-2xl font-black hover:scale-105 transition-all shadow-2xl text-xl'
-                >
-                  Access Platform
-                </button>
-              )}
-              <button className='bg-white/10 backdrop-blur-md text-white border-2 border-white/20 px-14 py-7 rounded-2xl font-black hover:bg-white hover:text-slate-900 transition-all text-xl'>
-                Schedule Demo
-              </button>
+                </div>
             </div>
-          </div>
-        </section> */}
+            </section> */}
 
         {/* ================= FOOTER ================= */}
         <footer className='bg-white pt-40 pb-20 px-6 border-t border-slate-100'>
