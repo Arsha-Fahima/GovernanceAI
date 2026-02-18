@@ -635,19 +635,19 @@ export default function GSTInsightPage() {
                 {
                   title: "Direct Port Access",
                   desc: "Low-latency integration with GSTN nodes ensures sub-second retrieval of legal data.",
-                  img: "https://images.unsplash.com/photo-1551288049-bbbda5366392?q=80&w=2070&auto=format&fit=crop",
+                  img: "/images/gst1.jpg",
                   icon: "M13 10V3L4 14h7v7l9-11h-7z",
                 },
                 {
                   title: "Risk Calibration",
                   desc: "Proprietary AI filters 24 months of filing history to generate automated compliance scores.",
-                  img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop",
+                  img: "/images/gst1.jpg",
                   icon: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z",
                 },
                 {
                   title: "Historical Audits",
                   desc: "Access granular filing records for the last 5 financial years with detailed GSTR status.",
-                  img: "https://images.unsplash.com/photo-1543286386-713bdd548da4?q=80&w=2070&auto=format&fit=crop",
+                  img: "/images/gst1.jpg",
                   icon: "M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z",
                 },
               ].map((item, i) => (
@@ -746,7 +746,7 @@ export default function GSTInsightPage() {
               <div className='lg:w-1/2 bg-slate-800 rounded-[3.5rem] p-5 border border-slate-700/50 shadow-[0_80px_120px_-30px_rgba(0,0,0,0.5)] relative'>
                 <div className='rounded-[3rem] overflow-hidden relative min-h-[500px]'>
                   <Image
-                    src='https://images.unsplash.com/photo-1551288049-bbbda5366392?q=80&w=2070&auto=format&fit=crop'
+                    src='/images/gst1.jpg'
                     alt='Process'
                     fill
                     className='opacity-70 object-cover group-hover:scale-105 transition-transform duration-1000'
@@ -767,118 +767,42 @@ export default function GSTInsightPage() {
           </div>
         </section>
 
-            {/* ================= CTA SECTION ================= */}
-            {/* <section className='max-w-7xl mx-auto px-6 py-40'>
-            <div className='bg-linear-to-br from-[#1b69a1] via-[#155685] to-slate-900 rounded-[4rem] p-20 md:p-32 text-center text-white relative overflow-hidden shadow-[0_80px_120px_-30px_rgba(27,105,161,0.3)] group'>
-                <div className='absolute inset-0 bg-[url("https://www.transparenttextures.com/patterns/carbon-fibre.png")] opacity-10'></div>
-                <div className='absolute -top-20 -left-20 w-80 h-80 bg-white/5 rounded-full blur-[100px] group-hover:bg-[#1b69a1]/10 transition-colors duration-1000'></div>
+        {/* ================= CTA SECTION ================= */}
+        {/* <section className='max-w-7xl mx-auto px-6 py-40'>
+          <div className='bg-linear-to-br from-[#1b69a1] via-[#155685] to-slate-900 rounded-[4rem] p-20 md:p-32 text-center text-white relative overflow-hidden shadow-[0_80px_120px_-30px_rgba(27,105,161,0.3)] group'>
+            <div className='absolute inset-0 bg-[url("https://www.transparenttextures.com/patterns/carbon-fibre.png")] opacity-10'></div>
+            <div className='absolute -top-20 -left-20 w-80 h-80 bg-white/5 rounded-full blur-[100px] group-hover:bg-[#1b69a1]/10 transition-colors duration-1000'></div>
 
-                  <h2 className='text-5xl md:text-8xl font-black mb-14 relative z-10 leading-[0.95] tracking-tight'>
-                  Own your <br />
-                  compliance.
-                  </h2>
-                  <div className='flex flex-wrap justify-center gap-8 relative z-10'>
-                  {status === "authenticated" ? (
-                      <button
-                      onClick={() => {
-                          document
-                          .getElementById("search-section")
-                          ?.scrollIntoView({ behavior: "smooth" });
-                      }}
-                      className='bg-white text-[#1b69a1] px-14 py-7 rounded-2xl font-black hover:scale-105 transition-all shadow-2xl text-xl'
-                      >
-                      Start New Search
-                      </button>
-                  ) : (
-                      <button
-                      onClick={() => signIn("google", { callbackUrl: "/gstinsight" })}
-                      className='bg-white text-[#1b69a1] px-14 py-7 rounded-2xl font-black hover:scale-105 transition-all shadow-2xl text-xl'
-                      >
-                      Access Platform
-                      </button>
-                  )}
-                  <button className='bg-white/10 backdrop-blur-md text-white border-2 border-white/20 px-14 py-7 rounded-2xl font-black hover:bg-white hover:text-slate-900 transition-all text-xl'>
-                      Schedule Demo
-                  </button>
-                  </div>
-              </div>
-              </section> */}
-              {/* ================= GST COMPLIANCE BENEFITS SECTION ================= */}
-  <section className='py-32 bg-slate-50 border-t border-slate-100'>
-    <div className='max-w-7xl mx-auto px-6 text-center'>
-
-      <span className='text-[#1b69a1] font-black uppercase tracking-[0.3em] text-[11px] mb-6 block'>
-        Compliance Intelligence
-      </span>
-
-      <h2 className='text-5xl md:text-6xl font-black text-slate-900 mb-20 tracking-tight'>
-        Stay 100% GST Compliant
-      </h2>
-
-      <div className='grid md:grid-cols-3 gap-10'>
-
-        {/* BOX 1 */}
-        <div className='bg-white rounded-[2.5rem] p-12 border border-slate-100 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500'>
-          <div className='w-16 h-16 bg-[#1b69a1]/10 rounded-2xl flex items-center justify-center mx-auto mb-6'>
-            <svg className='w-8 h-8 text-[#1b69a1]' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
-              <path strokeLinecap='round' strokeLinejoin='round' strokeWidth='2.5'
-                d='M9 17v-6h13M9 7h13M5 7h.01M5 17h.01' />
-            </svg>
+            <h2 className='text-5xl md:text-8xl font-black mb-14 relative z-10 leading-[0.95] tracking-tight'>
+              Own your <br />
+              compliance.
+            </h2>
+            <div className='flex flex-wrap justify-center gap-8 relative z-10'>
+              {status === "authenticated" ? (
+                <button
+                  onClick={() => {
+                    document
+                      .getElementById("search-section")
+                      ?.scrollIntoView({ behavior: "smooth" });
+                  }}
+                  className='bg-white text-[#1b69a1] px-14 py-7 rounded-2xl font-black hover:scale-105 transition-all shadow-2xl text-xl'
+                >
+                  Start New Search
+                </button>
+              ) : (
+                <button
+                  onClick={() => signIn("google", { callbackUrl: "/gstinsight" })}
+                  className='bg-white text-[#1b69a1] px-14 py-7 rounded-2xl font-black hover:scale-105 transition-all shadow-2xl text-xl'
+                >
+                  Access Platform
+                </button>
+              )}
+              <button className='bg-white/10 backdrop-blur-md text-white border-2 border-white/20 px-14 py-7 rounded-2xl font-black hover:bg-white hover:text-slate-900 transition-all text-xl'>
+                Schedule Demo
+              </button>
+            </div>
           </div>
-
-          <h3 className='text-2xl font-black text-slate-900 mb-4'>
-            Complete Return Visibility
-          </h3>
-
-          <p className='text-slate-500 font-semibold leading-relaxed'>
-            View GSTR-1, GSTR-3B, GSTR-9 history, filing frequency,
-            and compliance records instantly in structured format.
-          </p>
-        </div>
-
-        {/* BOX 2 */}
-        <div className='bg-white rounded-[2.5rem] p-12 border border-slate-100 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500'>
-          <div className='w-16 h-16 bg-[#1b69a1]/10 rounded-2xl flex items-center justify-center mx-auto mb-6'>
-            <svg className='w-8 h-8 text-[#1b69a1]' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
-              <path strokeLinecap='round' strokeLinejoin='round' strokeWidth='2.5'
-                d='M12 8v4l3 3M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z'/>
-            </svg>
-          </div>
-
-          <h3 className='text-2xl font-black text-slate-900 mb-4'>
-            Deadline & Risk Alerts
-          </h3>
-
-          <p className='text-slate-500 font-semibold leading-relaxed'>
-            Detect missed filings, upcoming due dates, and compliance risks
-            before penalties or legal notices occur.
-          </p>
-        </div>
-
-        {/* BOX 3 */}
-        <div className='bg-white rounded-[2.5rem] p-12 border border-slate-100 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500'>
-          <div className='w-16 h-16 bg-[#1b69a1]/10 rounded-2xl flex items-center justify-center mx-auto mb-6'>
-            <svg className='w-8 h-8 text-[#1b69a1]' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
-              <path strokeLinecap='round' strokeLinejoin='round' strokeWidth='2.5'
-                d='M5 13l4 4L19 7'/>
-            </svg>
-          </div>
-
-          <h3 className='text-2xl font-black text-slate-900 mb-4'>
-            Avoid Penalties & Fees
-          </h3>
-
-          <p className='text-slate-500 font-semibold leading-relaxed'>
-            Identify compliance gaps early and take corrective action
-            to prevent late fees, penalties, and GST notices.
-          </p>
-        </div>
-
-      </div>
-
-    </div>
-  </section>
-
+        </section> */}
 
         {/* ================= FOOTER ================= */}
         <footer className='bg-white pt-40 pb-20 px-6 border-t border-slate-100'>
