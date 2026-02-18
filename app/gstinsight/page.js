@@ -11,6 +11,7 @@ import ReturnsTable from "../components/ReturnsTable";
 import ComplianceChart from "../components/ComplianceChart";
 import ComplianceClassification from "../components/ComplianceClassification";
 import GSTProfileTabs from "../components/GSTProfileTabs";
+import Navbar from "../components/navbar";
 
 export default function GSTInsightPage() {
   const { data: session, status } = useSession();
@@ -155,75 +156,7 @@ export default function GSTInsightPage() {
 
       <div className='min-h-screen bg-white font-sans text-slate-800 selection:bg-[#1b69a1]/20 selection:text-[#1b69a1]'>
         {/* ================= NAVBAR ================= */}
-        <nav className='bg-white/90 backdrop-blur-xl sticky top-0 z-50 border-b border-slate-100'>
-          <div className='max-w-7xl mx-auto flex justify-between items-center px-6 py-4'>
-            {/* Logo */}
-            <div
-              onClick={() => router.push("/gstinsight")}
-              className='flex items-center gap-3 cursor-pointer group'
-            >
-              <div className='w-11 h-11 bg-[#1b69a1] rounded-xl flex items-center justify-center shadow-lg shadow-[#1b69a1]/20 group-hover:rotate-6 transition-all duration-500'>
-                <span className='text-white font-black text-xl'>G</span>
-              </div>
-              <h1 className='text-2xl font-black tracking-tighter text-slate-900'>
-                GST<span className='text-[#1b69a1]'>Insight</span>
-              </h1>
-            </div>
-
-            <div className='hidden lg:flex gap-12 items-center'>
-              {["Products", "API Docs", "Resources", "Enterprise"].map(
-                (item) => (
-                  <button
-                    key={item}
-                    className='font-bold text-[13px] uppercase tracking-widest text-slate-500 hover:text-[#1b69a1] transition-all relative after:content-[""] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-0.5 after:bg-[#1b69a1] hover:after:w-full after:transition-all'
-                  >
-                    {item}
-                  </button>
-                ),
-              )}
-            </div>
-
-            <div className='flex items-center gap-6'>
-              {status === "authenticated" ? (
-                <>
-                  <button
-                    onClick={() => router.push("/")}
-                    className='text-slate-600 font-bold text-[14px] hover:text-[#1b69a1] transition-colors hidden sm:block'
-                  >
-                    Dashboard
-                  </button>
-                  <button
-                    onClick={() => router.push("/?edit=true")}
-                    className='text-[#1b69a1] font-black text-[12px] uppercase tracking-wider hover:text-[#155685] transition-colors hidden sm:block border-b-2 border-[#1b69a1]/20 pb-0.5'
-                  >
-                    Check Your Compliance
-                  </button>
-                  <button
-                    onClick={() => signOut({ callbackUrl: "/" })}
-                    className='bg-slate-900 text-white px-8 py-3 rounded-full font-bold text-[14px] hover:bg-slate-800 transition-all shadow-xl shadow-slate-900/10 active:scale-95'
-                  >
-                    Log Out
-                  </button>
-                </>
-              ) : (
-                <>
-                  <button
-                    onClick={() => router.push("/login")}
-                    className='text-slate-600 font-bold text-[14px] hover:text-[#1b69a1] transition-colors hidden sm:block'
-                  >
-                    Log In
-                  </button>
-                  <button
-                    onClick={() => router.push("/login")}
-                    className='bg-[#1b69a1] text-white px-8 py-3 rounded-full font-bold text-[14px] hover:bg-[#155685] transition-all shadow-xl shadow-[#1b69a1]/20 active:scale-95'
-                  >
-                    Get Started
-                  </button>
-                </>
-              )}
-            </div>
-          </div>
-        </nav>
+        <Navbar />
 
         {/* ================= HERO SECTION ================= */}
         <section className='relative pt-24 pb-40 overflow-hidden'>
@@ -767,82 +700,104 @@ export default function GSTInsightPage() {
           </div>
         </section>
 
-            {/* ================= GST COMPLIANCE BENEFITS SECTION ================= */}
-    <section className='py-32 bg-slate-50 border-t border-slate-100'>
-      <div className='max-w-7xl mx-auto px-6 text-center'>
+        {/* ================= GST COMPLIANCE BENEFITS SECTION ================= */}
+        <section className='py-32 bg-slate-50 border-t border-slate-100'>
+          <div className='max-w-7xl mx-auto px-6 text-center'>
+            <span className='text-[#1b69a1] font-black uppercase tracking-[0.3em] text-[11px] mb-6 block'>
+              Compliance Intelligence
+            </span>
 
-        <span className='text-[#1b69a1] font-black uppercase tracking-[0.3em] text-[11px] mb-6 block'>
-          Compliance Intelligence
-        </span>
+            <h2 className='text-5xl md:text-6xl font-black text-slate-900 mb-20 tracking-tight'>
+              Stay 100% GST Compliant
+            </h2>
 
-        <h2 className='text-5xl md:text-6xl font-black text-slate-900 mb-20 tracking-tight'>
-          Stay 100% GST Compliant
-        </h2>
+            <div className='grid md:grid-cols-3 gap-10'>
+              {/* BOX 1 */}
+              <div className='bg-white rounded-[2.5rem] p-12 border border-slate-100 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500'>
+                <div className='w-16 h-16 bg-[#1b69a1]/10 rounded-2xl flex items-center justify-center mx-auto mb-6'>
+                  <svg
+                    className='w-8 h-8 text-[#1b69a1]'
+                    fill='none'
+                    stroke='currentColor'
+                    viewBox='0 0 24 24'
+                  >
+                    <path
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                      strokeWidth='2.5'
+                      d='M9 17v-6h13M9 7h13M5 7h.01M5 17h.01'
+                    />
+                  </svg>
+                </div>
 
-        <div className='grid md:grid-cols-3 gap-10'>
+                <h3 className='text-2xl font-black text-slate-900 mb-4'>
+                  Complete Return Visibility
+                </h3>
 
-          {/* BOX 1 */}
-          <div className='bg-white rounded-[2.5rem] p-12 border border-slate-100 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500'>
-            <div className='w-16 h-16 bg-[#1b69a1]/10 rounded-2xl flex items-center justify-center mx-auto mb-6'>
-              <svg className='w-8 h-8 text-[#1b69a1]' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
-                <path strokeLinecap='round' strokeLinejoin='round' strokeWidth='2.5'
-                  d='M9 17v-6h13M9 7h13M5 7h.01M5 17h.01' />
-              </svg>
+                <p className='text-slate-500 font-semibold leading-relaxed'>
+                  View GSTR-1, GSTR-3B, GSTR-9 history, filing frequency, and
+                  compliance records instantly in structured format.
+                </p>
+              </div>
+
+              {/* BOX 2 */}
+              <div className='bg-white rounded-[2.5rem] p-12 border border-slate-100 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500'>
+                <div className='w-16 h-16 bg-[#1b69a1]/10 rounded-2xl flex items-center justify-center mx-auto mb-6'>
+                  <svg
+                    className='w-8 h-8 text-[#1b69a1]'
+                    fill='none'
+                    stroke='currentColor'
+                    viewBox='0 0 24 24'
+                  >
+                    <path
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                      strokeWidth='2.5'
+                      d='M12 8v4l3 3M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z'
+                    />
+                  </svg>
+                </div>
+
+                <h3 className='text-2xl font-black text-slate-900 mb-4'>
+                  Deadline & Risk Alerts
+                </h3>
+
+                <p className='text-slate-500 font-semibold leading-relaxed'>
+                  Detect missed filings, upcoming due dates, and compliance
+                  risks before penalties or legal notices occur.
+                </p>
+              </div>
+
+              {/* BOX 3 */}
+              <div className='bg-white rounded-[2.5rem] p-12 border border-slate-100 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500'>
+                <div className='w-16 h-16 bg-[#1b69a1]/10 rounded-2xl flex items-center justify-center mx-auto mb-6'>
+                  <svg
+                    className='w-8 h-8 text-[#1b69a1]'
+                    fill='none'
+                    stroke='currentColor'
+                    viewBox='0 0 24 24'
+                  >
+                    <path
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                      strokeWidth='2.5'
+                      d='M5 13l4 4L19 7'
+                    />
+                  </svg>
+                </div>
+
+                <h3 className='text-2xl font-black text-slate-900 mb-4'>
+                  Avoid Penalties & Fees
+                </h3>
+
+                <p className='text-slate-500 font-semibold leading-relaxed'>
+                  Identify compliance gaps early and take corrective action to
+                  prevent late fees, penalties, and GST notices.
+                </p>
+              </div>
             </div>
-
-            <h3 className='text-2xl font-black text-slate-900 mb-4'>
-              Complete Return Visibility
-            </h3>
-
-            <p className='text-slate-500 font-semibold leading-relaxed'>
-              View GSTR-1, GSTR-3B, GSTR-9 history, filing frequency,
-              and compliance records instantly in structured format.
-            </p>
           </div>
-
-          {/* BOX 2 */}
-          <div className='bg-white rounded-[2.5rem] p-12 border border-slate-100 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500'>
-            <div className='w-16 h-16 bg-[#1b69a1]/10 rounded-2xl flex items-center justify-center mx-auto mb-6'>
-              <svg className='w-8 h-8 text-[#1b69a1]' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
-                <path strokeLinecap='round' strokeLinejoin='round' strokeWidth='2.5'
-                  d='M12 8v4l3 3M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z'/>
-              </svg>
-            </div>
-
-            <h3 className='text-2xl font-black text-slate-900 mb-4'>
-              Deadline & Risk Alerts
-            </h3>
-
-            <p className='text-slate-500 font-semibold leading-relaxed'>
-              Detect missed filings, upcoming due dates, and compliance risks
-              before penalties or legal notices occur.
-            </p>
-          </div>
-
-          {/* BOX 3 */}
-          <div className='bg-white rounded-[2.5rem] p-12 border border-slate-100 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500'>
-            <div className='w-16 h-16 bg-[#1b69a1]/10 rounded-2xl flex items-center justify-center mx-auto mb-6'>
-              <svg className='w-8 h-8 text-[#1b69a1]' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
-                <path strokeLinecap='round' strokeLinejoin='round' strokeWidth='2.5'
-                  d='M5 13l4 4L19 7'/>
-              </svg>
-            </div>
-
-            <h3 className='text-2xl font-black text-slate-900 mb-4'>
-              Avoid Penalties & Fees
-            </h3>
-
-            <p className='text-slate-500 font-semibold leading-relaxed'>
-              Identify compliance gaps early and take corrective action
-              to prevent late fees, penalties, and GST notices.
-            </p>
-          </div>
-
-        </div>
-
-      </div>
-    </section>
-
+        </section>
 
         {/* ================= CTA SECTION ================= */}
         {/* <section className='max-w-7xl mx-auto px-6 py-40'>
