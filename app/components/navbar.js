@@ -24,16 +24,71 @@ export default function Navbar() {
           </h1>
         </div>
 
-        <div className='hidden lg:flex gap-12 items-center'>
-          {["Products", "API Docs", "Resources", "Enterprise"].map((item) => (
-            <button
-              key={item}
-              className='font-bold text-[13px] uppercase tracking-widest text-slate-500 hover:text-[#1b69a1] transition-all relative after:content-[""] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-0.5 after:bg-[#1b69a1] hover:after:w-full after:transition-all'
-            >
-              {item}
-            </button>
-          ))}
-        </div>
+        <div className='hidden lg:flex gap-12 items-center font-bold text-[13px] uppercase tracking-widest text-slate-500'>
+
+  {/* PRODUCTS */}
+  <NavDropdown title="Products">
+    <DropdownItem
+      title="GST Dashboard"
+      desc="Real-time compliance overview"
+      href="/gstinsight"
+    />
+    <DropdownItem
+      title="AI Risk Analyzer"
+      desc="Detect filing inconsistencies"
+      href="/gstinsight"
+    />
+    <DropdownItem
+      title="Automated Reports"
+      desc="Export smart summaries"
+      href="/gstinsight"
+    />
+  </NavDropdown>
+
+  {/* API DOCS */}
+  <NavDropdown title="API Docs">
+    <DropdownItem
+      title="Authentication"
+      desc="Secure OAuth access"
+      href="/"
+    />
+    <DropdownItem
+      title="GST API"
+      desc="Fetch filing data"
+      href="/"
+    />
+  </NavDropdown>
+
+  {/* RESOURCES */}
+  <NavDropdown title="Resources">
+    <DropdownItem
+      title="Know About GST Returns"
+      desc="Learn GSTR-1, 3B & 2A"
+      href="/blog/gst-returns"
+    />
+    <DropdownItem
+      title="Input Tax Credit"
+      desc="Complete ITC breakdown"
+      href="/blog/input-tax-credit"
+    />
+  </NavDropdown>
+
+  {/* ENTERPRISE */}
+  <NavDropdown title="Enterprise">
+    <DropdownItem
+      title="Pricing"
+      desc="Flexible SaaS plans"
+      href="/"
+    />
+    <DropdownItem
+      title="Security"
+      desc="Enterprise-grade protection"
+      href="/"
+    />
+  </NavDropdown>
+
+</div>
+
 
         <div className='flex items-center gap-6'>
           {status === "authenticated" ? (
