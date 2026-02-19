@@ -10,7 +10,7 @@ export default function GstReturnsBlog() {
       {/* HERO SECTION */}
       <div className="relative h-[60vh] w-full">
         <Image
-          src="/images/gst-returns.jpg"
+          src="/images/gstreturns.png"
           alt="GST Returns"
           fill
           className="object-cover"

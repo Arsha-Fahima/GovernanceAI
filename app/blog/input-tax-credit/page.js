@@ -10,7 +10,7 @@ export default function InputTaxCreditBlog() {
       {/* HERO SECTION */}
       <div className="relative h-[60vh] w-full">
         <Image
-          src="/images/input-tax-credit.jpg"
+          src="/images/headeritc.png"
           alt="Input Tax Credit"
           fill
           className="object-cover"
@@ -59,7 +59,7 @@ export default function InputTaxCreditBlog() {
           {/* EXAMPLE IMAGE */}
           <div className="relative w-full h-[350px] rounded-2xl overflow-hidden shadow-xl mb-12">
             <Image
-              src="/images/input-tax-credit.jpg"
+              src="/images/ict.png"
               alt="ITC Example"
               fill
               className="object-cover"
