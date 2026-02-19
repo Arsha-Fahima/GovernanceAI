@@ -1,94 +1,119 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 
 export default function InputTaxCreditBlog() {
   return (
-    <div className="bg-gray-50 min-h-screen py-20 px-6">
-      <div className="max-w-4xl mx-auto">
+    <div className="bg-white min-h-screen">
 
-        {/* Hero Section */}
-        <motion.h1
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-4xl md:text-5xl font-bold text-gray-900 mb-6"
-        >
-          Understanding Input Tax Credit (ITC)
-        </motion.h1>
+      {/* HERO SECTION */}
+      <div className="relative h-[60vh] w-full">
+        <Image
+          src="/images/input-tax-credit.jpg"
+          alt="Input Tax Credit"
+          fill
+          className="object-cover"
+          priority
+        />
 
-        <motion.p
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-black/60" />
+
+        <div className="absolute inset-0 flex items-center justify-center text-center px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+          >
+            <h1 className="text-4xl md:text-6xl font-black text-white mb-6">
+              Complete Guide to Input Tax Credit (ITC)
+            </h1>
+            <p className="text-lg text-gray-200 max-w-2xl mx-auto">
+              Understand how ITC reduces your GST liability and improves cash flow legally.
+            </p>
+          </motion.div>
+        </div>
+      </div>
+
+      {/* BLOG CONTENT */}
+      <div className="max-w-4xl mx-auto px-6 py-20">
+
+        <motion.div
           initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.3 }}
-          className="text-lg text-gray-600 mb-10"
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.6 }}
         >
-          Learn how businesses reduce GST liability legally using ITC and 
-          improve cash flow with smart compliance.
-        </motion.p>
 
-        {/* How ITC Works */}
-        <motion.div
-          whileHover={{ scale: 1.02 }}
-          className="bg-white p-8 rounded-2xl shadow-lg mb-8"
-        >
-          <h2 className="text-2xl font-semibold mb-4">🔄 How ITC Works</h2>
-          <p className="text-gray-600">
-            When you purchase goods or services and pay GST,
-            you can claim that tax as credit against your output GST liability.
+          {/* WHAT IS ITC */}
+          <h2 className="text-3xl font-bold text-slate-900 mb-6">
+            What is Input Tax Credit?
+          </h2>
+
+          <p className="text-lg text-slate-600 leading-relaxed mb-10">
+            Input Tax Credit (ITC) allows businesses to reduce the GST paid
+            on purchases from the GST payable on sales. This prevents double
+            taxation and improves working capital.
           </p>
-          <div className="mt-4 bg-blue-50 p-4 rounded-lg text-blue-800">
-            Example:  
-            Output GST = ₹36,000  
-            Input GST = ₹18,000  
-            Tax Payable = ₹18,000
+
+          {/* EXAMPLE IMAGE */}
+          <div className="relative w-full h-[350px] rounded-2xl overflow-hidden shadow-xl mb-12">
+            <Image
+              src="/images/input-tax-credit.jpg"
+              alt="ITC Example"
+              fill
+              className="object-cover"
+            />
           </div>
-        </motion.div>
 
-        {/* Conditions */}
-        <motion.div
-          whileHover={{ scale: 1.02 }}
-          className="bg-white p-8 rounded-2xl shadow-lg mb-8"
-        >
-          <h2 className="text-2xl font-semibold mb-4">📋 Conditions to Claim ITC</h2>
-          <ul className="list-disc pl-6 text-gray-600">
-            <li>Valid tax invoice</li>
-            <li>Supplier must file GSTR-1</li>
-            <li>You must file GSTR-3B</li>
-            <li>Goods/services received</li>
-            <li>Tax paid to government</li>
-          </ul>
-        </motion.div>
+          {/* HOW IT WORKS */}
+          <div className="mb-12">
+            <h3 className="text-2xl font-semibold mb-4">🔄 How ITC Works</h3>
+            <p className="text-slate-600 leading-relaxed">
+              Suppose you purchase goods worth ₹1,00,000 and pay ₹18,000 GST.
+              Later, you sell goods worth ₹2,00,000 and collect ₹36,000 GST.
+              You only pay the difference (₹18,000) to the government.
+            </p>
+          </div>
 
-        {/* Blocked Credits */}
-        <motion.div
-          whileHover={{ scale: 1.02 }}
-          className="bg-white p-8 rounded-2xl shadow-lg mb-8"
-        >
-          <h2 className="text-2xl font-semibold mb-4">🚫 Blocked Credits</h2>
-          <ul className="list-disc pl-6 text-gray-600">
-            <li>Personal expenses</li>
-            <li>Motor vehicles (most cases)</li>
-            <li>Food & beverages</li>
-            <li>Club memberships</li>
-            <li>Construction of buildings</li>
-          </ul>
-        </motion.div>
+          {/* CONDITIONS */}
+          <div className="mb-12">
+            <h3 className="text-2xl font-semibold mb-4">📋 Conditions to Claim ITC</h3>
+            <ul className="list-disc pl-6 text-slate-600 space-y-2">
+              <li>Valid tax invoice</li>
+              <li>Supplier must file GSTR-1</li>
+              <li>Goods or services received</li>
+              <li>GST must be paid to the government</li>
+              <li>You must file GSTR-3B</li>
+            </ul>
+          </div>
 
-        {/* Why ITC Matters */}
-        <motion.div
-          whileHover={{ scale: 1.02 }}
-          className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-8 rounded-2xl shadow-lg"
-        >
-          <h2 className="text-2xl font-semibold mb-4">⚡ Why ITC is Powerful</h2>
-          <p>
-            Correct ITC management improves working capital,
-            reduces tax burden, and prevents GST notices.
-            Modern SaaS GST platforms automate reconciliation
-            to avoid mismatches and penalties.
-          </p>
-        </motion.div>
+          {/* BLOCKED CREDITS */}
+          <div className="mb-12">
+            <h3 className="text-2xl font-semibold mb-4">🚫 Blocked Credits</h3>
+            <ul className="list-disc pl-6 text-slate-600 space-y-2">
+              <li>Personal expenses</li>
+              <li>Motor vehicles (mostly restricted)</li>
+              <li>Food & beverages</li>
+              <li>Club memberships</li>
+              <li>Construction of buildings</li>
+            </ul>
+          </div>
 
+          {/* CTA SECTION */}
+          <div className="mt-16 bg-gradient-to-r from-[#1b69a1] to-indigo-600 text-white p-10 rounded-2xl text-center shadow-2xl">
+            <h3 className="text-2xl font-bold mb-4">
+              Manage ITC Smartly with GSTInsight
+            </h3>
+            <p className="mb-6 text-gray-200">
+              Automate reconciliation, avoid mismatches and eliminate compliance risks.
+            </p>
+            <button className="bg-white text-[#1b69a1] px-8 py-3 rounded-full font-bold hover:scale-105 transition">
+              Try Dashboard
+            </button>
+          </div>
+
+        </motion.div>
       </div>
     </div>
   );
