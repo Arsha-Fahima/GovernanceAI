@@ -61,38 +61,50 @@ export default function Home() {
 
   const fetchUserData = async () => {
     if (!session?.user?.email) return;
+    setInitializing(true);
 
-    const { data, error } = await supabase
-      .from("users")
-      .select("*")
-      .eq("email", session.user.email)
-      .single();
+    try {
+      const { data, error } = await supabase
+        .from("users")
+        .select("*")
+        .eq("email", session.user.email)
+        .single();
 
-    if (data) {
-      setUserData(data);
-      // Don't show temporary GSTIN in form
-      const gstinValue = data.gstin?.startsWith("TEMP_")
-        ? ""
-        : data.gstin || "";
-      setForm({
-        name: data.name || "",
-        phone: data.phone || "",
-        gstin: gstinValue,
-      });
-      // If user has phone and gstin filled, show dashboard and fetch compliance
-      const isEditMode =
-        typeof window !== "undefined" &&
-        new URLSearchParams(window.location.search).get("edit") === "true";
-
-      if (
-        data.phone &&
-        data.gstin &&
-        !data.gstin.startsWith("TEMP_") &&
-        !isEditMode
-      ) {
-        setShowDashboard(true);
-        fetchComplianceHistory(data.gstin);
+      if (error) {
+        console.error("Error fetching user data:", error);
+        return;
       }
+
+      if (data) {
+        setUserData(data);
+        // Don't show temporary GSTIN in form
+        const gstinValue = data.gstin?.startsWith("TEMP_")
+          ? ""
+          : data.gstin || "";
+        setForm({
+          name: data.name || "",
+          phone: data.phone || "",
+          gstin: gstinValue,
+        });
+        // If user has phone and gstin filled, show dashboard and fetch compliance
+        const isEditMode =
+          typeof window !== "undefined" &&
+          new URLSearchParams(window.location.search).get("edit") === "true";
+
+        if (
+          data.phone &&
+          data.gstin &&
+          !data.gstin.startsWith("TEMP_") &&
+          !isEditMode
+        ) {
+          setShowDashboard(true);
+          fetchComplianceHistory(data.gstin);
+        }
+      }
+    } catch (err) {
+      console.error("Error fetching user data:", err);
+    } finally {
+      setInitializing(false);
     }
   };
 
@@ -101,6 +113,7 @@ export default function Home() {
   const [error, setError] = useState(null);
   const [showDashboard, setShowDashboard] = useState(false);
   const [userData, setUserData] = useState(null);
+  const [initializing, setInitializing] = useState(true); // track whether user data has been loaded
   const [checkingGST, setCheckingGST] = useState(false);
   const [gstResult, setGstResult] = useState(null);
   const [complianceHistory, setComplianceHistory] = useState([]);
@@ -214,10 +227,16 @@ export default function Home() {
   };
 
   // Dashboard View
+  if (initializing) {
+    return null; // prevent form/dashboard flash until we know state
+  }
+
   if (showDashboard && userData) {
     return (
       <>
         <Navbar />
+        {/* compensate for fixed header */}
+        <div className='h-24'></div>
         <main className='min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-6 px-3 sm:px-6 lg:px-6'>
           <div className='max-w-screen-xl mx-auto px-4'>
             <div className='bg-white rounded-xl shadow-lg p-4 sm:p-6 mb-6'>
@@ -373,128 +392,6 @@ export default function Home() {
                 {gstResult.error}
               </div>
             )}
-
-            {/* Compliance History Section */}
-            {complianceHistory.length > 0 && (
-              <div className='bg-white rounded-xl shadow-lg p-6 mt-6'>
-                <h2 className='text-2xl font-bold text-gray-900 mb-6'>
-                  Compliance History
-                </h2>
-
-                <div className='space-y-4'>
-                  {complianceHistory.map((record, index) => (
-                    <div
-                      key={record.id || index}
-                      className='border rounded-lg p-4 hover:shadow-md transition-shadow'
-                    >
-                      <div className='flex justify-between items-start mb-4'>
-                        <div>
-                          <h3 className='text-lg font-semibold text-gray-900'>
-                            GSTIN: {record.gstin}
-                          </h3>
-                          <p className='text-sm text-gray-500'>
-                            Checked on:{" "}
-                            {new Date(record.created_at).toLocaleDateString(
-                              "en-IN",
-                              {
-                                year: "numeric",
-                                month: "long",
-                                day: "numeric",
-                                hour: "2-digit",
-                                minute: "2-digit",
-                              },
-                            )}
-                          </p>
-                        </div>
-                      </div>
-
-                      <div className='grid grid-cols-1 md:grid-cols-2 gap-4 mb-4'>
-                        <div className='p-3 bg-gray-50 rounded'>
-                          <p className='text-sm text-gray-600'>Legal Name</p>
-                          <p className='font-semibold'>
-                            {record.legal_name || "N/A"}
-                          </p>
-                        </div>
-                        <div className='p-3 bg-gray-50 rounded'>
-                          <p className='text-sm text-gray-600'>Trade Name</p>
-                          <p className='font-semibold'>
-                            {record.trade_name || "N/A"}
-                          </p>
-                        </div>
-                      </div>
-
-                      {/* GSTR1 Details */}
-                      {record.gstr1_records && (
-                        <div className='mb-4'>
-                          <h4 className='font-semibold text-gray-800 mb-2'>
-                            GSTR-1 Status
-                          </h4>
-                          <div className='bg-blue-50 p-4 rounded'>
-                            <p>
-                              <strong>Status:</strong>{" "}
-                              <span
-                                className={`px-2 py-1 rounded text-sm ${record.gstr1_status === "FILED" ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"}`}
-                              >
-                                {record.gstr1_status || "Unknown"}
-                              </span>
-                            </p>
-                            <p>
-                              <strong>Latest Filed:</strong>{" "}
-                              {record.latest_gstr1 || "N/A"}
-                            </p>
-                            {record.gstr1_pending_count > 0 && (
-                              <p className='text-red-600 mt-2'>
-                                <strong>Pending Returns:</strong>{" "}
-                                {record.gstr1_pending_count}
-                              </p>
-                            )}
-                          </div>
-                        </div>
-                      )}
-
-                      {/* GSTR3B Details */}
-                      {record.gstr3b_records && (
-                        <div className='mb-4'>
-                          <h4 className='font-semibold text-gray-800 mb-2'>
-                            GSTR-3B Status
-                          </h4>
-                          <div className='bg-purple-50 p-4 rounded'>
-                            <p>
-                              <strong>Status:</strong>{" "}
-                              <span
-                                className={`px-2 py-1 rounded text-sm ${record.gstr3b_status === "FILED" ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"}`}
-                              >
-                                {record.gstr3b_status || "Unknown"}
-                              </span>
-                            </p>
-                            <p>
-                              <strong>Latest Filed:</strong>{" "}
-                              {record.latest_gstr3b || "N/A"}
-                            </p>
-                            {record.gstr3b_pending_count > 0 && (
-                              <p className='text-red-600 mt-2'>
-                                <strong>Pending Returns:</strong>{" "}
-                                {record.gstr3b_pending_count}
-                              </p>
-                            )}
-                          </div>
-                        </div>
-                      )}
-
-                      {/* Raw JSON Data (Collapsible) */}
-                      <details className='mt-4'>
-                        <summary className='cursor-pointer text-sm text-blue-600 hover:text-blue-800'>
-                          View Full Details
-                        </summary>
-                        <div className='mt-2 p-4 bg-gray-100 rounded text-xs overflow-auto max-h-96'>
-                          <pre>{JSON.stringify(record, null, 2)}</pre>
-                        </div>
-                      </details>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
           </div>
         </main>
       </>
@@ -506,6 +403,8 @@ export default function Home() {
   return (
     <>
       <Navbar />
+      {/* spacer for fixed header */}
+      <div className='h-24'></div>
       <main className='min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-12 px-4 sm:px-6 lg:px-8'>
         <div className='max-w-6xl mx-auto'>
           <div className='grid grid-cols-1 lg:grid-cols-2 gap-8 items-start'>
