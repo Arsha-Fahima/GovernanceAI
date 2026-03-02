@@ -68,7 +68,7 @@ export default function InputTaxCreditBlog() {
 
           {/* HOW IT WORKS */}
           <div className="mb-12">
-            <h3 className="text-2xl font-semibold mb-4">🔄 How ITC Works</h3>
+            <h3 className="text-2xl font-semibold mb-4">How ITC Works</h3>
             <p className="text-slate-600 leading-relaxed">
               Suppose you purchase goods worth ₹1,00,000 and pay ₹18,000 GST.
               Later, you sell goods worth ₹2,00,000 and collect ₹36,000 GST.
@@ -78,7 +78,7 @@ export default function InputTaxCreditBlog() {
 
           {/* CONDITIONS */}
           <div className="mb-12">
-            <h3 className="text-2xl font-semibold mb-4">📋 Conditions to Claim ITC</h3>
+            <h3 className="text-2xl font-semibold mb-4">Conditions to Claim ITC</h3>
             <ul className="list-disc pl-6 text-slate-600 space-y-2">
               <li>Valid tax invoice</li>
               <li>Supplier must file GSTR-1</li>
@@ -90,7 +90,7 @@ export default function InputTaxCreditBlog() {
 
           {/* BLOCKED CREDITS */}
           <div className="mb-12">
-            <h3 className="text-2xl font-semibold mb-4">🚫 Blocked Credits</h3>
+            <h3 className="text-2xl font-semibold mb-4">Blocked Credits</h3>
             <ul className="list-disc pl-6 text-slate-600 space-y-2">
               <li>Personal expenses</li>
               <li>Motor vehicles (mostly restricted)</li>

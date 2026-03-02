@@ -70,7 +70,7 @@ export default function GstReturnsBlog() {
 
           {/* GSTR-1 */}
           <div className="mb-12">
-            <h3 className="text-2xl font-semibold mb-4">📤 GSTR-1</h3>
+            <h3 className="text-2xl font-semibold mb-4">GSTR-1</h3>
             <p className="text-slate-600 leading-relaxed">
               GSTR-1 includes details of outward supplies (sales). It is
               filed monthly or quarterly and contains invoice-level data.
@@ -80,7 +80,7 @@ export default function GstReturnsBlog() {
 
           {/* GSTR-3B */}
           <div className="mb-12">
-            <h3 className="text-2xl font-semibold mb-4">📊 GSTR-3B</h3>
+            <h3 className="text-2xl font-semibold mb-4">GSTR-3B</h3>
             <p className="text-slate-600 leading-relaxed">
               GSTR-3B is a summary return where businesses declare total
               sales, purchases, and pay GST after adjusting Input Tax Credit.
@@ -89,7 +89,7 @@ export default function GstReturnsBlog() {
 
           {/* GSTR-2A */}
           <div className="mb-12">
-            <h3 className="text-2xl font-semibold mb-4">🔍 GSTR-2A</h3>
+            <h3 className="text-2xl font-semibold mb-4">GSTR-2A</h3>
             <p className="text-slate-600 leading-relaxed">
               GSTR-2A is auto-generated based on supplier filings.
               Businesses use it to verify purchase invoices before claiming ITC.
