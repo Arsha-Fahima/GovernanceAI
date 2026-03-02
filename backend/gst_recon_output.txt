@@ -1,0 +1,106 @@
+════════════════════════════════════════════════════════════════════════════════════════════
+
+       GST RECONCILIATION REPORT
+       Generated  :  20-Feb-2026  12:25:43
+       GSTR-2B    :  GSTR2B_Apr2024.xlsx
+       Books      :  PurchaseRegister_Apr2024.xlsx
+
+════════════════════════════════════════════════════════════════════════════════════════════
+
+  SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────
+  Total Invoices Analysed  :  22
+  Matched                  :  15   (68.2% match rate)
+  Amount Mismatch          :  3
+  Missing in GSTR-2B       :  2   (supplier did not file GSTR-1)
+  Extra in GSTR-2B         :  2   (not in your books)
+────────────────────────────────────────────────────────────────────────────────────────────
+  ITC as per Books         :  Rs.    366,870.00
+  ITC as per GSTR-2B       :  Rs.    387,630.00
+  Net ITC Variance         :  Rs.    -20,760.00   [DIFFERENCE EXISTS]
+  ITC at Risk              :  Rs.     38,340.00   (supplier GSTR-1 not filed)
+  Total Mismatch Amount    :  Rs.      7,500.00
+────────────────────────────────────────────────────────────────────────────────────────────
+
+  SECTION 1 — MISSING IN GSTR-2B   [2 invoice(s)]
+  Total ITC at Risk : Rs.     38,340.00
+
+  These invoices are in your books but the supplier has NOT filed GSTR-1.
+  The government has no record of this ITC. You cannot claim it until supplier files.
+  RISK: If you already claimed this ITC, it will be reversed with 18% interest.
+
+────────────────────────────────────────────────────────────────────────────────────────────
+  #   GSTIN               Supplier                    Invoice             Date            ITC at Risk
+  ──────────────────────────────────────────────────────────────────────────────────────────
+  1   27AADCJ4411W1Z6     Janata Hardware             JHAPR2455           21-04-2024   Rs.    6,840.…
+  2   34AABCN3300M1Z2     Nandi Steel & Alloys        NSAAPR2419          20-04-2024   Rs.   31,500.…
+────────────────────────────────────────────────────────────────────────────────────────────
+
+  SECTION 2 — AMOUNT MISMATCH   [3 invoice(s)]
+  Total Discrepancy : Rs.      7,500.00
+
+  Invoice found in both GSTR-2B and books, but ITC values differ.
+  You can only claim the 2B amount — not your books amount.
+
+────────────────────────────────────────────────────────────────────────────────────────────
+  #   GSTIN               Invoice                   Books ITC         2B ITC    Difference
+  ──────────────────────────────────────────────────────────────────────────────────────────
+  1   19AABCG2211D1Z6     GPI0419              Rs.  10,800.00 Rs.   9,900.00  +Rs.  900.00
+       Remark : Books higher by Rs.900.00
+
+  2   22AABCE6677N1ZF     EC24APR554           Rs.  36,000.00 Rs.  33,300.00  +Rs.2,700.00
+       Remark : Books higher by Rs.2,700.00
+
+  3   33AAEPM0860Q1ZJ     PE1101               Rs.  30,000.00 Rs.  26,100.00  +Rs.3,900.00
+       Remark : Books higher by Rs.3,900.00
+
+────────────────────────────────────────────────────────────────────────────────────────────
+
+  SECTION 3 — EXTRA IN GSTR-2B   [2 invoice(s)]
+
+  These are in GSTR-2B but NOT recorded in your purchase register.
+  Verify if you received goods/services. If yes, book it — this is ITC you can claim.
+
+────────────────────────────────────────────────────────────────────────────────────────────
+  #   GSTIN               Supplier                    Invoice             Date              ITC in 2B
+  ──────────────────────────────────────────────────────────────────────────────────────────
+  1   20AABCR2255Y1Z9     20AABCR2255Y1Z9             RAPAPR2024          23-04-2024   Rs.  28,800.00
+  2   27AABCS1199P1ZV     27AABCS1199P1ZV             SCAPR24887          25-04-2024   Rs.  37,800.00
+────────────────────────────────────────────────────────────────────────────────────────────
+
+  SECTION 4 — MATCHED   [15 invoice(s)]
+
+  All values reconciled between GSTR-2B and books. No action needed.
+
+────────────────────────────────────────────────────────────────────────────────────────────
+  #   GSTIN               Supplier                    Invoice             Date                  ITC
+  ──────────────────────────────────────────────────────────────────────────────────────────
+  1   07AAACT5678P1Z2     TechPrint Solutions         TPSAPR88            17-04-2024   Rs.19,800.00
+  2   27AAGCM3344R1ZT     MetalWorks Corp             MWAPR24019          19-04-2024   Rs.57,600.00
+  3   36AAHCF9900K1Z1     Futura Office Supplies      FOS2024311          18-04-2024   Rs. 5,130.00
+  4   27AABCF8800L1Z3     Flexo Polymers              FPAPR24028          30-04-2024   Rs.16,560.00
+  5   27AADCF1122B1Z8     FastMove Logistics          FML2024047          14-04-2024   Rs.12,960.00
+  6   06AADCC1234A1Z1     Capitol Freight Co          CF2425221           07-04-2024   Rs. 8,640.00
+  7   27AADCV5566T1ZA     Vikram Paints               VPAPR24199          28-04-2024   Rs.12,150.00
+  8   07AADCS9911V1Z7     Saathi Distributors         SDAPR202471         30-04-2024   Rs. 7,920.00
+  9   29AAFCP3322M1ZB     PaperPlus India             PPI0424061          26-04-2024   Rs. 5,580.00
+  10  32AADCP1111H1Z5     Pooja Chemicals             PC24APR441          22-04-2024   Rs.15,300.00
+  11  08AAACH4433Z1ZK     Horizon Hotels & Resorts    HHR20240421         24-04-2024   Rs. 7,560.00
+  12  27AABCT1332L1ZS     Tech Solutions Pvt Ltd      TS20240401          01-04-2024   Rs.21,600.00
+  13  09AAACR5055K1Z5     Royal Traders               RTAPR889            05-04-2024   Rs.43,200.00
+  14  29AADCB2230M1Z3     BuildMart India Pvt Ltd     BMIINV0421          03-04-2024   Rs.11,250.00
+  15  24AAFCT2394K1ZG     Sunrise Supplies            SSAPR772            11-04-2024   Rs. 6,480.00
+────────────────────────────────────────────────────────────────────────────────────────────
+
+  WHAT TO DO NEXT
+────────────────────────────────────────────────────────────────────────────────────────────
+  1. URGENT — Contact 2 supplier(s) to file their pending GSTR-1.
+     ITC of Rs.     38,340.00 is blocked. Delayed filing = ITC reversal + 18% interest.
+  2. Resolve 3 invoice(s) with amount differences.
+     Get correct invoice/credit note from supplier. Claim only the 2B amount.
+  3. Book 2 invoice(s) that are in 2B but missing from your register.
+     This ITC is claimable — don't leave it unclaimed.
+────────────────────────────────────────────────────────────────────────────────────────────
+
+  GST Reconciliation Engine  |  20-Feb-2026  12:25:43
+════════════════════════════════════════════════════════════════════════════════════════════
