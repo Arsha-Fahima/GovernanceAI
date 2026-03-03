@@ -8,3 +8,4 @@ benv/
 # Python cache files
 __pycache__/
 *.pyc
+node_modules
