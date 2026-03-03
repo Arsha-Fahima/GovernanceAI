@@ -14,6 +14,8 @@ import ComplianceChart from "./components/ComplianceChart";
 import ComplianceClassification from "./components/ComplianceClassification";
 import GSTProfileTabs from "./components/GSTProfileTabs";
 import Navbar from "./components/navbar";
+// import GSTReconcilePage from "./components/GSTReconcile";
+// import ITCReconcile from "./itc-reconcile/page";
 // ...existing code...
 
 export default function GSTInsightPage() {
@@ -275,7 +277,7 @@ export default function GSTInsightPage() {
                   <motion.button
                     onClick={() => {
                       if (status === "authenticated") {
-                        router.push("/gstinsight"); // change if ITC has separate page
+                        router.push("/itc-reconcile"); // change if ITC has separate page
                       } else {
                         router.push("/login");
                       }
@@ -287,7 +289,7 @@ export default function GSTInsightPage() {
                hover:bg-[#1b69a1] hover:text-white
                transition-all '
                   >
-                    ITC
+                    ITCCC
                   </motion.button>
                 </div>
               </>
