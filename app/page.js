@@ -273,7 +273,7 @@ export default function GSTInsightPage() {
                     Check Compliance
                   </motion.button>
 
-                  {/* ITC Button */}
+                  {/* ITC Button */} 
                   <motion.button
                     onClick={() => {
                       if (status === "authenticated") {
