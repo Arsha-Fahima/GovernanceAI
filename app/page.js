@@ -289,7 +289,7 @@ export default function GSTInsightPage() {
                hover:bg-[#1b69a1] hover:text-white
                transition-all '
                   >
-                    ITCCC
+                    ITC
                   </motion.button>
                 </div>
               </>
