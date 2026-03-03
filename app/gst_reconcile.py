@@ -357,6 +357,35 @@ def write_report(results, stats, file_2b, file_log, output_path):
     return report
 
 
+def run_reconciliation(file_2b_path, file_log_path):
+
+    h2b  = detect_header_row(file_2b_path)
+    hlog = detect_header_row(file_log_path)
+
+    df_2b  = pd.read_excel(file_2b_path,  sheet_name=0, header=h2b,  dtype=str).dropna(how="all")
+    df_log = pd.read_excel(file_log_path, sheet_name=0, header=hlog, dtype=str).dropna(how="all")
+
+    list_2b  = normalize(df_2b,  "GSTR-2B")
+    list_log = normalize(df_log, "Books")
+
+    results = reconcile(list_2b, list_log)
+    stats   = compute_stats(results, list_2b, list_log)
+
+    missing   = [r for r in results if r["status"] == "MISSING_IN_2B"]
+    mismatch  = [r for r in results if r["status"] == "MISMATCH"]
+    extra     = [r for r in results if r["status"] == "EXTRA_IN_2B"]
+    matched   = [r for r in results if r["status"] == "MATCHED"]
+
+    return {
+        "meta": "Current Run",
+        "stats": stats,
+        "missing_2b": missing,
+        "mismatch": mismatch,
+        "extra_2b": extra,
+        "matched": matched,
+    }
+    
+
 # ─────────────────────────────────────────────
 # 6. MAIN
 # ─────────────────────────────────────────────

@@ -140,6 +140,10 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 import traceback
+from app.gst_reconcile import run_reconciliation
+import shutil
+from fastapi import UploadFile, File
+import os
 from app.user_repo import upsert_user, fetch_user_by_email
 from app.compliance_repo import upsert_compliance, update_compliance_derived_fields
 from app.api_results import (
@@ -175,6 +179,39 @@ class GSTForm(BaseModel):
 class EmailForm(BaseModel):
     email: str
 
+
+@app.post("/gst-reconcile/")
+async def gst_reconcile(
+    gstr2b: UploadFile = File(...),
+    purchase_register: UploadFile = File(...)
+):
+    try:
+        file_2b_path = f"temp_{gstr2b.filename}"
+        file_log_path = f"temp_{purchase_register.filename}"
+
+        with open(file_2b_path, "wb") as f:
+            shutil.copyfileobj(gstr2b.file, f)
+
+        with open(file_log_path, "wb") as f:
+            shutil.copyfileobj(purchase_register.file, f)
+
+        result = run_reconciliation(file_2b_path, file_log_path)
+
+        os.remove(file_2b_path)
+        os.remove(file_log_path)
+
+        return {
+            "status": "success",
+            "report": result
+        }
+
+    except Exception as e:
+        return {
+            "status": "error",
+            "message": str(e)
+        }  
+        
+        
 # ================= ROOT =================
 @app.get("/")
 def read_root():
