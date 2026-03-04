@@ -113,7 +113,6 @@ python-docx==1.2.0
 python-dotenv==1.2.1
 python-multipart==0.0.21
 pytz==2025.2
-pywin32==311
 PyYAML==6.0.3
 qdrant-client==1.16.2
 referencing==0.37.0
@@ -169,3 +168,4 @@ Werkzeug==3.1.6
 wrapt==2.1.1
 xxhash==3.6.0
 zstandard==0.25.0
+
