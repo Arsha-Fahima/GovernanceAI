@@ -5,7 +5,7 @@ benv/
 # Environment variables file
 .env
 .env.local
-
+.env*
 # Python cache files
 __pycache__/
 *.pyc
