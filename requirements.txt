@@ -1,5 +1,18 @@
-numpy==2.4.2
-pandas==3.0.1
-python-dateutil==2.9.0.post0
-six==1.17.0
-tzdata==2025.3
+# Core Framework
+fastapi==0.115.4
+uvicorn==0.32.0
+pydantic==2.7.1
+pydantic-settings==2.2.1
+
+# Database & Backend Services
+supabase==2.4.4
+python-dotenv==1.0.1
+requests==2.31.0
+
+# Data Processing
+pandas==2.2.0
+numpy==1.26.4
+python-dateutil==2.8.2
+
+# Utilities
+aiofiles==23.2.1
