@@ -133,14 +133,7 @@ export default function Navbar() {
             <>
               {/* Desktop authenticated actions */}
               <div className="hidden lg:flex items-center gap-4">
-                <button
-                  onClick={() => router.push("/gstinsight")}
-                  className="hidden xl:flex items-center gap-2 px-5 h-11 rounded-full border border-[#1b69a1]/10 text-[#1b69a1] font-bold text-[13px] hover:bg-[#1b69a1]/5 transition-all"
-                >
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#1b69a1] animate-pulse"></span>
-                  Live Console
-                </button>
-
+               
                 <button
                   onClick={() => signOut({ callbackUrl: "/" })}
                   className="h-11 px-6 rounded-full bg-slate-900 text-white font-bold text-[13px] hover:bg-slate-800 transition-all active:scale-95 shadow-lg shadow-slate-950/10"
