@@ -141,8 +141,8 @@ export default function GSTInsightPage() {
 
   if (status === "loading") {
     return (
-      <div className='min-h-screen flex items-center justify-center bg-white'>
-        <div className='animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-[#1b69a1]' />
+      <div className="min-h-screen flex items-center justify-center bg-white">
+        <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-[#1b69a1]" />
       </div>
     );
   }
@@ -153,9 +153,9 @@ export default function GSTInsightPage() {
         <title>GST Search & Compliance – GSTInsight</title>
       </Head>
 
-      <div className='min-h-screen bg-white font-sans text-slate-800 selection:bg-[#1b69a1]/20 selection:text-[#1b69a1] relative overflow-x-hidden'>
+      <div className="min-h-screen bg-white font-sans text-slate-800 selection:bg-[#1b69a1]/20 selection:text-[#1b69a1] relative overflow-x-hidden">
         <div
-          className='absolute inset-0 z-0 pointer-events-none opacity-[0.03]'
+          className="absolute inset-0 z-0 pointer-events-none opacity-[0.03]"
           style={{
             backgroundImage: "radial-gradient(#1b69a1 1px, transparent 1px)",
             backgroundSize: "40px 40px",
@@ -166,55 +166,55 @@ export default function GSTInsightPage() {
 
         <section
           ref={heroRef}
-          className='relative pt-20 sm:pt-24 md:pt-28 pb-20 sm:pb-28 md:pb-40 overflow-hidden'
+          className="relative pt-20 sm:pt-24 md:pt-28 pb-20 sm:pb-28 md:pb-40 overflow-hidden"
         >
-          <div className='absolute top-0 left-0 w-full h-full -z-10'>
+          <div className="absolute top-0 left-0 w-full h-full -z-10">
             <motion.div
               style={{ y: y1 }}
-              className='absolute top-[-20%] left-[-10%] w-[70%] sm:w-[50%] h-[50%] bg-[#1b69a1]/5 rounded-full blur-[120px]'
+              className="absolute top-[-20%] left-[-10%] w-[70%] sm:w-[50%] h-[50%] bg-[#1b69a1]/5 rounded-full blur-[120px]"
             />
             <motion.div
               style={{ y: y2 }}
-              className='absolute bottom-[-10%] right-[-10%] w-[60%] sm:w-[40%] h-[40%] bg-[#1b69a1]/5 rounded-full blur-[120px]'
+              className="absolute bottom-[-10%] right-[-10%] w-[60%] sm:w-[40%] h-[40%] bg-[#1b69a1]/5 rounded-full blur-[120px]"
             />
           </div>
 
-          <div className='max-w-7xl mx-auto px-4 sm:px-6 grid lg:grid-cols-2 gap-12 lg:gap-24 items-center'>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 grid lg:grid-cols-2 gap-12 lg:gap-24 items-center">
             <motion.div
-              className='max-w-2xl'
+              className="max-w-2xl"
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: false, amount: 0.3 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
             >
               <motion.div
-                className='inline-flex items-center gap-3 px-3 sm:px-4 py-1.5 rounded-full bg-[#1b69a1]/5 border border-[#1b69a1]/10 text-[#1b69a1] text-[10px] sm:text-[11px] font-black mb-6 sm:mb-8 md:mb-10 uppercase tracking-[0.2em]'
+                className="inline-flex items-center gap-3 px-3 sm:px-4 py-1.5 rounded-full bg-[#1b69a1]/5 border border-[#1b69a1]/10 text-[#1b69a1] text-[10px] sm:text-[11px] font-black mb-6 sm:mb-8 md:mb-10 uppercase tracking-[0.2em]"
                 initial={{ opacity: 0, scale: 0.8 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: false }}
                 transition={{ delay: 0.2, duration: 0.5 }}
               >
-                <span className='flex h-2 w-2 rounded-full bg-[#1b69a1] animate-pulse' />
+                <span className="flex h-2 w-2 rounded-full bg-[#1b69a1] animate-pulse" />
                 {status === "authenticated"
                   ? `Welcome, ${session.user.name}`
                   : "Real-Time Compliance Engine"}
               </motion.div>
 
               <motion.h2
-                className='text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black mb-4 sm:mb-6 leading-[0.95] text-slate-900 tracking-tight'
+                className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black mb-4 sm:mb-6 leading-[0.95] text-slate-900 tracking-tight"
                 initial={{ opacity: 0, x: -30 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: false }}
                 transition={{ delay: 0.3, duration: 0.6 }}
               >
                 GST Done{" "}
-                <span className='text-transparent bg-clip-text bg-linear-to-r from-[#1b69a1] to-blue-400'>
+                <span className="text-transparent bg-clip-text bg-linear-to-r from-[#1b69a1] to-blue-400">
                   100% Right
                 </span>
               </motion.h2>
 
               <motion.h3
-                className='text-sm sm:text-lg md:text-2xl font-bold text-[#1b69a1] mb-6 sm:mb-8 md:mb-10 tracking-tight uppercase tracking-[0.2em]'
+                className="text-sm sm:text-lg md:text-2xl font-bold text-[#1b69a1] mb-6 sm:mb-8 md:mb-10 tracking-tight uppercase tracking-[0.2em]"
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: false }}
@@ -224,7 +224,7 @@ export default function GSTInsightPage() {
               </motion.h3>
 
               <motion.p
-                className='text-base sm:text-lg md:text-xl text-slate-500 mb-8 sm:mb-10 md:mb-14 leading-relaxed font-medium max-w-lg'
+                className="text-base sm:text-lg md:text-xl text-slate-500 mb-8 sm:mb-10 md:mb-14 leading-relaxed font-medium max-w-lg"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: false }}
@@ -236,7 +236,7 @@ export default function GSTInsightPage() {
                 by intelligent automation.
               </motion.p>
 
-              <div className='flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4'>
+              <div className="flex flex-row items-center justify-start gap-3 sm:gap-4">
                 <motion.button
                   onClick={() => {
                     if (status === "authenticated") {
@@ -247,7 +247,7 @@ export default function GSTInsightPage() {
                   }}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className='w-full sm:w-auto px-6 py-3 rounded-full bg-[#1b69a1] text-white font-semibold text-sm hover:bg-[#155685] transition-all shadow-md'
+                  className="px-6 py-3 rounded-full bg-[#1b69a1] text-white font-semibold text-sm hover:bg-[#155685] transition-all shadow-md"
                 >
                   Check Compliance
                 </motion.button>
@@ -262,29 +262,29 @@ export default function GSTInsightPage() {
                   }}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className='w-full sm:w-auto px-6 py-3 rounded-full border border-[#1b69a1] text-[#1b69a1] font-semibold text-sm hover:bg-[#1b69a1] hover:text-white transition-all'
+                  className="px-6 py-3 rounded-full border border-[#1b69a1] text-[#1b69a1] font-semibold text-sm hover:bg-[#1b69a1] hover:text-white transition-all"
                 >
                   ITC
                 </motion.button>
               </div>
 
               <div
-                className='mt-8 sm:mt-10 bg-white/50 backdrop-blur-sm border border-slate-100 rounded-[1.5rem] sm:rounded-[2rem] p-4 sm:p-6 max-w-md hidden sm:block shadow-2xl shadow-slate-200/50'
+                className="mt-8 sm:mt-10 bg-white/50 backdrop-blur-sm border border-slate-100 rounded-[1.5rem] sm:rounded-[2rem] p-4 sm:p-6 max-w-md hidden sm:block shadow-2xl shadow-slate-200/50"
                 style={{ animationDelay: "0.4s" }}
               >
-                <div className='flex items-center justify-between mb-5 gap-4'>
-                  <span className='text-[10px] font-black text-slate-400 uppercase tracking-widest'>
+                <div className="flex items-center justify-between mb-5 gap-4">
+                  <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
                     Network status
                   </span>
-                  <div className='flex items-center gap-2 shrink-0'>
-                    <span className='w-1.5 h-1.5 rounded-full bg-green-500' />
-                    <span className='text-[10px] font-bold text-slate-900'>
+                  <div className="flex items-center gap-2 shrink-0">
+                    <span className="w-1.5 h-1.5 rounded-full bg-green-500" />
+                    <span className="text-[10px] font-bold text-slate-900">
                       Operational • 24ms
                     </span>
                   </div>
                 </div>
 
-                <div className='space-y-4'>
+                <div className="space-y-4">
                   {[
                     {
                       t: "Verified GSTR History: 27A...",
@@ -304,35 +304,35 @@ export default function GSTInsightPage() {
                   ].map((item, i) => (
                     <motion.div
                       key={i}
-                      className='flex items-center justify-between gap-4 text-[13px] font-bold'
+                      className="flex items-center justify-between gap-4 text-[13px] font-bold"
                       initial={{ opacity: 0, x: -10 }}
                       whileInView={{ opacity: 1, x: 0 }}
                       viewport={{ once: false }}
                       transition={{ delay: 0.2 + i * 0.1, duration: 0.5 }}
                     >
-                      <div className='text-slate-500 truncate'>{item.t}</div>
+                      <div className="text-slate-500 truncate">{item.t}</div>
                       <div className={`${item.c} shrink-0`}>{item.s}</div>
                     </motion.div>
                   ))}
                 </div>
               </div>
 
-              <div className='flex flex-wrap items-center gap-8 sm:gap-10 md:gap-12 border-t border-slate-100 pt-8 sm:pt-10 mt-8 sm:mt-10'>
+              <div className="flex flex-wrap items-center gap-8 sm:gap-10 md:gap-12 border-t border-slate-100 pt-8 sm:pt-10 mt-8 sm:mt-10">
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: false }}
                   transition={{ delay: 0.2, duration: 0.6 }}
                 >
-                  <div className='flex items-center gap-2'>
-                    <div className='text-2xl sm:text-3xl font-black text-slate-900 mb-1'>
+                  <div className="flex items-center gap-2">
+                    <div className="text-2xl sm:text-3xl font-black text-slate-900 mb-1">
                       1.2M+
                     </div>
-                    <span className='px-1.5 py-0.5 rounded-md bg-green-100 text-[9px] font-black text-green-700 animate-pulse'>
+                    <span className="px-1.5 py-0.5 rounded-md bg-green-100 text-[9px] font-black text-green-700 animate-pulse">
                       LIVE
                     </span>
                   </div>
-                  <div className='text-[10px] text-slate-400 font-bold uppercase tracking-[0.2em]'>
+                  <div className="text-[10px] text-slate-400 font-bold uppercase tracking-[0.2em]">
                     GSTINs Verified
                   </div>
                 </motion.div>
@@ -343,28 +343,28 @@ export default function GSTInsightPage() {
                   viewport={{ once: false }}
                   transition={{ delay: 0.4, duration: 0.6 }}
                 >
-                  <div className='text-2xl sm:text-3xl font-black text-slate-900 mb-1'>
+                  <div className="text-2xl sm:text-3xl font-black text-slate-900 mb-1">
                     &lt; 45ms
                   </div>
-                  <div className='text-[10px] text-slate-400 font-bold uppercase tracking-[0.2em]'>
+                  <div className="text-[10px] text-slate-400 font-bold uppercase tracking-[0.2em]">
                     API Latency
                   </div>
                 </motion.div>
 
                 <motion.div
-                  className='hidden sm:block'
+                  className="hidden sm:block"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: false }}
                   transition={{ delay: 0.6, duration: 0.6 }}
                 >
-                  <div className='flex items-center gap-2'>
-                    <div className='text-2xl sm:text-3xl font-black text-slate-900 mb-1'>
+                  <div className="flex items-center gap-2">
+                    <div className="text-2xl sm:text-3xl font-black text-slate-900 mb-1">
                       99.9%
                     </div>
-                    <div className='w-2 h-2 rounded-full bg-green-500 animate-ping' />
+                    <div className="w-2 h-2 rounded-full bg-green-500 animate-ping" />
                   </div>
-                  <div className='text-[10px] text-slate-400 font-bold uppercase tracking-[0.2em]'>
+                  <div className="text-[10px] text-slate-400 font-bold uppercase tracking-[0.2em]">
                     System Uptime
                   </div>
                 </motion.div>
@@ -372,90 +372,90 @@ export default function GSTInsightPage() {
             </motion.div>
 
             <motion.div
-              className='relative mt-4 lg:mt-0'
+              className="relative mt-4 lg:mt-0"
               style={{ y: yImage }}
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: false, amount: 0.2 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
             >
-              <div className='relative z-10 bg-slate-900 p-2 sm:p-2.5 rounded-[2rem] sm:rounded-[3rem] shadow-[0_60px_100px_-20px_rgba(27,105,161,0.25)] border border-slate-800 overflow-hidden transform hover:scale-[1.02] transition-all duration-700 group'>
+              <div className="relative z-10 bg-slate-900 p-2 sm:p-2.5 rounded-[2rem] sm:rounded-[3rem] shadow-[0_60px_100px_-20px_rgba(27,105,161,0.25)] border border-slate-800 overflow-hidden transform hover:scale-[1.02] transition-all duration-700 group">
                 <Image
-                  src='/images/headeritc.png'
-                  alt='Data Analytics Dashboard'
+                  src="/images/headeritc.png"
+                  alt="Data Analytics Dashboard"
                   width={800}
                   height={600}
-                  className='rounded-[1.8rem] sm:rounded-[2.8rem] opacity-80 group-hover:opacity-100 transition-all duration-700 group-hover:scale-105 w-full h-auto'
+                  className="rounded-[1.8rem] sm:rounded-[2.8rem] opacity-80 group-hover:opacity-100 transition-all duration-700 group-hover:scale-105 w-full h-auto"
                 />
-                <div className='absolute inset-0 bg-linear-to-tr from-[#1b69a1]/40 via-transparent to-transparent' />
+                <div className="absolute inset-0 bg-linear-to-tr from-[#1b69a1]/40 via-transparent to-transparent" />
               </div>
 
               <motion.div
-                className='absolute -top-10 -left-6 hidden xl:block z-20'
+                className="absolute -top-10 -left-6 hidden xl:block z-20"
                 style={{ y: yCard1 }}
                 initial={{ opacity: 0, x: -50 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: false }}
                 transition={{ duration: 1, delay: 0.2 }}
               >
-                <div className='absolute -inset-10 bg-gradient-to-br from-[#1b69a1]/20 via-blue-400/10 to-transparent blur-3xl opacity-60' />
+                <div className="absolute -inset-10 bg-gradient-to-br from-[#1b69a1]/20 via-blue-400/10 to-transparent blur-3xl opacity-60" />
 
-                <div className='relative backdrop-blur-2xl bg-white/70 border border-white/40 rounded-[32px] p-8 shadow-[0_40px_120px_-20px_rgba(0,0,0,0.25)] w-[360px]'>
-                  <div className='flex items-center justify-between mb-6'>
+                <div className="relative backdrop-blur-2xl bg-white/70 border border-white/40 rounded-[32px] p-8 shadow-[0_40px_120px_-20px_rgba(0,0,0,0.25)] w-[360px]">
+                  <div className="flex items-center justify-between mb-6">
                     <div>
-                      <p className='text-[10px] uppercase tracking-[0.25em] text-slate-400 font-semibold'>
+                      <p className="text-[10px] uppercase tracking-[0.25em] text-slate-400 font-semibold">
                         GST Intelligence
                       </p>
-                      <h3 className='text-xl font-semibold text-slate-900 tracking-tight'>
+                      <h3 className="text-xl font-semibold text-slate-900 tracking-tight">
                         Entity Overview
                       </h3>
                     </div>
 
-                    <div className='w-10 h-10 rounded-xl bg-gradient-to-br from-[#1b69a1] to-blue-500 flex items-center justify-center shadow-lg shadow-[#1b69a1]/30'>
+                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#1b69a1] to-blue-500 flex items-center justify-center shadow-lg shadow-[#1b69a1]/30">
                       <svg
-                        className='w-5 h-5 text-white'
-                        fill='none'
-                        stroke='currentColor'
-                        viewBox='0 0 24 24'
+                        className="w-5 h-5 text-white"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
                       >
                         <path
-                          strokeLinecap='round'
-                          strokeLinejoin='round'
-                          strokeWidth='2.5'
-                          d='M5 13l4 4L19 7'
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2.5"
+                          d="M5 13l4 4L19 7"
                         />
                       </svg>
                     </div>
                   </div>
 
-                  <div className='grid grid-cols-2 gap-6'>
-                    <div className='space-y-1'>
-                      <p className='text-[10px] uppercase tracking-widest text-slate-400 font-medium'>
+                  <div className="grid grid-cols-2 gap-6">
+                    <div className="space-y-1">
+                      <p className="text-[10px] uppercase tracking-widest text-slate-400 font-medium">
                         Status
                       </p>
-                      <p className='text-sm font-semibold text-emerald-600'>
+                      <p className="text-sm font-semibold text-emerald-600">
                         Verified & Active
                       </p>
                     </div>
 
-                    <div className='space-y-1'>
-                      <p className='text-[10px] uppercase tracking-widest text-slate-400 font-medium'>
+                    <div className="space-y-1">
+                      <p className="text-[10px] uppercase tracking-widest text-slate-400 font-medium">
                         Compliance
                       </p>
-                      <p className='text-sm font-semibold text-[#1b69a1]'>
+                      <p className="text-sm font-semibold text-[#1b69a1]">
                         98.4%
                       </p>
                     </div>
                   </div>
 
-                  <div className='mt-6'>
-                    <div className='w-full h-2 bg-slate-200/60 rounded-full overflow-hidden'>
+                  <div className="mt-6">
+                    <div className="w-full h-2 bg-slate-200/60 rounded-full overflow-hidden">
                       <motion.div
                         initial={{ width: 0 }}
                         whileInView={{ width: "98.4%" }}
                         viewport={{ once: false }}
                         transition={{ duration: 1.5, ease: "easeOut" }}
-                        className='h-full bg-gradient-to-r from-[#1b69a1] to-blue-400 rounded-full'
+                        className="h-full bg-gradient-to-r from-[#1b69a1] to-blue-400 rounded-full"
                       />
                     </div>
                   </div>
@@ -463,40 +463,40 @@ export default function GSTInsightPage() {
               </motion.div>
 
               <motion.div
-                className='absolute -bottom-6 -right-6 hidden xl:block z-20'
+                className="absolute -bottom-6 -right-6 hidden xl:block z-20"
                 style={{ y: yCard2 }}
                 initial={{ opacity: 0, x: 50 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: false }}
                 transition={{ duration: 1, delay: 0.4 }}
               >
-                <div className='absolute inset-0 bg-gradient-to-br from-[#1b69a1]/30 to-blue-500/20 blur-2xl opacity-60 rounded-[28px]' />
+                <div className="absolute inset-0 bg-gradient-to-br from-[#1b69a1]/30 to-blue-500/20 blur-2xl opacity-60 rounded-[28px]" />
 
-                <div className='relative backdrop-blur-2xl bg-slate-900/80 border border-slate-700/40 rounded-[28px] p-7 w-[240px] shadow-[0_30px_80px_-15px_rgba(0,0,0,0.7)]'>
-                  <div className='flex justify-between items-center mb-5'>
+                <div className="relative backdrop-blur-2xl bg-slate-900/80 border border-slate-700/40 rounded-[28px] p-7 w-[240px] shadow-[0_30px_80px_-15px_rgba(0,0,0,0.7)]">
+                  <div className="flex justify-between items-center mb-5">
                     <div>
-                      <p className='text-[10px] uppercase tracking-[0.25em] text-slate-400 font-semibold'>
+                      <p className="text-[10px] uppercase tracking-[0.25em] text-slate-400 font-semibold">
                         Score
                       </p>
-                      <p className='text-xl font-semibold text-white mt-0.5 tracking-tight'>
+                      <p className="text-xl font-semibold text-white mt-0.5 tracking-tight">
                         98.4%
                       </p>
                     </div>
 
-                    <div className='w-2.5 h-2.5 rounded-full bg-emerald-400 shadow-[0_0_12px_rgba(52,211,153,0.8)]' />
+                    <div className="w-2.5 h-2.5 rounded-full bg-emerald-400 shadow-[0_0_12px_rgba(52,211,153,0.8)]" />
                   </div>
 
-                  <div className='relative w-full h-2 bg-slate-800/70 rounded-full overflow-hidden'>
+                  <div className="relative w-full h-2 bg-slate-800/70 rounded-full overflow-hidden">
                     <motion.div
                       initial={{ width: 0 }}
                       whileInView={{ width: "98.4%" }}
                       viewport={{ once: false }}
                       transition={{ duration: 1.5, ease: "easeOut" }}
-                      className='h-full bg-gradient-to-r from-[#1b69a1] to-blue-400 rounded-full'
+                      className="h-full bg-gradient-to-r from-[#1b69a1] to-blue-400 rounded-full"
                     />
                   </div>
 
-                  <div className='mt-4 text-[10px] text-slate-400'>
+                  <div className="mt-4 text-[10px] text-slate-400">
                     Excellent compliance standing
                   </div>
                 </div>
@@ -507,62 +507,65 @@ export default function GSTInsightPage() {
 
         {showForm && (
           <section
-            id='setup-form-section'
-            className='py-12 sm:py-16 md:py-20 bg-slate-50 border-y border-slate-100'
+            id="setup-form-section"
+            className="py-12 sm:py-16 md:py-20 bg-slate-50 border-y border-slate-100"
           >
-            <div className='max-w-3xl mx-auto px-4 sm:px-6'>
-              <div className='bg-white rounded-[2rem] sm:rounded-[3rem] p-6 sm:p-8 md:p-12 shadow-2xl border border-slate-100'>
-                <div className='text-center mb-8 sm:mb-10 md:mb-12'>
-                  <h3 className='text-2xl sm:text-3xl font-black text-slate-900 mb-3 sm:mb-4'>
+            <div className="max-w-3xl mx-auto px-4 sm:px-6">
+              <div className="bg-white rounded-[2rem] sm:rounded-[3rem] p-6 sm:p-8 md:p-12 shadow-2xl border border-slate-100">
+                <div className="text-center mb-8 sm:mb-10 md:mb-12">
+                  <h3 className="text-2xl sm:text-3xl font-black text-slate-900 mb-3 sm:mb-4">
                     GST Compliance Checker
                   </h3>
-                  <p className='text-sm sm:text-base text-slate-500 font-bold'>
+                  <p className="text-sm sm:text-base text-slate-500 font-bold">
                     Configure your business profile for automated monitoring.
                   </p>
                 </div>
 
-                <form onSubmit={handleProfileSubmit} className='space-y-6 sm:space-y-8'>
-                  <div className='grid md:grid-cols-2 gap-5 sm:gap-8'>
-                    <div className='space-y-3'>
-                      <label className='text-[11px] font-black uppercase tracking-widest text-slate-400 ml-2 sm:ml-4'>
+                <form
+                  onSubmit={handleProfileSubmit}
+                  className="space-y-6 sm:space-y-8"
+                >
+                  <div className="grid md:grid-cols-2 gap-5 sm:gap-8">
+                    <div className="space-y-3">
+                      <label className="text-[11px] font-black uppercase tracking-widest text-slate-400 ml-2 sm:ml-4">
                         Full Name
                       </label>
                       <input
-                        type='text'
-                        placeholder='John Doe'
+                        type="text"
+                        placeholder="John Doe"
                         required
                         value={form.name}
                         onChange={(e) =>
                           setForm({ ...form, name: e.target.value })
                         }
-                        className='w-full bg-slate-50 border-2 border-slate-50 px-4 sm:px-6 py-3 sm:py-4 rounded-2xl font-bold focus:border-[#1b69a1] focus:bg-white outline-hidden transition-all'
+                        className="w-full bg-slate-50 border-2 border-slate-50 px-4 sm:px-6 py-3 sm:py-4 rounded-2xl font-bold focus:border-[#1b69a1] focus:bg-white outline-hidden transition-all"
                       />
                     </div>
 
-                    <div className='space-y-3'>
-                      <label className='text-[11px] font-black uppercase tracking-widest text-slate-400 ml-2 sm:ml-4'>
+                    <div className="space-y-3">
+                      <label className="text-[11px] font-black uppercase tracking-widest text-slate-400 ml-2 sm:ml-4">
                         WhatsApp Number
                       </label>
                       <input
-                        type='tel'
-                        placeholder='+91 98765 43210'
+                        type="tel"
+                        placeholder="+91 98765 43210"
                         required
                         value={form.phone}
                         onChange={(e) =>
                           setForm({ ...form, phone: e.target.value })
                         }
-                        className='w-full bg-slate-50 border-2 border-slate-50 px-4 sm:px-6 py-3 sm:py-4 rounded-2xl font-bold focus:border-[#1b69a1] focus:bg-white outline-hidden transition-all'
+                        className="w-full bg-slate-50 border-2 border-slate-50 px-4 sm:px-6 py-3 sm:py-4 rounded-2xl font-bold focus:border-[#1b69a1] focus:bg-white outline-hidden transition-all"
                       />
                     </div>
                   </div>
 
-                  <div className='space-y-3'>
-                    <label className='text-[11px] font-black uppercase tracking-widest text-slate-400 ml-2 sm:ml-4'>
+                  <div className="space-y-3">
+                    <label className="text-[11px] font-black uppercase tracking-widest text-slate-400 ml-2 sm:ml-4">
                       GSTIN (Identification Number)
                     </label>
                     <input
-                      type='text'
-                      placeholder='15-digit code'
+                      type="text"
+                      placeholder="15-digit code"
                       required
                       value={form.gstin}
                       onChange={(e) =>
@@ -571,22 +574,22 @@ export default function GSTInsightPage() {
                           gstin: e.target.value.toUpperCase(),
                         })
                       }
-                      className='w-full bg-slate-50 border-2 border-slate-50 px-4 sm:px-6 py-3 sm:py-4 rounded-2xl font-bold focus:border-[#1b69a1] focus:bg-white outline-hidden transition-all'
+                      className="w-full bg-slate-50 border-2 border-slate-50 px-4 sm:px-6 py-3 sm:py-4 rounded-2xl font-bold focus:border-[#1b69a1] focus:bg-white outline-hidden transition-all"
                     />
                   </div>
 
-                  <div className='flex flex-col sm:flex-row gap-4 pt-2 sm:pt-4'>
+                  <div className="flex flex-col sm:flex-row gap-4 pt-2 sm:pt-4">
                     <button
-                      type='submit'
+                      type="submit"
                       disabled={isSearching}
-                      className='flex-1 bg-[#1b69a1] text-white py-4 sm:py-5 rounded-2xl font-black hover:bg-[#155685] transition-all shadow-xl shadow-[#1b69a1]/20 disabled:opacity-50'
+                      className="flex-1 bg-[#1b69a1] text-white py-4 sm:py-5 rounded-2xl font-black hover:bg-[#155685] transition-all shadow-xl shadow-[#1b69a1]/20 disabled:opacity-50"
                     >
                       {isSearching ? "Processing..." : "Save & Verify"}
                     </button>
                     <button
-                      type='button'
+                      type="button"
                       onClick={() => setShowForm(false)}
-                      className='px-8 sm:px-10 py-4 sm:py-5 rounded-2xl font-black text-slate-400 hover:text-slate-900 transition-all border-2 border-transparent hover:border-slate-100'
+                      className="px-8 sm:px-10 py-4 sm:py-5 rounded-2xl font-black text-slate-400 hover:text-slate-900 transition-all border-2 border-transparent hover:border-slate-100"
                     >
                       Cancel
                     </button>
@@ -599,29 +602,29 @@ export default function GSTInsightPage() {
 
         {searchResult && (
           <section
-            id='results-section'
-            className='py-14 sm:py-20 md:py-24 bg-white relative border-b border-slate-100'
+            id="results-section"
+            className="py-14 sm:py-20 md:py-24 bg-white relative border-b border-slate-100"
           >
-            <div className='max-w-7xl mx-auto px-4 sm:px-6'>
-              <div className='flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6 mb-10 sm:mb-14 md:mb-20'>
+            <div className="max-w-7xl mx-auto px-4 sm:px-6">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6 mb-10 sm:mb-14 md:mb-20">
                 <div>
-                  <span className='text-[#1b69a1] font-black uppercase tracking-[0.3em] text-[10px] sm:text-[11px] mb-3 sm:mb-4 block'>
+                  <span className="text-[#1b69a1] font-black uppercase tracking-[0.3em] text-[10px] sm:text-[11px] mb-3 sm:mb-4 block">
                     Verification Node Output
                   </span>
-                  <h2 className='text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 tracking-tight break-all sm:break-normal'>
+                  <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 tracking-tight break-all sm:break-normal">
                     GST Analytics: {searchResult.gstin}
                   </h2>
                 </div>
 
                 <button
                   onClick={() => setSearchResult(null)}
-                  className='bg-slate-50 text-slate-400 hover:text-slate-900 w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center transition-all shrink-0'
+                  className="bg-slate-50 text-slate-400 hover:text-slate-900 w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center transition-all shrink-0"
                 >
                   ✕
                 </button>
               </div>
 
-              <div className='bg-white rounded-[1.8rem] sm:rounded-[2.5rem] md:rounded-[3.5rem] overflow-hidden shadow-[0_100px_150px_-50px_rgba(0,0,0,0.1)] border border-slate-100'>
+              <div className="bg-white rounded-[1.8rem] sm:rounded-[2.5rem] md:rounded-[3.5rem] overflow-hidden shadow-[0_100px_150px_-50px_rgba(0,0,0,0.1)] border border-slate-100">
                 <GSTProfileTabs
                   gstin={searchResult.gstin}
                   tradeName={searchResult.legalname}
@@ -633,21 +636,24 @@ export default function GSTInsightPage() {
           </section>
         )}
 
-        <section className='py-12 sm:py-16 md:py-20 border-y border-slate-100 bg-slate-50/50 relative overflow-hidden'>
-          <div className='max-w-7xl mx-auto px-4 sm:px-6 overflow-hidden'>
+        <section className="py-12 sm:py-16 md:py-20 border-y border-slate-100 bg-slate-50/50 relative overflow-hidden">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 overflow-hidden">
             <motion.div
-              className='flex gap-10 sm:gap-16 md:gap-24 items-center whitespace-nowrap'
+              className="flex gap-10 sm:gap-16 md:gap-24 items-center whitespace-nowrap"
               initial={{ x: "0%" }}
               animate={{ x: "-50%" }}
               transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
             >
               {[...Array(2)].map((_, idx) => (
-                <div key={idx} className='flex gap-10 sm:gap-16 md:gap-24 items-center'>
+                <div
+                  key={idx}
+                  className="flex gap-10 sm:gap-16 md:gap-24 items-center"
+                >
                   {["MICROSOFT", "AIRTEL", "AMAZON", "RELIANCE", "ZOMATO"].map(
                     (brand) => (
                       <span
                         key={brand}
-                        className='text-xl sm:text-2xl md:text-3xl font-black tracking-tighter text-slate-300 hover:text-[#1b69a1] cursor-default transition-colors grayscale hover:grayscale-0'
+                        className="text-xl sm:text-2xl md:text-3xl font-black tracking-tighter text-slate-300 hover:text-[#1b69a1] cursor-default transition-colors grayscale hover:grayscale-0"
                       >
                         {brand}
                       </span>
@@ -659,28 +665,28 @@ export default function GSTInsightPage() {
           </div>
         </section>
 
-        <section className='py-20 sm:py-28 md:py-40 bg-white relative overflow-hidden'>
-          <div className='max-w-7xl mx-auto px-4 sm:px-6 grid lg:grid-cols-2 gap-14 lg:gap-24 xl:gap-32 items-center'>
+        <section className="py-20 sm:py-28 md:py-40 bg-white relative overflow-hidden">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 grid lg:grid-cols-2 gap-14 lg:gap-24 xl:gap-32 items-center">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: false }}
             >
-              <div className='inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-[#1b69a1]/5 border border-[#1b69a1]/10 text-[#1b69a1] text-[10px] sm:text-[11px] font-black mb-6 sm:mb-8 md:mb-10 uppercase tracking-[0.2em]'>
+              <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-[#1b69a1]/5 border border-[#1b69a1]/10 text-[#1b69a1] text-[10px] sm:text-[11px] font-black mb-6 sm:mb-8 md:mb-10 uppercase tracking-[0.2em]">
                 Verification Taxonomy
               </div>
 
-              <h2 className='text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black text-slate-900 mb-6 sm:mb-8 md:mb-10 leading-[0.9] tracking-tighter'>
+              <h2 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black text-slate-900 mb-6 sm:mb-8 md:mb-10 leading-[0.9] tracking-tighter">
                 Granular Audit <br />
-                <span className='text-[#1b69a1]'>Points.</span>
+                <span className="text-[#1b69a1]">Points.</span>
               </h2>
 
-              <p className='text-base sm:text-lg md:text-xl text-slate-500 font-medium leading-relaxed mb-8 sm:mb-10 md:mb-12 max-w-lg'>
+              <p className="text-base sm:text-lg md:text-xl text-slate-500 font-medium leading-relaxed mb-8 sm:mb-10 md:mb-12 max-w-lg">
                 We don't just check 'Active' status. Our engine parses the
                 entire GSTN metadata to provide deep legal insights.
               </p>
 
-              <div className='space-y-4 sm:space-y-5 md:space-y-6'>
+              <div className="space-y-4 sm:space-y-5 md:space-y-6">
                 {[
                   "GSTR-1 & 3B Frequency Matching",
                   "ITC Mismatch Probability Scores",
@@ -689,24 +695,24 @@ export default function GSTInsightPage() {
                 ].map((item, i) => (
                   <div
                     key={i}
-                    className='flex items-start sm:items-center gap-4 sm:gap-6 p-4 sm:p-5 md:p-6 rounded-[1.5rem] sm:rounded-[2rem] bg-slate-50 border border-slate-100 hover:bg-white hover:shadow-2xl hover:shadow-slate-200/50 transition-all font-bold group'
+                    className="flex items-start sm:items-center gap-4 sm:gap-6 p-4 sm:p-5 md:p-6 rounded-[1.5rem] sm:rounded-[2rem] bg-slate-50 border border-slate-100 hover:bg-white hover:shadow-2xl hover:shadow-slate-200/50 transition-all font-bold group"
                   >
-                    <div className='w-10 h-10 shrink-0 rounded-xl bg-white border border-slate-200 flex items-center justify-center text-[#1b69a1] group-hover:bg-[#1b69a1] group-hover:text-white transition-colors shadow-sm'>
+                    <div className="w-10 h-10 shrink-0 rounded-xl bg-white border border-slate-200 flex items-center justify-center text-[#1b69a1] group-hover:bg-[#1b69a1] group-hover:text-white transition-colors shadow-sm">
                       <svg
-                        className='w-5 h-5'
-                        fill='none'
-                        stroke='currentColor'
-                        viewBox='0 0 24 24'
+                        className="w-5 h-5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
                       >
                         <path
-                          strokeLinecap='round'
-                          strokeLinejoin='round'
-                          strokeWidth='2.5'
-                          d='M5 13l4 4L19 7'
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2.5"
+                          d="M5 13l4 4L19 7"
                         />
                       </svg>
                     </div>
-                    <span className='text-sm sm:text-base'>{item}</span>
+                    <span className="text-sm sm:text-base">{item}</span>
                   </div>
                 ))}
               </div>
@@ -716,51 +722,52 @@ export default function GSTInsightPage() {
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: false, amount: 0.3 }}
-              className='relative'
+              className="relative"
             >
-              <div className='absolute -inset-20 bg-linear-to-tr from-[#1b69a1]/10 via-transparent to-transparent rounded-full blur-[100px]' />
-              <div className='relative bg-slate-900 rounded-[2rem] sm:rounded-[2.5rem] md:rounded-[3rem] p-6 sm:p-8 md:p-12 shadow-2xl overflow-hidden border border-slate-800 min-h-[420px] sm:min-h-[500px] md:h-[600px] flex flex-col justify-center gap-8 sm:gap-10 md:gap-12 group'>
-                <div className='space-y-4'>
-                  <div className='text-[10px] uppercase tracking-[0.3em] font-black text-white/30'>
+              <div className="absolute -inset-20 bg-linear-to-tr from-[#1b69a1]/10 via-transparent to-transparent rounded-full blur-[100px]" />
+              <div className="relative bg-slate-900 rounded-[1.5rem] sm:rounded-[2rem] md:rounded-[3rem] p-4 sm:p-6 md:p-12 shadow-2xl overflow-hidden border border-slate-800 min-h-[auto] sm:min-h-[500px] md:h-[600px] flex flex-col justify-center gap-6 sm:gap-8 md:gap-12 group">
+                <div className="space-y-3 sm:space-y-4">
+                  <div className="text-[9px] sm:text-[10px] uppercase tracking-[0.25em] sm:tracking-[0.3em] font-black text-white/30">
                     Live Processing Node
                   </div>
-                  <div className='flex items-center gap-4 bg-white/5 border border-white/10 p-4 sm:p-5 rounded-2xl'>
-                    <div className='w-3 h-3 rounded-full bg-blue-500 animate-pulse' />
-                    <div className='text-white font-mono text-xs sm:text-sm overflow-hidden whitespace-nowrap opacity-60'>
+
+                  <div className="flex items-center gap-3 sm:gap-4 bg-white/5 border border-white/10 p-3 sm:p-4 md:p-5 rounded-xl sm:rounded-2xl overflow-hidden">
+                    <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-blue-500 animate-pulse shrink-0" />
+                    <div className="text-white font-mono text-[10px] sm:text-xs md:text-sm opacity-60 break-all sm:break-normal">
                       $ gst-verify --target 27AA... --depth deep
                     </div>
                   </div>
                 </div>
 
-                <div className='grid grid-cols-2 gap-6 sm:gap-8'>
+                <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
                   {[
                     { l: "Parsing Engines", v: "14 Nodes" },
                     { l: "Metadata Points", v: "248+" },
                     { l: "Signature Version", v: "4.2.0" },
                     { l: "Checksum", v: "Verified" },
                   ].map((job, i) => (
-                    <div key={i} className='space-y-2'>
-                      <div className='text-[10px] uppercase tracking-widest text-[#1b69a1] font-black'>
+                    <div key={i} className="space-y-2">
+                      <div className="text-[9px] sm:text-[10px] uppercase tracking-wider sm:tracking-widest text-[#1b69a1] font-black break-words">
                         {job.l}
                       </div>
-                      <div className='text-lg sm:text-xl font-black text-white'>
+                      <div className="text-base sm:text-lg md:text-xl font-black text-white">
                         {job.v}
                       </div>
-                      <div className='h-1 w-full bg-slate-800 rounded-full overflow-hidden'>
+                      <div className="h-1 w-full bg-slate-800 rounded-full overflow-hidden">
                         <motion.div
                           initial={{ width: 0 }}
                           whileInView={{ width: "80%" }}
                           viewport={{ once: false }}
                           transition={{ duration: 2, delay: i * 0.2 }}
-                          className='h-full bg-[#1b69a1]/40'
+                          className="h-full bg-[#1b69a1]/40"
                         />
                       </div>
                     </div>
                   ))}
                 </div>
 
-                <div className='mt-4 sm:mt-8 md:mt-12 text-center'>
-                  <span className='px-4 sm:px-6 py-2 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 font-bold text-[10px] uppercase tracking-widest'>
+                <div className="mt-2 sm:mt-6 md:mt-12 text-left sm:text-center">
+                  <span className="inline-block px-3 sm:px-5 md:px-6 py-2 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 font-bold text-[9px] sm:text-[10px] uppercase tracking-[0.15em] sm:tracking-widest">
                     Secure Transmission Isolated
                   </span>
                 </div>
@@ -769,20 +776,20 @@ export default function GSTInsightPage() {
           </div>
         </section>
 
-        <section className='py-20 sm:py-28 md:py-40 bg-white'>
-          <div className='max-w-7xl mx-auto px-4 sm:px-6'>
-            <div className='grid lg:grid-cols-2 gap-10 sm:gap-14 md:gap-20 items-end mb-16 sm:mb-24 md:mb-32'>
+        <section className="py-20 sm:py-28 md:py-40 bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6">
+            <div className="grid lg:grid-cols-2 gap-10 sm:gap-14 md:gap-20 items-end mb-16 sm:mb-24 md:mb-32">
               <div>
-                <span className='text-[#1b69a1] font-black uppercase tracking-[0.3em] text-[10px] sm:text-[11px] mb-4 sm:mb-6 block'>
+                <span className="text-[#1b69a1] font-black uppercase tracking-[0.3em] text-[10px] sm:text-[11px] mb-4 sm:mb-6 block">
                   Core Capabilities
                 </span>
-                <h2 className='text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-slate-900 leading-[1.05] tracking-tight'>
+                <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-slate-900 leading-[1.05] tracking-tight">
                   Enterprise-grade <br />
                   GST verification.
                 </h2>
               </div>
 
-              <p className='text-base sm:text-lg md:text-xl text-slate-500 font-medium leading-relaxed max-w-md'>
+              <p className="text-base sm:text-lg md:text-xl text-slate-500 font-medium leading-relaxed max-w-md">
                 Engineered for speed and reliability, our engine provides a
                 complete 360° view of any tax-registered entity in India.
               </p>
@@ -790,38 +797,38 @@ export default function GSTInsightPage() {
           </div>
         </section>
 
-        <section className='py-20 sm:py-28 md:py-40 relative overflow-hidden bg-slate-950'>
-          <div className='absolute top-0 right-0 w-[60%] h-full bg-[#1b69a1]/5 rounded-l-full blur-[120px] animate-pulse' />
-          <div className='absolute bottom-0 left-0 w-[40%] h-[40%] bg-blue-500/5 rounded-full blur-[100px]' />
+        <section className="py-20 sm:py-28 md:py-40 relative overflow-hidden bg-slate-950">
+          <div className="absolute top-0 right-0 w-[60%] h-full bg-[#1b69a1]/5 rounded-l-full blur-[120px] animate-pulse" />
+          <div className="absolute bottom-0 left-0 w-[40%] h-[40%] bg-blue-500/5 rounded-full blur-[100px]" />
 
-          <div className='max-w-7xl mx-auto px-4 sm:px-6 relative z-10'>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
             <motion.div
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: false }}
               transition={{ duration: 0.8, ease: "easeOut" }}
-              className='flex flex-col lg:flex-row gap-14 lg:gap-24 items-center'
+              className="flex flex-col lg:flex-row gap-14 lg:gap-24 items-center"
             >
-              <div className='lg:w-1/2'>
-                <div className='inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#1b69a1]/10 border border-[#1b69a1]/20 mb-6 sm:mb-8 md:mb-10'>
-                  <span className='w-1.5 h-1.5 rounded-full bg-[#1b69a1] animate-ping' />
-                  <span className='text-[#1b69a1] font-black uppercase tracking-[0.3em] text-[10px] font-mono'>
+              <div className="lg:w-1/2">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#1b69a1]/10 border border-[#1b69a1]/20 mb-6 sm:mb-8 md:mb-10">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#1b69a1] animate-ping" />
+                  <span className="text-[#1b69a1] font-black uppercase tracking-[0.3em] text-[10px] font-mono">
                     Execution Protocol
                   </span>
                 </div>
 
-                <h2 className='text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black text-white mb-10 sm:mb-12 md:mb-16 leading-[0.9] tracking-tighter'>
+                <h2 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black text-white mb-10 sm:mb-12 md:mb-16 leading-[0.9] tracking-tighter">
                   Precision data <br />
-                  <span className='text-[#1b69a1]'>in moments.</span>
+                  <span className="text-[#1b69a1]">in moments.</span>
                 </h2>
 
-                <div className='relative space-y-8 sm:space-y-10 md:space-y-12 ml-0 sm:ml-4'>
+                <div className="relative space-y-8 sm:space-y-10 md:space-y-12 ml-0 sm:ml-4">
                   <motion.div
                     initial={{ scaleY: 0 }}
                     whileInView={{ scaleY: 1 }}
                     viewport={{ once: false }}
                     transition={{ duration: 1.5, ease: "easeInOut" }}
-                    className='absolute left-[21px] top-6 bottom-6 w-[2px] bg-[#1b69a1] origin-top hidden sm:block'
+                    className="absolute left-[21px] top-6 bottom-6 w-[2px] bg-[#1b69a1] origin-top hidden sm:block"
                   />
 
                   {[
@@ -847,20 +854,20 @@ export default function GSTInsightPage() {
                       whileInView={{ opacity: 1, x: 0 }}
                       viewport={{ once: false }}
                       transition={{ delay: i * 0.2, duration: 0.5 }}
-                      className='flex gap-5 sm:gap-8 md:gap-12 group relative'
+                      className="flex gap-5 sm:gap-8 md:gap-12 group relative"
                     >
-                      <div className='relative shrink-0'>
-                        <div className='w-[44px] h-[44px] rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-lg font-black text-white group-hover:border-[#1b69a1] group-hover:text-[#1b69a1] transition-all duration-500 z-10 relative'>
+                      <div className="relative shrink-0">
+                        <div className="w-[44px] h-[44px] rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-lg font-black text-white group-hover:border-[#1b69a1] group-hover:text-[#1b69a1] transition-all duration-500 z-10 relative">
                           {step.s}
                         </div>
-                        <div className='absolute inset-0 bg-[#1b69a1]/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500' />
+                        <div className="absolute inset-0 bg-[#1b69a1]/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                       </div>
 
-                      <div className='pt-1'>
-                        <h4 className='text-xl sm:text-2xl font-bold text-white mb-2 sm:mb-3 group-hover:text-[#1b69a1] transition-colors duration-300'>
+                      <div className="pt-1">
+                        <h4 className="text-xl sm:text-2xl font-bold text-white mb-2 sm:mb-3 group-hover:text-[#1b69a1] transition-colors duration-300">
                           {step.t}
                         </h4>
-                        <p className='text-sm sm:text-base md:text-lg text-slate-400 font-medium leading-relaxed max-w-md group-hover:text-slate-300 transition-colors duration-300'>
+                        <p className="text-sm sm:text-base md:text-lg text-slate-400 font-medium leading-relaxed max-w-md group-hover:text-slate-300 transition-colors duration-300">
                           {step.d}
                         </p>
                       </div>
@@ -874,22 +881,22 @@ export default function GSTInsightPage() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: false }}
                 transition={{ duration: 1, ease: "easeOut" }}
-                className='relative lg:w-1/2 w-full'
+                className="relative lg:w-1/2 w-full"
               >
-                <div className='absolute -inset-20 bg-[radial-gradient(#1b69a1_1px,transparent_1px)] [background-size:32px_32px] opacity-10 [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)]' />
-                <div className='absolute -inset-10 bg-gradient-to-br from-[#1b69a1]/40 via-blue-500/10 to-transparent blur-3xl opacity-50 animate-pulse' />
+                <div className="absolute -inset-20 bg-[radial-gradient(#1b69a1_1px,transparent_1px)] [background-size:32px_32px] opacity-10 [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)]" />
+                <div className="absolute -inset-10 bg-gradient-to-br from-[#1b69a1]/40 via-blue-500/10 to-transparent blur-3xl opacity-50 animate-pulse" />
 
-                <div className='relative p-1 bg-linear-to-br from-white/20 to-transparent rounded-[32px] sm:rounded-[40px] md:rounded-[48px] shadow-2xl'>
-                  <div className='relative bg-slate-900/40 backdrop-blur-3xl border border-white/10 rounded-[28px] sm:rounded-[36px] md:rounded-[44px] p-3 sm:p-4 overflow-hidden'>
-                    <div className='relative rounded-[24px] sm:rounded-[28px] md:rounded-[32px] overflow-hidden min-h-[360px] sm:min-h-[460px] md:min-h-[560px] group'>
+                <div className="relative p-1 bg-linear-to-br from-white/20 to-transparent rounded-[32px] sm:rounded-[40px] md:rounded-[48px] shadow-2xl">
+                  <div className="relative bg-slate-900/40 backdrop-blur-3xl border border-white/10 rounded-[28px] sm:rounded-[36px] md:rounded-[44px] p-3 sm:p-4 overflow-hidden">
+                    <div className="relative rounded-[24px] sm:rounded-[28px] md:rounded-[32px] overflow-hidden min-h-[360px] sm:min-h-[460px] md:min-h-[560px] group">
                       <Image
-                        src='/images/gst2.jpg'
-                        alt='GST Compliance Intelligence'
+                        src="/images/gst2.jpg"
+                        alt="GST Compliance Intelligence"
                         fill
-                        className='object-cover transition-transform duration-[2000ms] ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:scale-110'
+                        className="object-cover transition-transform duration-[2000ms] ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:scale-110"
                       />
-                      <div className='absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent opacity-80' />
-                      <div className='absolute inset-0 bg-linear-to-tr from-[#1b69a1]/30 via-transparent to-transparent opacity-40' />
+                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent opacity-80" />
+                      <div className="absolute inset-0 bg-linear-to-tr from-[#1b69a1]/30 via-transparent to-transparent opacity-40" />
                     </div>
 
                     <motion.div
@@ -897,16 +904,19 @@ export default function GSTInsightPage() {
                       whileInView={{ x: 0, opacity: 1 }}
                       viewport={{ once: false }}
                       transition={{ delay: 0.5 }}
-                      className='absolute bottom-4 left-4 sm:bottom-8 sm:left-8 md:bottom-10 md:left-10 backdrop-blur-2xl bg-white/5 border border-white/10 rounded-2xl sm:rounded-3xl p-4 sm:p-5 md:p-6 shadow-[0_32px_64px_-16px_rgba(0,0,0,0.6)]'
+                      className="absolute bottom-4 left-4 sm:bottom-8 sm:left-8 md:bottom-10 md:left-10 backdrop-blur-2xl bg-white/5 border border-white/10 rounded-2xl sm:rounded-3xl p-4 sm:p-5 md:p-6 shadow-[0_32px_64px_-16px_rgba(0,0,0,0.6)]"
                     >
-                      <div className='flex items-center gap-3 sm:gap-4 mb-2'>
-                        <div className='w-2 h-2 rounded-full bg-emerald-400 animate-pulse' />
-                        <div className='text-[10px] sm:text-xs uppercase tracking-[0.3em] text-white/50 font-black'>
+                      <div className="flex items-center gap-3 sm:gap-4 mb-2">
+                        <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                        <div className="text-[10px] sm:text-xs uppercase tracking-[0.3em] text-white/50 font-black">
                           System Accuracy
                         </div>
                       </div>
-                      <div className='text-2xl sm:text-3xl md:text-4xl font-black text-white tracking-tighter flex items-end gap-1'>
-                        100<span className='text-[#1b69a1] text-lg sm:text-xl md:text-2xl'>%</span>
+                      <div className="text-2xl sm:text-3xl md:text-4xl font-black text-white tracking-tighter flex items-end gap-1">
+                        100
+                        <span className="text-[#1b69a1] text-lg sm:text-xl md:text-2xl">
+                          %
+                        </span>
                       </div>
                     </motion.div>
 
@@ -915,12 +925,12 @@ export default function GSTInsightPage() {
                       whileInView={{ y: 0, opacity: 1 }}
                       viewport={{ once: false }}
                       transition={{ delay: 0.7 }}
-                      className='absolute top-4 right-4 sm:top-8 sm:right-8 md:top-10 md:right-10 backdrop-blur-2xl bg-white/5 border border-white/10 rounded-2xl px-4 sm:px-5 py-3 shadow-xl'
+                      className="absolute top-4 right-4 sm:top-8 sm:right-8 md:top-10 md:right-10 backdrop-blur-2xl bg-white/5 border border-white/10 rounded-2xl px-4 sm:px-5 py-3 shadow-xl"
                     >
-                      <div className='text-[10px] uppercase tracking-widest text-white/40 font-bold mb-1'>
+                      <div className="text-[10px] uppercase tracking-widest text-white/40 font-bold mb-1">
                         Data Latency
                       </div>
-                      <div className='text-base sm:text-lg font-black text-white'>
+                      <div className="text-base sm:text-lg font-black text-white">
                         18ms
                       </div>
                     </motion.div>
@@ -931,28 +941,28 @@ export default function GSTInsightPage() {
           </div>
         </section>
 
-        <section className='py-24 sm:py-32 md:py-48 bg-white relative overflow-hidden'>
-          <div className='absolute top-0 left-0 w-full h-px bg-linear-to-r from-transparent via-slate-200 to-transparent' />
+        <section className="py-24 sm:py-32 md:py-48 bg-white relative overflow-hidden">
+          <div className="absolute top-0 left-0 w-full h-px bg-linear-to-r from-transparent via-slate-200 to-transparent" />
 
-          <div className='max-w-7xl mx-auto px-4 sm:px-6 text-center relative z-10'>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 text-center relative z-10">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: false }}
-              className='mb-14 sm:mb-18 md:mb-24'
+              className="mb-14 sm:mb-18 md:mb-24"
             >
-              <div className='inline-flex items-center px-4 py-1.5 bg-slate-50 border border-slate-100 rounded-full mb-6 sm:mb-8'>
-                <span className='text-[#1b69a1] font-black uppercase tracking-[0.3em] text-[10px]'>
+              <div className="inline-flex items-center px-4 py-1.5 bg-slate-50 border border-slate-100 rounded-full mb-6 sm:mb-8">
+                <span className="text-[#1b69a1] font-black uppercase tracking-[0.3em] text-[10px]">
                   Compliance Intelligence
                 </span>
               </div>
 
-              <h2 className='text-4xl sm:text-5xl md:text-7xl font-black text-slate-900 tracking-tighter leading-none'>
-                Stay 100% GST <span className='text-[#1b69a1]'>Compliant</span>
+              <h2 className="text-4xl sm:text-5xl md:text-7xl font-black text-slate-900 tracking-tighter leading-none">
+                Stay 100% GST <span className="text-[#1b69a1]">Compliant</span>
               </h2>
             </motion.div>
 
-            <div className='grid md:grid-cols-3 gap-6 sm:gap-8'>
+            <div className="grid md:grid-cols-3 gap-6 sm:gap-8">
               {[
                 {
                   t: "Complete Return Visibility",
@@ -976,37 +986,37 @@ export default function GSTInsightPage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: false }}
                   transition={{ delay: i * 0.15, duration: 0.6 }}
-                  className='group relative'
+                  className="group relative"
                 >
-                  <div className='absolute -inset-[1px] bg-linear-to-br from-slate-200 to-transparent rounded-[2rem] sm:rounded-[2.5rem] md:rounded-[3rem] group-hover:from-[#1b69a1]/40 group-hover:to-[#1b69a1]/10 transition-all duration-500 mt-0' />
+                  <div className="absolute -inset-[1px] bg-linear-to-br from-slate-200 to-transparent rounded-[2rem] sm:rounded-[2.5rem] md:rounded-[3rem] group-hover:from-[#1b69a1]/40 group-hover:to-[#1b69a1]/10 transition-all duration-500 mt-0" />
 
-                  <div className='relative bg-white rounded-[2rem] sm:rounded-[2.5rem] md:rounded-[3rem] p-8 sm:p-10 md:p-12 h-full flex flex-col items-center text-center shadow-sm group-hover:shadow-[0_40px_80px_-20px_rgba(27,105,161,0.12)] transition-all duration-500 border border-slate-50'>
-                    <div className='w-16 h-16 sm:w-18 sm:h-18 md:w-20 md:h-20 rounded-3xl bg-slate-50 flex items-center justify-center mb-8 sm:mb-9 md:mb-10 group-hover:scale-110 transition-transform duration-500 relative'>
-                      <div className='absolute inset-0 bg-linear-to-br from-[#1b69a1]/5 to-transparent rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity' />
+                  <div className="relative bg-white rounded-[2rem] sm:rounded-[2.5rem] md:rounded-[3rem] p-8 sm:p-10 md:p-12 h-full flex flex-col items-center text-center shadow-sm group-hover:shadow-[0_40px_80px_-20px_rgba(27,105,161,0.12)] transition-all duration-500 border border-slate-50">
+                    <div className="w-16 h-16 sm:w-18 sm:h-18 md:w-20 md:h-20 rounded-3xl bg-slate-50 flex items-center justify-center mb-8 sm:mb-9 md:mb-10 group-hover:scale-110 transition-transform duration-500 relative">
+                      <div className="absolute inset-0 bg-linear-to-br from-[#1b69a1]/5 to-transparent rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity" />
                       <svg
-                        className='w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 text-[#1b69a1]'
-                        fill='none'
-                        stroke='currentColor'
-                        viewBox='0 0 24 24'
+                        className="w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 text-[#1b69a1]"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
                       >
                         <path
-                          strokeLinecap='round'
-                          strokeLinejoin='round'
-                          strokeWidth='2'
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
                           d={benefit.icon}
                         />
                       </svg>
                     </div>
 
-                    <h3 className='text-xl sm:text-2xl font-black text-slate-900 mb-4 sm:mb-6 tracking-tight'>
+                    <h3 className="text-xl sm:text-2xl font-black text-slate-900 mb-4 sm:mb-6 tracking-tight">
                       {benefit.t}
                     </h3>
 
-                    <p className='text-slate-500 font-medium leading-relaxed text-base sm:text-lg'>
+                    <p className="text-slate-500 font-medium leading-relaxed text-base sm:text-lg">
                       {benefit.d}
                     </p>
 
-                    <div className='mt-8 sm:mt-10 w-12 h-1 bg-slate-100 rounded-full group-hover:w-20 group-hover:bg-[#1b69a1]/30 transition-all duration-500' />
+                    <div className="mt-8 sm:mt-10 w-12 h-1 bg-slate-100 rounded-full group-hover:w-20 group-hover:bg-[#1b69a1]/30 transition-all duration-500" />
                   </div>
                 </motion.div>
               ))}
@@ -1014,16 +1024,16 @@ export default function GSTInsightPage() {
           </div>
         </section>
 
-        <section className='py-20 sm:py-28 md:py-40 bg-slate-950 relative overflow-hidden'>
-          <div className='absolute inset-0 opacity-20 bg-[radial-gradient(#1b69a1_1px,transparent_1px)] [background-size:40px_40px]' />
+        <section className="py-20 sm:py-28 md:py-40 bg-slate-950 relative overflow-hidden">
+          <div className="absolute inset-0 opacity-20 bg-[radial-gradient(#1b69a1_1px,transparent_1px)] [background-size:40px_40px]" />
 
-          <div className='max-w-7xl mx-auto px-4 sm:px-6 relative z-10'>
-            <div className='grid lg:grid-cols-2 gap-14 lg:gap-24 items-center'>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
+            <div className="grid lg:grid-cols-2 gap-14 lg:gap-24 items-center">
               <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: false }}
-                className='grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6'
+                className="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6"
               >
                 {[
                   {
@@ -1049,13 +1059,15 @@ export default function GSTInsightPage() {
                 ].map((use, i) => (
                   <div
                     key={i}
-                    className='bg-white/5 backdrop-blur-md border border-white/10 p-6 sm:p-7 md:p-8 rounded-[2rem] sm:rounded-[2.5rem] hover:bg-white/10 transition-colors group'
+                    className="bg-white/5 backdrop-blur-md border border-white/10 p-6 sm:p-7 md:p-8 rounded-[2rem] sm:rounded-[2.5rem] hover:bg-white/10 transition-colors group"
                   >
-                    <div className='text-4xl mb-5 sm:mb-6 group-hover:scale-110 transition-transform duration-300'>
+                    <div className="text-4xl mb-5 sm:mb-6 group-hover:scale-110 transition-transform duration-300">
                       {use.icon}
                     </div>
-                    <h4 className='text-lg font-bold text-white mb-2'>{use.t}</h4>
-                    <p className='text-slate-400 text-sm font-medium leading-relaxed'>
+                    <h4 className="text-lg font-bold text-white mb-2">
+                      {use.t}
+                    </h4>
+                    <p className="text-slate-400 text-sm font-medium leading-relaxed">
                       {use.d}
                     </p>
                   </div>
@@ -1063,20 +1075,20 @@ export default function GSTInsightPage() {
               </motion.div>
 
               <div>
-                <span className='text-[#1b69a1] font-black uppercase tracking-[0.3em] text-[10px] sm:text-[11px] mb-6 sm:mb-8 block'>
+                <span className="text-[#1b69a1] font-black uppercase tracking-[0.3em] text-[10px] sm:text-[11px] mb-6 sm:mb-8 block">
                   Tailored Solutions
                 </span>
-                <h2 className='text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white mb-6 sm:mb-8 md:mb-10 leading-[1] tracking-tight'>
+                <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white mb-6 sm:mb-8 md:mb-10 leading-[1] tracking-tight">
                   Built for your <br />
-                  <span className='text-[#1b69a1]'>Workflow.</span>
+                  <span className="text-[#1b69a1]">Workflow.</span>
                 </h2>
-                <p className='text-base sm:text-lg text-slate-400 font-medium leading-relaxed mb-8 sm:mb-10 md:mb-12'>
+                <p className="text-base sm:text-lg text-slate-400 font-medium leading-relaxed mb-8 sm:mb-10 md:mb-12">
                   Whether you are a startup verifying your first supplier or a
                   Fortune 500 company managing a global supply chain, our
                   infrastructure scales with your regulatory requirements.
                 </p>
 
-                <div className='space-y-5 sm:space-y-6'>
+                <div className="space-y-5 sm:space-y-6">
                   {[
                     "Zero-config API integration",
                     "Custom risk threshold alerts",
@@ -1085,12 +1097,12 @@ export default function GSTInsightPage() {
                   ].map((feature, idx) => (
                     <div
                       key={idx}
-                      className='flex items-center gap-4 text-white font-bold tracking-tight'
+                      className="flex items-center gap-4 text-white font-bold tracking-tight"
                     >
-                      <div className='w-5 h-5 rounded-full bg-[#1b69a1]/20 flex items-center justify-center'>
-                        <div className='w-1.5 h-1.5 rounded-full bg-[#1b69a1]' />
+                      <div className="w-5 h-5 rounded-full bg-[#1b69a1]/20 flex items-center justify-center">
+                        <div className="w-1.5 h-1.5 rounded-full bg-[#1b69a1]" />
                       </div>
-                      <span className='text-sm sm:text-base'>{feature}</span>
+                      <span className="text-sm sm:text-base">{feature}</span>
                     </div>
                   ))}
                 </div>
@@ -1099,43 +1111,46 @@ export default function GSTInsightPage() {
           </div>
         </section>
 
-        <section className='py-20 sm:py-28 md:py-40 bg-slate-50 relative overflow-hidden'>
-          <div className='absolute top-0 left-0 w-full h-px bg-linear-to-r from-transparent via-slate-200 to-transparent' />
+        <section className="py-20 sm:py-28 md:py-40 bg-slate-50 relative overflow-hidden">
+          <div className="absolute top-0 left-0 w-full h-px bg-linear-to-r from-transparent via-slate-200 to-transparent" />
 
-          <div className='max-w-7xl mx-auto px-4 sm:px-6'>
-            <div className='flex flex-col lg:flex-row gap-14 lg:gap-24 items-center'>
-              <div className='lg:w-1/2'>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6">
+            <div className="flex flex-col lg:flex-row gap-14 lg:gap-24 items-center">
+              <div className="lg:w-1/2">
                 <motion.div
                   initial={{ opacity: 0, x: -30 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: false }}
                 >
-                  <span className='text-[#1b69a1] font-black uppercase tracking-[0.3em] text-[10px] sm:text-[11px] mb-6 sm:mb-8 block'>
+                  <span className="text-[#1b69a1] font-black uppercase tracking-[0.3em] text-[10px] sm:text-[11px] mb-6 sm:mb-8 block">
                     Security Architecture
                   </span>
-                  <h2 className='text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-slate-900 mb-8 sm:mb-10 md:mb-12 leading-[1] tracking-tight'>
+                  <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-slate-900 mb-8 sm:mb-10 md:mb-12 leading-[1] tracking-tight">
                     Bank-grade <br />
                     Data Sovereignty.
                   </h2>
-                  <p className='text-base sm:text-lg md:text-xl text-slate-500 font-medium leading-relaxed mb-8 sm:mb-10 md:mb-12 max-w-lg'>
+                  <p className="text-base sm:text-lg md:text-xl text-slate-500 font-medium leading-relaxed mb-8 sm:mb-10 md:mb-12 max-w-lg">
                     Our infrastructure is engineered to meet the highest
                     security standards required by financial institutions and
                     government agencies. Every request is isolated, encrypted,
                     and processed in secure enclaves.
                   </p>
 
-                  <div className='grid grid-cols-2 gap-6 sm:gap-8 md:gap-10'>
+                  <div className="grid grid-cols-2 gap-6 sm:gap-8 md:gap-10">
                     {[
                       { label: "Encryption", val: "AES-256" },
                       { label: "Compliance", val: "SOC2 Type II" },
                       { label: "Uptime", val: "99.99%" },
                       { label: "Data Residency", val: "Local" },
                     ].map((m, i) => (
-                      <div key={i} className='border-l-4 border-[#1b69a1] pl-4 sm:pl-6'>
-                        <div className='text-[10px] sm:text-xs uppercase tracking-widest text-slate-400 font-bold mb-1'>
+                      <div
+                        key={i}
+                        className="border-l-4 border-[#1b69a1] pl-4 sm:pl-6"
+                      >
+                        <div className="text-[10px] sm:text-xs uppercase tracking-widest text-slate-400 font-bold mb-1">
                           {m.label}
                         </div>
-                        <div className='text-xl sm:text-2xl font-black text-slate-900'>
+                        <div className="text-xl sm:text-2xl font-black text-slate-900">
                           {m.val}
                         </div>
                       </div>
@@ -1144,11 +1159,11 @@ export default function GSTInsightPage() {
                 </motion.div>
               </div>
 
-              <div className='lg:w-1/2 relative w-full'>
-                <div className='bg-slate-900 rounded-[2rem] sm:rounded-[2.5rem] md:rounded-[3rem] p-6 sm:p-8 md:p-10 shadow-[0_60px_100px_-20px_rgba(0,0,0,0.3)] border border-slate-800 relative group overflow-hidden'>
-                  <div className='absolute inset-0 bg-linear-to-br from-[#1b69a1]/20 via-transparent to-transparent opacity-50' />
+              <div className="lg:w-1/2 relative w-full">
+                <div className="bg-slate-900 rounded-[2rem] sm:rounded-[2.5rem] md:rounded-[3rem] p-6 sm:p-8 md:p-10 shadow-[0_60px_100px_-20px_rgba(0,0,0,0.3)] border border-slate-800 relative group overflow-hidden">
+                  <div className="absolute inset-0 bg-linear-to-br from-[#1b69a1]/20 via-transparent to-transparent opacity-50" />
 
-                  <div className='relative z-10 space-y-5 sm:space-y-6'>
+                  <div className="relative z-10 space-y-5 sm:space-y-6">
                     {[
                       {
                         l: "Secure Gateway Authorization",
@@ -1167,26 +1182,28 @@ export default function GSTInsightPage() {
                       },
                       { l: "Risk Signature Validation", s: "Locked", w: "88%" },
                     ].map((job, idx) => (
-                      <div key={idx} className='space-y-3'>
-                        <div className='flex justify-between gap-4 text-[10px] sm:text-[11px] font-black uppercase tracking-widest'>
-                          <span className='text-white/60'>{job.l}</span>
-                          <span className='text-[#1b69a1] shrink-0'>{job.s}</span>
+                      <div key={idx} className="space-y-3">
+                        <div className="flex justify-between gap-4 text-[10px] sm:text-[11px] font-black uppercase tracking-widest">
+                          <span className="text-white/60">{job.l}</span>
+                          <span className="text-[#1b69a1] shrink-0">
+                            {job.s}
+                          </span>
                         </div>
-                        <div className='h-1.5 w-full bg-slate-800 rounded-full overflow-hidden'>
+                        <div className="h-1.5 w-full bg-slate-800 rounded-full overflow-hidden">
                           <motion.div
                             initial={{ width: 0 }}
                             whileInView={{ width: job.w }}
                             viewport={{ once: false }}
                             transition={{ duration: 1.5, delay: idx * 0.2 }}
-                            className='h-full bg-[#1b69a1] rounded-full'
+                            className="h-full bg-[#1b69a1] rounded-full"
                           />
                         </div>
                       </div>
                     ))}
                   </div>
 
-                  <div className='mt-8 sm:mt-10 md:mt-12 flex justify-center'>
-                    <div className='px-5 sm:px-8 py-3 rounded-full bg-white/5 border border-white/10 text-[10px] sm:text-[11px] font-black text-white/40 uppercase tracking-[0.3em] text-center'>
+                  <div className="mt-8 sm:mt-10 md:mt-12 flex justify-center">
+                    <div className="px-5 sm:px-8 py-3 rounded-full bg-white/5 border border-white/10 text-[10px] sm:text-[11px] font-black text-white/40 uppercase tracking-[0.3em] text-center">
                       Audit Log • Terminal 042
                     </div>
                   </div>
@@ -1196,19 +1213,19 @@ export default function GSTInsightPage() {
           </div>
         </section>
 
-        <section className='py-20 sm:py-28 md:py-40 bg-white relative overflow-hidden'>
-          <div className='max-w-7xl mx-auto px-4 sm:px-6'>
-            <div className='text-center mb-14 sm:mb-18 md:mb-24'>
-              <span className='text-[#1b69a1] font-black uppercase tracking-[0.3em] text-[10px] sm:text-[11px] mb-4 sm:mb-6 block font-mono'>
+        <section className="py-20 sm:py-28 md:py-40 bg-white relative overflow-hidden">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6">
+            <div className="text-center mb-14 sm:mb-18 md:mb-24">
+              <span className="text-[#1b69a1] font-black uppercase tracking-[0.3em] text-[10px] sm:text-[11px] mb-4 sm:mb-6 block font-mono">
                 Ecosystem Modules
               </span>
-              <h2 className='text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-slate-900 tracking-tighter'>
+              <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-slate-900 tracking-tighter">
                 Beyond Simple{" "}
-                <span className='text-[#1b69a1]'>Verification.</span>
+                <span className="text-[#1b69a1]">Verification.</span>
               </h2>
             </div>
 
-            <div className='grid sm:grid-cols-2 xl:grid-cols-4 gap-5 sm:gap-6'>
+            <div className="grid sm:grid-cols-2 xl:grid-cols-4 gap-5 sm:gap-6">
               {[
                 {
                   t: "Watchtower",
@@ -1244,11 +1261,13 @@ export default function GSTInsightPage() {
                   whileHover={{ y: -10 }}
                   className={`${tool.bg} p-7 sm:p-8 md:p-10 rounded-[2rem] sm:rounded-[2.5rem] md:rounded-[3rem] border border-transparent hover:border-[#1b69a1]/20 transition-all group`}
                 >
-                  <div className='text-4xl mb-6 sm:mb-8 group-hover:scale-110 transition-transform'>
+                  <div className="text-4xl mb-6 sm:mb-8 group-hover:scale-110 transition-transform">
                     {tool.icon}
                   </div>
-                  <h4 className='text-xl font-bold text-slate-900 mb-4'>{tool.t}</h4>
-                  <p className='text-slate-500 font-semibold text-sm leading-relaxed'>
+                  <h4 className="text-xl font-bold text-slate-900 mb-4">
+                    {tool.t}
+                  </h4>
+                  <p className="text-slate-500 font-semibold text-sm leading-relaxed">
                     {tool.d}
                   </p>
                 </motion.div>
@@ -1257,36 +1276,36 @@ export default function GSTInsightPage() {
           </div>
         </section>
 
-        <section className='py-20 sm:py-28 md:py-40 bg-slate-50 relative overflow-hidden'>
-          <div className='absolute top-0 right-0 w-[50%] h-[50%] bg-[#1b69a1]/5 rounded-full blur-[120px]' />
-          <div className='max-w-7xl mx-auto px-4 sm:px-6 relative z-10'>
-            <div className='bg-white rounded-[2rem] sm:rounded-[3rem] md:rounded-[4rem] p-6 sm:p-10 md:p-16 lg:p-24 shadow-2xl border border-slate-100 flex flex-col lg:flex-row items-center gap-10 sm:gap-14 md:gap-20'>
-              <div className='lg:w-1/2'>
-                <span className='text-[#1b69a1] font-black uppercase tracking-[0.3em] text-[10px] sm:text-[11px] mb-6 sm:mb-8 block'>
+        <section className="py-20 sm:py-28 md:py-40 bg-slate-50 relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-[50%] h-[50%] bg-[#1b69a1]/5 rounded-full blur-[120px]" />
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
+            <div className="bg-white rounded-[2rem] sm:rounded-[3rem] md:rounded-[4rem] p-6 sm:p-10 md:p-16 lg:p-24 shadow-2xl border border-slate-100 flex flex-col lg:flex-row items-center gap-10 sm:gap-14 md:gap-20">
+              <div className="lg:w-1/2">
+                <span className="text-[#1b69a1] font-black uppercase tracking-[0.3em] text-[10px] sm:text-[11px] mb-6 sm:mb-8 block">
                   Stay Current
                 </span>
-                <h2 className='text-4xl sm:text-5xl md:text-6xl font-black text-slate-900 mb-6 sm:mb-8 md:mb-10 leading-[1.1] tracking-tight'>
+                <h2 className="text-4xl sm:text-5xl md:text-6xl font-black text-slate-900 mb-6 sm:mb-8 md:mb-10 leading-[1.1] tracking-tight">
                   GST Laws evolve. <br />
-                  <span className='text-[#1b69a1]'>We keep you ahead.</span>
+                  <span className="text-[#1b69a1]">We keep you ahead.</span>
                 </h2>
-                <p className='text-base sm:text-lg md:text-xl text-slate-500 font-medium leading-relaxed mb-8 sm:mb-10 md:mb-12'>
+                <p className="text-base sm:text-lg md:text-xl text-slate-500 font-medium leading-relaxed mb-8 sm:mb-10 md:mb-12">
                   Join 50,000+ professionals who receive our weekly "Compliance
                   Pulse" — a briefing on GSTN changes, due date reminders, and
                   regulatory shifts.
                 </p>
-                <form className='flex flex-col sm:flex-row gap-4'>
+                <form className="flex flex-col sm:flex-row gap-4">
                   <input
-                    type='email'
-                    placeholder='Enter your email address'
-                    className='flex-1 bg-slate-50 border-2 border-slate-50 px-6 sm:px-8 py-4 sm:py-5 rounded-[1.5rem] sm:rounded-[2rem] font-bold focus:border-[#1b69a1] focus:bg-white outline-hidden transition-all'
+                    type="email"
+                    placeholder="Enter your email address"
+                    className="flex-1 bg-slate-50 border-2 border-slate-50 px-6 sm:px-8 py-4 sm:py-5 rounded-[1.5rem] sm:rounded-[2rem] font-bold focus:border-[#1b69a1] focus:bg-white outline-hidden transition-all"
                   />
-                  <button className='bg-[#1b69a1] text-white px-8 sm:px-10 py-4 sm:py-5 rounded-[1.5rem] sm:rounded-[2rem] font-black hover:bg-[#155685] transition-all shadow-xl shadow-[#1b69a1]/20'>
+                  <button className="bg-[#1b69a1] text-white px-8 sm:px-10 py-4 sm:py-5 rounded-[1.5rem] sm:rounded-[2rem] font-black hover:bg-[#155685] transition-all shadow-xl shadow-[#1b69a1]/20">
                     Subscribe
                   </button>
                 </form>
               </div>
 
-              <div className='lg:w-1/2 grid grid-cols-2 gap-4 sm:gap-6 w-full'>
+              <div className="lg:w-1/2 grid grid-cols-2 gap-4 sm:gap-6 w-full">
                 {[
                   { l: "Notifications", v: "2.4k Monthly" },
                   { l: "Legislation Tracked", v: "100%" },
@@ -1295,12 +1314,12 @@ export default function GSTInsightPage() {
                 ].map((stat, i) => (
                   <div
                     key={i}
-                    className='bg-slate-50 p-5 sm:p-6 md:p-8 rounded-[1.5rem] sm:rounded-[2rem] md:rounded-[2.5rem] border border-slate-100'
+                    className="bg-slate-50 p-5 sm:p-6 md:p-8 rounded-[1.5rem] sm:rounded-[2rem] md:rounded-[2.5rem] border border-slate-100"
                   >
-                    <div className='text-[10px] uppercase tracking-widest text-slate-400 font-black mb-2'>
+                    <div className="text-[10px] uppercase tracking-widest text-slate-400 font-black mb-2">
                       {stat.l}
                     </div>
-                    <div className='text-lg sm:text-xl md:text-2xl font-black text-slate-900'>
+                    <div className="text-lg sm:text-xl md:text-2xl font-black text-slate-900">
                       {stat.v}
                     </div>
                   </div>
@@ -1310,18 +1329,18 @@ export default function GSTInsightPage() {
           </div>
         </section>
 
-        <section className='py-20 sm:py-28 md:py-40 bg-white relative'>
-          <div className='max-w-4xl mx-auto px-4 sm:px-6'>
-            <div className='text-center mb-14 sm:mb-18 md:mb-24'>
-              <h2 className='text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-slate-900 tracking-tighter mb-6 sm:mb-8'>
-                Common <span className='text-[#1b69a1]'>Inquiries</span>
+        <section className="py-20 sm:py-28 md:py-40 bg-white relative">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6">
+            <div className="text-center mb-14 sm:mb-18 md:mb-24">
+              <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-slate-900 tracking-tighter mb-6 sm:mb-8">
+                Common <span className="text-[#1b69a1]">Inquiries</span>
               </h2>
-              <p className='text-base sm:text-lg md:text-xl text-slate-500 font-medium'>
+              <p className="text-base sm:text-lg md:text-xl text-slate-500 font-medium">
                 Everything you need to know about the GSTInsight protocol.
               </p>
             </div>
 
-            <div className='space-y-4 sm:space-y-6'>
+            <div className="space-y-4 sm:space-y-6">
               {[
                 {
                   q: "How real-time is the verification data?",
@@ -1346,16 +1365,16 @@ export default function GSTInsightPage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: false }}
                   transition={{ delay: i * 0.1 }}
-                  className='group'
+                  className="group"
                 >
-                  <div className='bg-slate-50 rounded-[1.8rem] sm:rounded-[2.2rem] md:rounded-[2.5rem] p-6 sm:p-8 md:p-10 border border-slate-100 hover:border-[#1b69a1]/30 transition-all duration-300'>
-                    <h4 className='text-lg sm:text-xl font-bold text-slate-900 mb-3 sm:mb-4 flex items-start sm:items-center gap-4'>
-                      <span className='w-8 h-8 rounded-lg bg-[#1b69a1] flex items-center justify-center text-white text-xs font-black shrink-0'>
+                  <div className="bg-slate-50 rounded-[1.8rem] sm:rounded-[2.2rem] md:rounded-[2.5rem] p-6 sm:p-8 md:p-10 border border-slate-100 hover:border-[#1b69a1]/30 transition-all duration-300">
+                    <h4 className="text-lg sm:text-xl font-bold text-slate-900 mb-3 sm:mb-4 flex items-start sm:items-center gap-4">
+                      <span className="w-8 h-8 rounded-lg bg-[#1b69a1] flex items-center justify-center text-white text-xs font-black shrink-0">
                         Q
                       </span>
                       <span>{faq.q}</span>
                     </h4>
-                    <p className='text-sm sm:text-base text-slate-500 leading-relaxed font-semibold pl-0 sm:pl-12 line-clamp-2 group-hover:line-clamp-none transition-all duration-500'>
+                    <p className="text-sm sm:text-base text-slate-500 leading-relaxed font-semibold pl-0 sm:pl-12 line-clamp-2 group-hover:line-clamp-none transition-all duration-500">
                       {faq.a}
                     </p>
                   </div>
@@ -1365,7 +1384,7 @@ export default function GSTInsightPage() {
           </div>
         </section>
 
-        <section className='max-w-7xl mx-auto px-4 sm:px-6 py-20 sm:py-28 md:py-40'>
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 py-20 sm:py-28 md:py-40">
           <motion.div
             initial={{ opacity: 0, scale: 0.9, y: 50 }}
             whileInView={{
@@ -1379,23 +1398,23 @@ export default function GSTInsightPage() {
               },
             }}
             viewport={{ once: false, amount: 0.2 }}
-            className='bg-linear-to-br from-[#1b69a1] via-[#155685] to-slate-900 rounded-[2rem] sm:rounded-[3rem] md:rounded-[4rem] p-8 sm:p-12 md:p-20 lg:p-32 text-center text-white relative overflow-hidden shadow-[0_80px_120px_-30px_rgba(27,105,161,0.3)] group'
+            className="bg-linear-to-br from-[#1b69a1] via-[#155685] to-slate-900 rounded-[2rem] sm:rounded-[3rem] md:rounded-[4rem] p-8 sm:p-12 md:p-20 lg:p-32 text-center text-white relative overflow-hidden shadow-[0_80px_120px_-30px_rgba(27,105,161,0.3)] group"
           >
-            <div className='absolute inset-0 bg-[radial-gradient(circle_at_center,_white_1px,_transparent_1px)] [background-size:24px_24px] opacity-10' />
-            <div className='absolute -top-40 -left-40 w-96 h-96 bg-white/10 rounded-full blur-[120px]' />
-            <div className='absolute -bottom-40 -right-40 w-96 h-96 bg-blue-500/20 rounded-full blur-[120px]' />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_white_1px,_transparent_1px)] [background-size:24px_24px] opacity-10" />
+            <div className="absolute -top-40 -left-40 w-96 h-96 bg-white/10 rounded-full blur-[120px]" />
+            <div className="absolute -bottom-40 -right-40 w-96 h-96 bg-blue-500/20 rounded-full blur-[120px]" />
 
-            <div className='relative z-10'>
-              <span className='inline-block px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] mb-6 sm:mb-8 md:mb-10'>
+            <div className="relative z-10">
+              <span className="inline-block px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] mb-6 sm:mb-8 md:mb-10">
                 Ready to scale?
               </span>
 
-              <h2 className='text-4xl sm:text-5xl md:text-7xl lg:text-9xl font-black mb-8 sm:mb-10 md:mb-14 leading-[0.9] tracking-tight'>
+              <h2 className="text-4xl sm:text-5xl md:text-7xl lg:text-9xl font-black mb-8 sm:mb-10 md:mb-14 leading-[0.9] tracking-tight">
                 Own your <br />
                 compliance.
               </h2>
 
-              <div className='flex flex-col sm:flex-row flex-wrap justify-center gap-4 sm:gap-6'>
+              <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-4 sm:gap-6">
                 {status === "authenticated" ? (
                   <motion.button
                     whileHover={{ scale: 1.05 }}
@@ -1405,7 +1424,7 @@ export default function GSTInsightPage() {
                         .getElementById("search-section")
                         ?.scrollIntoView({ behavior: "smooth" });
                     }}
-                    className='bg-white text-[#1b69a1] px-8 sm:px-10 md:px-12 py-4 sm:py-5 md:py-6 rounded-2xl font-black transition-all shadow-2xl text-base sm:text-lg md:text-xl'
+                    className="bg-white text-[#1b69a1] px-8 sm:px-10 md:px-12 py-4 sm:py-5 md:py-6 rounded-2xl font-black transition-all shadow-2xl text-base sm:text-lg md:text-xl"
                   >
                     Start New Search
                   </motion.button>
@@ -1414,7 +1433,7 @@ export default function GSTInsightPage() {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => signIn("google", { callbackUrl: "/" })}
-                    className='bg-white text-[#1b69a1] px-8 sm:px-10 md:px-12 py-4 sm:py-5 md:py-6 rounded-2xl font-black transition-all shadow-2xl text-base sm:text-lg md:text-xl'
+                    className="bg-white text-[#1b69a1] px-8 sm:px-10 md:px-12 py-4 sm:py-5 md:py-6 rounded-2xl font-black transition-all shadow-2xl text-base sm:text-lg md:text-xl"
                   >
                     Get Started Free
                   </motion.button>
@@ -1423,7 +1442,7 @@ export default function GSTInsightPage() {
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className='bg-white/10 backdrop-blur-md text-white border border-white/20 px-8 sm:px-10 md:px-12 py-4 sm:py-5 md:py-6 rounded-2xl font-black hover:bg-white hover:text-slate-900 transition-all text-base sm:text-lg md:text-xl'
+                  className="bg-white/10 backdrop-blur-md text-white border border-white/20 px-8 sm:px-10 md:px-12 py-4 sm:py-5 md:py-6 rounded-2xl font-black hover:bg-white hover:text-slate-900 transition-all text-base sm:text-lg md:text-xl"
                 >
                   Schedule Demo
                 </motion.button>
@@ -1432,96 +1451,96 @@ export default function GSTInsightPage() {
           </motion.div>
         </section>
 
-        <footer className='bg-white pt-20 sm:pt-28 md:pt-40 pb-14 sm:pb-16 md:pb-20 px-4 sm:px-6 border-t border-slate-100'>
-          <div className='max-w-7xl mx-auto'>
-            <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10 sm:gap-14 md:gap-20 lg:gap-24 mb-16 sm:mb-24 md:mb-32'>
-              <div className='sm:col-span-2 lg:col-span-2'>
-                <div className='flex items-center gap-4 mb-8 sm:mb-10 group cursor-pointer'>
-                  <div className='w-12 h-12 bg-linear-to-tr from-[#1b69a1] to-blue-500 rounded-2xl flex items-center justify-center font-black text-white shadow-xl shadow-[#1b69a1]/20'>
+        <footer className="bg-white pt-20 sm:pt-28 md:pt-40 pb-14 sm:pb-16 md:pb-20 px-4 sm:px-6 border-t border-slate-100">
+          <div className="max-w-7xl mx-auto">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10 sm:gap-14 md:gap-20 lg:gap-24 mb-16 sm:mb-24 md:mb-32">
+              <div className="sm:col-span-2 lg:col-span-2">
+                <div className="flex items-center gap-4 mb-8 sm:mb-10 group cursor-pointer">
+                  <div className="w-12 h-12 bg-linear-to-tr from-[#1b69a1] to-blue-500 rounded-2xl flex items-center justify-center font-black text-white shadow-xl shadow-[#1b69a1]/20">
                     G
                   </div>
-                  <span className='text-slate-900 font-black text-2xl sm:text-3xl tracking-tighter uppercase'>
+                  <span className="text-slate-900 font-black text-2xl sm:text-3xl tracking-tighter uppercase">
                     GSTInsight
                   </span>
                 </div>
 
-                <p className='text-slate-500 font-semibold leading-relaxed max-w-sm text-base sm:text-lg'>
+                <p className="text-slate-500 font-semibold leading-relaxed max-w-sm text-base sm:text-lg">
                   The definitive source for Indian tax entity intelligence.
                   Built for scale, security, and surgical precision.
                 </p>
               </div>
 
               <div>
-                <h4 className='text-slate-900 font-black mb-6 sm:mb-8 md:mb-10 text-[11px] uppercase tracking-[0.3em]'>
+                <h4 className="text-slate-900 font-black mb-6 sm:mb-8 md:mb-10 text-[11px] uppercase tracking-[0.3em]">
                   Protocol
                 </h4>
-                <ul className='space-y-4 sm:space-y-5 md:space-y-6 text-[15px] font-bold text-slate-500'>
-                  <li className='hover:text-[#1b69a1] cursor-pointer transition-colors'>
+                <ul className="space-y-4 sm:space-y-5 md:space-y-6 text-[15px] font-bold text-slate-500">
+                  <li className="hover:text-[#1b69a1] cursor-pointer transition-colors">
                     Lookup Node
                   </li>
-                  <li className='hover:text-[#1b69a1] cursor-pointer transition-colors'>
+                  <li className="hover:text-[#1b69a1] cursor-pointer transition-colors">
                     Audit API
                   </li>
-                  <li className='hover:text-[#1b69a1] cursor-pointer transition-colors'>
+                  <li className="hover:text-[#1b69a1] cursor-pointer transition-colors">
                     Risk Scoring
                   </li>
-                  <li className='hover:text-[#1b69a1] cursor-pointer transition-colors'>
+                  <li className="hover:text-[#1b69a1] cursor-pointer transition-colors">
                     Watchtower
                   </li>
                 </ul>
               </div>
 
               <div>
-                <h4 className='text-slate-900 font-black mb-6 sm:mb-8 md:mb-10 text-[11px] uppercase tracking-[0.3em]'>
+                <h4 className="text-slate-900 font-black mb-6 sm:mb-8 md:mb-10 text-[11px] uppercase tracking-[0.3em]">
                   Integrations
                 </h4>
-                <ul className='space-y-4 sm:space-y-5 md:space-y-6 text-[15px] font-bold text-slate-500'>
-                  <li className='hover:text-[#1b69a1] cursor-pointer transition-colors'>
+                <ul className="space-y-4 sm:space-y-5 md:space-y-6 text-[15px] font-bold text-slate-500">
+                  <li className="hover:text-[#1b69a1] cursor-pointer transition-colors">
                     Documentation
                   </li>
-                  <li className='hover:text-[#1b69a1] cursor-pointer transition-colors'>
+                  <li className="hover:text-[#1b69a1] cursor-pointer transition-colors">
                     System Health
                   </li>
-                  <li className='hover:text-[#1b69a1] cursor-pointer transition-colors'>
+                  <li className="hover:text-[#1b69a1] cursor-pointer transition-colors">
                     Webhooks
                   </li>
-                  <li className='hover:text-[#1b69a1] cursor-pointer transition-colors'>
+                  <li className="hover:text-[#1b69a1] cursor-pointer transition-colors">
                     Open Access
                   </li>
                 </ul>
               </div>
 
               <div>
-                <h4 className='text-slate-900 font-black mb-6 sm:mb-8 md:mb-10 text-[11px] uppercase tracking-[0.3em]'>
+                <h4 className="text-slate-900 font-black mb-6 sm:mb-8 md:mb-10 text-[11px] uppercase tracking-[0.3em]">
                   Organization
                 </h4>
-                <ul className='space-y-4 sm:space-y-5 md:space-y-6 text-[15px] font-bold text-slate-500'>
-                  <li className='hover:text-[#1b69a1] cursor-pointer transition-colors'>
+                <ul className="space-y-4 sm:space-y-5 md:space-y-6 text-[15px] font-bold text-slate-500">
+                  <li className="hover:text-[#1b69a1] cursor-pointer transition-colors">
                     Architecture
                   </li>
-                  <li className='hover:text-[#1b69a1] cursor-pointer transition-colors'>
+                  <li className="hover:text-[#1b69a1] cursor-pointer transition-colors">
                     Public Assets
                   </li>
-                  <li className='hover:text-[#1b69a1] cursor-pointer transition-colors'>
+                  <li className="hover:text-[#1b69a1] cursor-pointer transition-colors">
                     Security Policy
                   </li>
-                  <li className='hover:text-[#1b69a1] cursor-pointer transition-colors'>
+                  <li className="hover:text-[#1b69a1] cursor-pointer transition-colors">
                     Privacy
                   </li>
                 </ul>
               </div>
             </div>
 
-            <div className='flex flex-col md:flex-row justify-between items-center gap-6 text-[13px] font-bold text-slate-400 border-t border-slate-100 pt-8 sm:pt-10 md:pt-12 text-center md:text-left'>
+            <div className="flex flex-col md:flex-row justify-between items-center gap-6 text-[13px] font-bold text-slate-400 border-t border-slate-100 pt-8 sm:pt-10 md:pt-12 text-center md:text-left">
               <p>
                 © 2026 GSTInsight Technologies. Precision compliance
                 infrastructure.
               </p>
-              <div className='flex flex-wrap justify-center gap-6 sm:gap-8 md:gap-12'>
-                <span className='hover:text-slate-900 cursor-pointer transition-colors'>
+              <div className="flex flex-wrap justify-center gap-6 sm:gap-8 md:gap-12">
+                <span className="hover:text-slate-900 cursor-pointer transition-colors">
                   Network Policy
                 </span>
-                <span className='hover:text-slate-900 cursor-pointer transition-colors'>
+                <span className="hover:text-slate-900 cursor-pointer transition-colors">
                   Legal Handshake
                 </span>
               </div>
