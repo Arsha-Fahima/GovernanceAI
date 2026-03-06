@@ -716,7 +716,7 @@ export default function GSTInsightPage() {
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: false, amount: 0.3 }}
-              className='relative mt-12 lg:mt-0 w-full flex justify-center'
+              className='relative'
             >
               <div className='absolute -inset-20 bg-linear-to-tr from-[#1b69a1]/10 via-transparent to-transparent rounded-full blur-[100px]' />
               <div className='relative bg-slate-900 rounded-[2rem] sm:rounded-[2.5rem] md:rounded-[3rem] p-6 sm:p-8 md:p-12 shadow-2xl overflow-hidden border border-slate-800 min-h-[420px] sm:min-h-[500px] md:h-[600px] flex flex-col justify-center gap-8 sm:gap-10 md:gap-12 group'>
