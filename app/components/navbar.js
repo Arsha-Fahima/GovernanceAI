@@ -347,14 +347,7 @@ export default function Navbar() {
                     />
                   </MobileAccordion>
 
-                  {status === "authenticated" && (
-                    <button
-                      onClick={() => handleNavigate("/gstinsight")}
-                      className="w-full mt-2 px-4 h-11 rounded-2xl border border-[#1b69a1]/10 text-[#1b69a1] font-bold text-sm hover:bg-[#1b69a1]/5 transition-all"
-                    >
-                      Live Console
-                    </button>
-                  )}
+                 
                 </div>
               </div>
             </motion.div>
