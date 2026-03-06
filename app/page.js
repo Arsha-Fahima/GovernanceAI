@@ -772,8 +772,8 @@ export default function GSTInsightPage() {
         </section>
 
         {/* ================= COMPLIANCE BREAKDOWN GRID ================= */}
-        <section className='py-40 bg-white relative overflow-hidden'>
-          <div className='max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-32 items-center'>
+        <section className='py-20 md:py-32 lg:py-40 bg-white relative overflow-hidden'>
+          <div className='max-w-7xl mx-auto px-4 sm:px-6 grid lg:grid-cols-2 gap-16 lg:gap-32 items-center'>
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -783,11 +783,10 @@ export default function GSTInsightPage() {
               <div className='inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-[#1b69a1]/5 border border-[#1b69a1]/10 text-[#1b69a1] text-[11px] font-black mb-10 uppercase tracking-[0.2em]'>
                 Verification Taxonomy
               </div>
-              <h2 className='text-6xl md:text-8xl font-black text-slate-900 mb-10 leading-[0.9] tracking-tighter'>
-                Granular Audit <br />
-                <span className='text-[#1b69a1]'>Points.</span>
+              <h2 className='text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black text-slate-900 mb-8 md:mb-10 leading-[0.95] tracking-tighter'>
+                <span className='text-[#1b69a1]'>Granular Audit</span>
               </h2>
-              <p className='text-xl text-slate-500 font-medium leading-relaxed mb-12 max-w-lg'>
+              <p className='text-base sm:text-lg md:text-xl text-slate-500 font-medium leading-relaxed mb-10 md:mb-12 max-w-lg'>
                 We don't just check 'Active' status. Our engine parses the
                 entire GSTN metadata to provide deep legal insights.
               </p>
@@ -801,7 +800,7 @@ export default function GSTInsightPage() {
                 ].map((item, i) => (
                   <div
                     key={i}
-                    className='flex items-center gap-6 p-6 rounded-[2rem] bg-slate-50 border border-slate-100 hover:bg-white hover:shadow-2xl hover:shadow-slate-200/50 transition-all font-bold group'
+                    className='flex items-center gap-4 sm:gap-6 p-4 sm:p-6 rounded-[2rem] bg-slate-50 border border-slate-100 hover:bg-white hover:shadow-2xl hover:shadow-slate-200/50 transition-all font-bold group'
                   >
                     <div className='w-10 h-10 rounded-xl bg-white border border-slate-200 flex items-center justify-center text-[#1b69a1] group-hover:bg-[#1b69a1] group-hover:text-white transition-colors shadow-sm'>
                       <svg
@@ -828,10 +827,10 @@ export default function GSTInsightPage() {
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: false, amount: 0.3 }}
-              className='relative'
+              className='relative mt-12 lg:mt-0 w-full flex justify-center'
             >
               <div className='absolute -inset-20 bg-linear-to-tr from-[#1b69a1]/10 via-transparent to-transparent rounded-full blur-[100px]'></div>
-              <div className='relative bg-slate-900 rounded-[3rem] p-12 shadow-2xl overflow-hidden border border-slate-800 h-[600px] flex flex-col justify-center gap-12 group'>
+              <div className='w-full relative bg-slate-900 rounded-2xl md:rounded-3xl lg:rounded-[3rem] p-4 sm:p-6 md:p-8 lg:p-12 shadow-lg md:shadow-2xl overflow-hidden border border-slate-800 h-[350px] sm:h-[400px] md:h-[500px] lg:h-[600px] flex flex-col justify-center gap-6 md:gap-8 lg:gap-12 group max-w-2xl mx-auto'>
                 <div className='space-y-4'>
                   <div className='text-[10px] uppercase tracking-[0.3em] font-black text-white/30'>
                     Live Processing Node
