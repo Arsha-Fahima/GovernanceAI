@@ -763,10 +763,10 @@ export default function GSTInsightPage() {
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: false, amount: 0.3 }}
-              className='relative mt-12 lg:mt-0'
+              className='relative mt-12 lg:mt-0 w-full flex justify-center'
             >
               <div className='absolute -inset-12 md:-inset-16 lg:-inset-20 bg-linear-to-tr from-[#1b69a1]/10 via-transparent to-transparent rounded-full blur-[80px] md:blur-[100px]'></div>
-              <div className='relative bg-slate-900 rounded-2xl md:rounded-3xl lg:rounded-[3rem] p-6 md:p-8 lg:p-12 shadow-lg md:shadow-2xl overflow-hidden border border-slate-800 h-[350px] sm:h-[400px] md:h-[500px] lg:h-[600px] flex flex-col justify-center gap-6 md:gap-8 lg:gap-12 group'>
+              <div className='w-full relative bg-slate-900 rounded-2xl md:rounded-3xl lg:rounded-[3rem] p-4 sm:p-6 md:p-8 lg:p-12 shadow-lg md:shadow-2xl overflow-hidden border border-slate-800 h-[350px] sm:h-[400px] md:h-[500px] lg:h-[600px] flex flex-col justify-center gap-6 md:gap-8 lg:gap-12 group max-w-2xl mx-auto'>
                 <div className='space-y-3 md:space-y-4'>
                   <div className='text-[8px] md:text-[10px] uppercase tracking-[0.2em] md:tracking-[0.3em] font-black text-white/30'>
                     Live Processing Node
