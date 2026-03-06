@@ -294,6 +294,71 @@ export default function GSTInsightPage() {
                 </div>
               </>
 
+              {/* <div
+                className='flex flex-col sm:flex-row gap-6 mb-20'
+                id='search-section'
+              >
+                {status === "authenticated" ? (
+                  <form
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                      handleSearch();
+                    }}
+                    className='relative w-full max-w-xl group'
+                  >
+                    <input
+                      type='text'
+                      placeholder='Search GSTIN (e.g., 27AAACN...)'
+                      value={gstQuery}
+                      onChange={(e) =>
+                        setGstQuery(e.target.value.toUpperCase())
+                      }
+                      className='w-full bg-white border-2 border-slate-100 px-8 py-6 rounded-[2rem] text-lg font-bold text-slate-900 focus:outline-hidden focus:border-[#1b69a1] transition-all shadow-2xl shadow-slate-200/50 placeholder:text-slate-300'
+                    />
+                    <button
+                      type='submit'
+                      disabled={isSearching}
+                      className='absolute right-3 top-3 bottom-3 bg-[#1b69a1] text-white px-10 rounded-[1.5rem] font-black hover:bg-[#155685] transition-all flex items-center gap-3 disabled:opacity-50'
+                    >
+                      {isSearching ? (
+                        <div className='w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin'></div>
+                      ) : (
+                        <>
+                          Verify
+                          <span className='group-hover:translate-x-1 transition-transform'>
+                            →
+                          </span>
+                        </>
+                      )}
+                    </button>
+                  </form>
+                ) : (
+                  <button
+                    onClick={() => router.push("/login")}
+                    className='bg-slate-900 text-white px-12 py-6 rounded-2xl font-black hover:bg-slate-800 transition-all shadow-2xl shadow-slate-900/20 text-lg flex items-center justify-center gap-4 group'
+                  >
+                    Start Verification
+                    <span className='group-hover:translate-x-2 transition-transform duration-300'>
+                      →
+                    </span>
+                  </button>
+                )}
+                {!session && (
+                  <div className='relative group'>
+                    <button className='bg-white text-slate-900 px-12 py-6 rounded-2xl font-black hover:bg-slate-50 border-2 border-slate-100 transition-all text-lg flex items-center justify-center gap-3'>
+                      <div className='w-8 h-8 rounded-full bg-[#1b69a1]/10 flex items-center justify-center'>
+                        <div className='w-2 h-2 rounded-full bg-[#1b69a1]'></div>
+                      </div>
+                      View Demo
+                    </button>
+                  </div>
+                )}
+              </div> */}
+              
+              <br></br>
+              <br></br>
+
+              {/* Added Real-time Activity Feed */}
               <div
                 className='bg-white/50 backdrop-blur-sm border border-slate-100 rounded-[2rem] p-6 max-w-md hidden sm:block animate-fadeIn shadow-2xl shadow-slate-200/50'
                 style={{ animationDelay: "0.4s" }}
@@ -703,31 +768,31 @@ export default function GSTInsightPage() {
                 </div>
               ))}
             </motion.div>
-          </div> 
+          </div>
         </section>
 
         {/* ================= COMPLIANCE BREAKDOWN GRID ================= */}
-        <section className='py-12 md:py-24 lg:py-40 bg-white relative overflow-hidden'>
-          <div className='max-w-7xl mx-auto px-4 md:px-6 grid lg:grid-cols-2 gap-8 md:gap-16 lg:gap-32 items-center'>
+        <section className='py-40 bg-white relative overflow-hidden'>
+          <div className='max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-32 items-center'>
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: false }}
               className=''
             >
-              <div className='inline-flex items-center gap-2 md:gap-3 px-3 md:px-4 py-1 md:py-1.5 rounded-full bg-[#1b69a1]/5 border border-[#1b69a1]/10 text-[#1b69a1] text-[9px] md:text-[11px] font-black mb-6 md:mb-10 uppercase tracking-[0.15em] md:tracking-[0.2em]'>
+              <div className='inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-[#1b69a1]/5 border border-[#1b69a1]/10 text-[#1b69a1] text-[11px] font-black mb-10 uppercase tracking-[0.2em]'>
                 Verification Taxonomy
               </div>
-              <h2 className='text-3xl sm:text-4xl md:text-6xl lg:text-8xl font-black text-slate-900 mb-6 md:mb-10 leading-[0.9] tracking-tighter'>
+              <h2 className='text-6xl md:text-8xl font-black text-slate-900 mb-10 leading-[0.9] tracking-tighter'>
                 Granular Audit <br />
                 <span className='text-[#1b69a1]'>Points.</span>
               </h2>
-              <p className='text-base md:text-lg lg:text-xl text-slate-500 font-medium leading-relaxed mb-8 md:mb-12 max-w-lg'>
+              <p className='text-xl text-slate-500 font-medium leading-relaxed mb-12 max-w-lg'>
                 We don't just check 'Active' status. Our engine parses the
                 entire GSTN metadata to provide deep legal insights.
               </p>
 
-              <div className='space-y-3 md:space-y-6'>
+              <div className='space-y-6'>
                 {[
                   "GSTR-1 & 3B Frequency Matching",
                   "ITC Mismatch Probability Scores",
@@ -736,11 +801,11 @@ export default function GSTInsightPage() {
                 ].map((item, i) => (
                   <div
                     key={i}
-                    className='flex items-center gap-3 md:gap-6 p-3 md:p-6 rounded-lg md:rounded-[2rem] bg-slate-50 border border-slate-100 hover:bg-white hover:shadow-lg md:hover:shadow-2xl hover:shadow-slate-200/50 transition-all font-bold text-sm md:text-base group'
+                    className='flex items-center gap-6 p-6 rounded-[2rem] bg-slate-50 border border-slate-100 hover:bg-white hover:shadow-2xl hover:shadow-slate-200/50 transition-all font-bold group'
                   >
-                    <div className='flex-shrink-0 w-8 h-8 md:w-10 md:h-10 rounded-lg md:rounded-xl bg-white border border-slate-200 flex items-center justify-center text-[#1b69a1] group-hover:bg-[#1b69a1] group-hover:text-white transition-colors shadow-sm'>
+                    <div className='w-10 h-10 rounded-xl bg-white border border-slate-200 flex items-center justify-center text-[#1b69a1] group-hover:bg-[#1b69a1] group-hover:text-white transition-colors shadow-sm'>
                       <svg
-                        className='w-4 h-4 md:w-5 md:h-5'
+                        className='w-5 h-5'
                         fill='none'
                         stroke='currentColor'
                         viewBox='0 0 24 24'
@@ -753,7 +818,7 @@ export default function GSTInsightPage() {
                         />
                       </svg>
                     </div>
-                    <span className='leading-tight'>{item}</span>
+                    {item}
                   </div>
                 ))}
               </div>
@@ -763,37 +828,37 @@ export default function GSTInsightPage() {
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: false, amount: 0.3 }}
-              className='relative mt-12 lg:mt-0'
+              className='relative'
             >
-              <div className='absolute -inset-12 md:-inset-16 lg:-inset-20 bg-linear-to-tr from-[#1b69a1]/10 via-transparent to-transparent rounded-full blur-[80px] md:blur-[100px]'></div>
-              <div className='relative bg-slate-900 rounded-2xl md:rounded-3xl lg:rounded-[3rem] p-6 md:p-8 lg:p-12 shadow-lg md:shadow-2xl overflow-hidden border border-slate-800 h-[350px] sm:h-[400px] md:h-[500px] lg:h-[600px] flex flex-col justify-center gap-6 md:gap-8 lg:gap-12 group'>
-                <div className='space-y-3 md:space-y-4'>
-                  <div className='text-[8px] md:text-[10px] uppercase tracking-[0.2em] md:tracking-[0.3em] font-black text-white/30'>
+              <div className='absolute -inset-20 bg-linear-to-tr from-[#1b69a1]/10 via-transparent to-transparent rounded-full blur-[100px]'></div>
+              <div className='relative bg-slate-900 rounded-[3rem] p-12 shadow-2xl overflow-hidden border border-slate-800 h-[600px] flex flex-col justify-center gap-12 group'>
+                <div className='space-y-4'>
+                  <div className='text-[10px] uppercase tracking-[0.3em] font-black text-white/30'>
                     Live Processing Node
                   </div>
-                  <div className='flex items-center gap-3 md:gap-4 bg-white/5 border border-white/10 p-3 md:p-5 rounded-xl md:rounded-2xl overflow-hidden'>
-                    <div className='flex-shrink-0 w-2 h-2 md:w-3 md:h-3 rounded-full bg-blue-500 animate-pulse'></div>
-                    <div className='text-white font-mono text-xs md:text-sm overflow-hidden whitespace-nowrap opacity-60'>
+                  <div className='flex items-center gap-4 bg-white/5 border border-white/10 p-5 rounded-2xl'>
+                    <div className='w-3 h-3 rounded-full bg-blue-500 animate-pulse'></div>
+                    <div className='text-white font-mono text-sm overflow-hidden whitespace-nowrap opacity-60'>
                       $ gst-verify --target 27AA... --depth deep
                     </div>
                   </div>
                 </div>
 
-                <div className='grid grid-cols-2 gap-4 md:gap-6 lg:gap-8'>
+                <div className='grid grid-cols-2 gap-8'>
                   {[
                     { l: "Parsing Engines", v: "14 Nodes" },
                     { l: "Metadata Points", v: "248+" },
                     { l: "Signature Version", v: "4.2.0" },
                     { l: "Checksum", v: "Verified" },
                   ].map((job, i) => (
-                    <div key={i} className='space-y-1 md:space-y-2'>
-                      <div className='text-[8px] md:text-[10px] uppercase tracking-widest text-[#1b69a1] font-black'>
+                    <div key={i} className='space-y-2'>
+                      <div className='text-[10px] uppercase tracking-widest text-[#1b69a1] font-black'>
                         {job.l}
                       </div>
-                      <div className='text-lg md:text-xl font-black text-white'>
+                      <div className='text-xl font-black text-white'>
                         {job.v}
                       </div>
-                      <div className='h-0.5 md:h-1 w-full bg-slate-800 rounded-full overflow-hidden'>
+                      <div className='h-1 w-full bg-slate-800 rounded-full overflow-hidden'>
                         <motion.div
                           initial={{ width: 0 }}
                           whileInView={{ width: "80%" }}
@@ -806,8 +871,8 @@ export default function GSTInsightPage() {
                   ))}
                 </div>
 
-                <div className='mt-6 md:mt-8 lg:mt-12 text-center'>
-                  <span className='inline-block px-4 md:px-6 py-1.5 md:py-2 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 font-bold text-[8px] md:text-[10px] uppercase tracking-wider md:tracking-widest'>
+                <div className='mt-12 text-center'>
+                  <span className='px-6 py-2 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 font-bold text-[10px] uppercase tracking-widest'>
                     Secure Transmission Isolated
                   </span>
                 </div>
