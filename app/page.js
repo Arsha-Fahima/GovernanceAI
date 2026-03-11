@@ -685,6 +685,7 @@ export default function GSTInsightPage() {
                 We don't just check 'Active' status. Our engine parses the
                 entire GSTN metadata to provide deep legal insights.
               </p>
+              
 
               <div className="space-y-4 sm:space-y-5 md:space-y-6">
                 {[
