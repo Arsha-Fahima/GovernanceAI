@@ -677,14 +677,15 @@ export default function GSTInsightPage() {
               </div>
 
               <h2 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black text-slate-900 mb-6 sm:mb-8 md:mb-10 leading-[0.9] tracking-tighter">
-                Granular Audit <br />
-                <span className="text-[#1b69a1]">Points.</span>
+                <br />
+                <span className="text-[#1b69a1]"> Granular Audits</span>
               </h2>
 
               <p className="text-base sm:text-lg md:text-xl text-slate-500 font-medium leading-relaxed mb-8 sm:mb-10 md:mb-12 max-w-lg">
                 We don't just check 'Active' status. Our engine parses the
                 entire GSTN metadata to provide deep legal insights.
               </p>
+              
 
               <div className="space-y-4 sm:space-y-5 md:space-y-6">
                 {[
